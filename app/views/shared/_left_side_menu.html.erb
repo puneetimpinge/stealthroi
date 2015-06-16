@@ -1,0 +1,45 @@
+<nav class="navbar-default navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav" id="side-menu">
+            <li class="nav-header text-center">
+                <div class="dropdown profile-element"> <span>
+                <div class="logo-main"><img src="/assets/logo_white.png" alt="pic"/></div>
+                        <img alt="image" class="img-circle" src="/assets/user_left.png" />
+                         </span>
+                    <a data-toggle="dropdown" class="dropdown-toggle" href="#">
+                        <span class="clear"> <span class="block m-t-xs"> John Oate
+                         </span> <span class="text-muted text-xs block">Administrator </span> </span> </a>
+                    
+                </div>
+                <div class="logo-element">
+                    <img src="/assets/logo_icon.png" alt="pic"/>
+                </div>
+            </li>
+            <li class="active">
+                <!-- <a href="/user/dashboard"><i class="fa fa-tachometer"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a> -->
+                <%= link_to '<i class="fa fa-tachometer"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>'.html_safe, "/user/dashboard", method: :get %>
+                
+            </li>
+            <li>
+                <!-- <a href="/user/reports"><i class="fa fa-file-text-o"></i> <span class="nav-label">Reports</span><span class="fa arrow"></span></a> -->
+                 <%= link_to '<i class="fa fa-file-text-o"></i> <span class="nav-label">Reports</span> <span class="fa arrow"></span></a>'.html_safe, "/user/reports", method: :get %>
+            </li>
+            <li>
+                <!-- <a href="/user/ads_manager"><i class="fa fa-bullhorn"></i> <span class="nav-label">Ads Manager</span><span class="fa arrow"></span></a> -->
+                 <%= link_to '<i class="fa fa-bullhorn"></i> <span class="nav-label">Ads Manager</span> <span class="fa arrow"></span></a>'.html_safe, "/user/ads_manager", method: :get %>
+                
+            </li>
+            <li>
+                <!-- <a href="/user/keywords"><i class="fa fa-key"></i> <span class="nav-label">Keywords</span><span class="fa arrow"></span></a> -->
+                 <%= link_to '<i class="fa fa-key"></i> <span class="nav-label">Keywords</span> <span class="fa arrow"></span></a>'.html_safe, "/user/keywords", method: :get %>
+                
+            </li>
+            <li>
+                <!-- <a href="/user/setting"><i class="fa fa-cog"></i> <span class="nav-label">Settings</span><span class="fa arrow"></span></a> -->
+                 <%= link_to '<i class="fa fa-cog"></i> <span class="nav-label">Settings</span> <span class="fa arrow"></span></a>'.html_safe, "/user/setting", method: :get %>
+                
+            </li>
+        </ul>
+
+    </div>
+</nav>
