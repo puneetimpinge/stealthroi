@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       get "keywords"
       get "reports"
       get "setting"
+      get "ads_manager"
     end  
   end  
   # The priority is based upon order of creation: first created -> highest priority.
