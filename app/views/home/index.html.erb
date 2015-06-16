@@ -56,8 +56,58 @@
     </div>
   </div>
 </div>
-<!--Signup--->
-
+<!--Signup-->
+<!--Login-->
+<div class="modal fade modal-theme" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><img src="/assets/close.png" alt=""/></span></button>
+        <h4 class="modal-title" id="myModalLabel">LOGIN</h4>
+      </div>
+      <div class="modal-body">
+        
+            <div class="row">
+                <div class="col-md-5 col-sm-5 col-xs-12">
+                  <h3>Login With:</h3>
+                    <p class="social-login">
+                      <a href="#"><img src="/assets/fb-login.png" alt=""/></a>
+                        <a href="#"><img src="/assets/google-login.png" alt=""/></a>
+                        <a href="#"><img src="/assets/twitter-login.png" alt=""/></a>
+                    </p>  
+                </div>
+                <div class="col-md-7 col-sm-7 col-xs-12">
+                  <h3>Sign Up With:</h3>
+                    <form action="admin/landing.html">
+                        <div class=" form-group input-group input-group-lg">
+                              <span class="input-group-addon" id="sizing-addon1"><img src="/assets/email.png" alt="" width="26" height="19"/></span>
+                              <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon1" required>
+                        </div>
+                        <div class="form-group input-group input-group-lg">
+                              <span class="input-group-addon" id="sizing-addon1"><img src="/assets/lock.png" alt="" width="26" height="19"/></span>
+                              <input type="password" class="form-control" placeholder="Password" aria-describedby="sizing-addon1" required>
+                        </div>
+                        
+                        <div class=" form-group">
+                            <div class="checkbox">
+                                <input id="check2" type="checkbox" name="check" value="check1">
+                                <label for="check2">Remember Me</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn-default-theme">Sign In</button>
+                    </form>
+                    <p class="links-popup">
+                        <a href="javascript:void(0);" data-toggle="modal" data-target="#resetModal" data-dismiss="modal" arial-label="Close">I forget my password </a>
+                        <a href="javascript:void(0);" data-toggle="modal" data-target="#signupModal"  data-dismiss="modal" aria-label="Close">Register a new membership</a>
+                     </p>
+                </div>
+            </div>
+      </div>
+      
+    </div>
+  </div>
+</div>
+<!--Login-->
 <!-- Header-->
 <header class="header" >
   <div class="container">
