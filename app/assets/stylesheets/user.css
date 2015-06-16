@@ -1,4 +1,4 @@
-/*
+ /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
  *
@@ -10,5 +10,12 @@
  * defined in the other CSS/SCSS files in this directory. It is generally better to create a new
  * file per style scope.
  *
- *= require_self
+ *= require admin/bootstrap.min
+ *= require admin/font-awesome
+ *= require admin/fonts
+ *= require admin/animate
+ *= require admin/style
+ *= require admin/dataTables.bootstrap
+ *= require admin/dataTables.responsive
+ *= require admin/dataTables.tableTools.min
  */

@@ -1,0 +1,10 @@
+//= require admin/bootstrap.min
+//= require admin/custom_admin
+//= require admin/jquery-2.1.1
+//= require admin/jquery.metisMenu
+//= require admin/jquery.slimscroll.min
+//= require admin/jquery.dataTables
+//= require admin/dataTables.bootstrap
+//= require admin/dataTables.responsive
+//= require admin/pace.min
+//= require admin/Chart.min
