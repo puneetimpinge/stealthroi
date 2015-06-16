@@ -5,5 +5,22 @@ class UserController < ApplicationController
 
 	def dashboard
 
-	end	
+	end
+	
+	def setting
+
+	end
+
+	def ads_manager
+
+	end
+
+	def reports
+
+	end
+
+	def keywords
+
+	end
+		
 end
