@@ -45,3 +45,5 @@ group :development, :test do
 end
 
 gem 'httparty'
+gem 'morrisjs-rails'
+gem 'raphael-rails'

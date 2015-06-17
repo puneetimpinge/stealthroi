@@ -10,6 +10,98 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                        <div class="dashboard-stat blue-madison">
+                            <div class="visual">
+                               <!-- <i class="fa fa-bar-chart"></i>-->
+                            </div>
+                            <div class="details">
+                                <div class="number"  id="topSummaryRevenue">
+                                     $0.00
+                                </div>
+                                <div class="desc">
+                                     Revenue
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                        <div class="dashboard-stat blue-madison blue-v4">
+                            <div class="visual">
+                              <!-- <i class="fa fa-paper-plane"></i>-->
+                            </div>
+                            <div class="details">
+                                <div class="number"  id="topSummarySpent">
+                                     0
+                                </div>
+                                <div class="desc">
+                                     Ad Spent
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                        <div class="dashboard-stat blue-madison blue-v6">
+                            <div class="visual">
+                             <!--  <i class="fa fa-money"></i>-->
+                            </div>
+                            <div class="details">
+                                <div class="number"  id="topSummaryROI">
+                                     0%
+                                </div>
+                                <div class="desc">
+                                     ROI
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                        <div class="dashboard-stat blue-madison blue-v4">
+                            <div class="visual">
+                               <!-- <i class="fa fa-university"></i>-->
+                            </div>
+                            <div class="details">
+                                <div class="number"  id="topSummaryVSCampaigns">
+                                     0
+                                </div>
+                                <div class="desc">
+                                     Active  Campaigns
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                        <div class="dashboard-stat blue-madison blue-v5">
+                            <div class="visual">
+                                <!--<i class="fa fa-cart-plus"></i>-->
+                            </div>
+                            <div class="details">
+                                <div class="number"  id="topSummaryOrders">
+                                     0
+                                </div>
+                                <div class="desc">
+                                     Units Sold
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
+                        <div class="dashboard-stat blue-madison blue-vg">
+                            <div class="visual">
+                               <!-- <i class="fa fa-line-chart"></i>-->
+                            </div>
+                            <div class="details">
+                                <div class="number"  id="topSummaryProfit">
+                                     $0.00
+                                </div>
+                                <div class="desc">
+                                     PROFIT
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
                     <div class="col-lg-12">
                         <div class="ibox float-e-margins">
                         <div class="ibox-title">
@@ -93,13 +185,17 @@
                             </div>
                         </div>
                             <div class="ibox-content">
-                                <div>
-                                    <canvas id="lineChart" height="70"></canvas>
+                                <div col-md-12>
+                                    <div class="chart-responsive">
+                                        <!-- Sales Chart Canvas -->
+                                        <div id="salesChart" style="height: 320px;"><div class="text-center full-width-load"><div id='preloader_2'><span></span><span></span><span></span><span></span><span></span></div></div></div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+                <div id="teechiptableDivContainer">
                 <div class="row">
                 <div class="col-lg-12">
                 <div class="ibox float-e-margins">
@@ -291,6 +387,8 @@
                 </div>
             </div>
             </div>
+            </div>
+            <div  id="representtableDivContainer">
             <div class="row">
                 <div class="col-lg-12">
                 <div class="ibox float-e-margins">
@@ -365,6 +463,8 @@
                 </div>
             </div>
             </div>
+            </div>
+            <div  id="vstableDivContainer">
             <div class="row">
                 <div class="col-lg-12">
                 <div class="ibox float-e-margins">
@@ -443,11 +543,39 @@
             </div>
             </div>
             </div>
+            </div>
         <%= render :partial => "/shared/footer" %>
         </div>
     </div>
 
     <script type="text/javascript">
+
+        var graphTypeIndex = 1; //graphTypeIndex 1 = Revenue and 2 = Sales
+        var graphTimeIndex = 1; //graphTimeIndex 1= Today, 2 = Yesterday, 3=Last Seven Days, 4= This Month, 5= Last Month, 6 = All time
+        var graphStoreIndex = 1; //graphStoreIndex 1 = ViralStyle 2  = Teechip 99 = All Stores.
+        var graphType=new Array;
+        graphType[1]="Revenue";
+        graphType[2]="Sales";
+        
+        var graphTime=new Array;
+        graphTime[1]="Today";
+        graphTime[2]="Yesterday";
+        graphTime[3]="Last Seven Days";
+        graphTime[4]="This Month";
+        graphTime[5]="Last Month";
+        graphTime[6]="All Time";
+        
+        
+        var graphStore=new Array;
+        graphStore[1]="ViralStyle";
+        graphStore[2]="TeeChip";
+        graphStore[3]="Represent";
+        graphStore[4]="TeeSpring";
+        graphStore[99]="All Stores";
+        
+        
+        var globalTopGraphRequestIndex = 0; 
+
         $(document).ready(function() {  
             $.ajax({
                 url: "/home/get_data",
@@ -468,7 +596,163 @@
                 error : function () {
                      alert("Error");
                 } 
-            })    
+            }) 
+            topGraphRedraw(0,0,0);
+            topCampaignSummary();
+
+            function topCampaignSummary(){
+                document.getElementById("topSummaryVSCampaigns").innerHTML= '<div id="preloader_1"><span></span><span></span><span></span><span></span><span></span></div>';
+                $.ajax({
+                    url: "/home/get_top_campaigns",
+                    type: "get",
+                    dataType: "json",
+                        success : function (data) {
+                            data = data.response
+                            console.log("Response was: "+data);
+                            myArray=data.split("customSplitter");
+                            document.getElementById("topSummaryVSCampaigns").innerHTML=myArray[0];
+                            //document.getElementById("topSummaryAdvertisements").innerHTML=myArray[1];
+                        },
+                        error : function (xmlHttpRequest, textStatus, errorThrown) {
+                        alert("Error " + errorThrown);
+                        if(textStatus==='timeout')
+                            alert("Request on From Midnight Data timed out");
+                    } 
+                });
+            }   
+
+            function topGraphRedraw(newGraphTypeIndex, newGraphTimeIndex, newGraphStoreIndex){
+                var topGraphRequestIndex; //Variable with local scope
+                console.log("Something about the graph needs to change. Lets Replace the graph area with a loading animation. Also the top Summary section needs to be replaced with animation");
+                document.getElementById("salesChart").innerHTML= '<div class="text-center full-width-load"><div id="preloader_2"><span></span><span></span><span></span><span></span><span></span></div></div>';
+                document.getElementById("topSummaryRevenue").innerHTML= '<div id="preloader_1"><span></span><span></span><span></span><span></span><span></span></div>';
+                document.getElementById("topSummarySpent").innerHTML= '<div id="preloader_1"><span></span><span></span><span></span><span></span><span></span></div>';
+                document.getElementById("topSummaryProfit").innerHTML= '<div id="preloader_1"><span></span><span></span><span></span><span></span><span></span></div>';
+                document.getElementById("topSummaryROI").innerHTML= '<div id="preloader_1"><span></span><span></span><span></span><span></span><span></span></div>';
+    
+                    globalTopGraphRequestIndex +=1;
+                    topGraphRequestIndex= globalTopGraphRequestIndex
+                    console.log("The index for this request is: "+ globalTopGraphRequestIndex);
+                    if(newGraphTypeIndex >0){
+                        graphTypeIndex = newGraphTypeIndex;
+                        console.log("Graph Type was changed. Let's first update the menu title");
+                        document.getElementById("graphTypeButton").innerHTML= graphType[graphTypeIndex]+'</i>';
+                    }
+                    if(newGraphTimeIndex >0){
+                        graphTimeIndex = newGraphTimeIndex;
+                        console.log("Graph Time was changed. Let's first update the menu title");
+                        document.getElementById("graphTimeButton").innerHTML=graphTime[graphTimeIndex]+'</i>';
+                    }
+                    if(newGraphStoreIndex >0){
+                        graphStoreIndex = newGraphStoreIndex;
+                        
+                        console.log("Graph Store was changed. Let's first update the menu title");
+                        document.getElementById("graphStoreButton").innerHTML= graphStore[graphStoreIndex]+'</i>';
+                    
+                    }
+    
+                    console.log("Sending Ajax request now.....");
+                    console.log(graphTypeIndex)
+                    console.log(graphTimeIndex)
+                    console.log(graphStoreIndex)
+
+                $.ajax({
+                    url: "/home/get_top_graph",
+                    type: "get",
+                    data: {parameters: {graphtypeindex: graphTypeIndex, graphtimeindex: graphTimeIndex, graphstoreindex: graphStoreIndex}},
+                    dataType: "json",
+                    success : function (data) {
+                        data = data.response
+                        /*Check if this is the most current request*/                    
+                        if(topGraphRequestIndex==globalTopGraphRequestIndex){
+                            //Yes this is the most current request, Update Morris Area
+                            document.getElementById("salesChart").innerHTML= '';
+                            
+                            if(graphStoreIndex==1){
+                                document.getElementById("teechiptableDivContainer").style.display= "none";
+                                document.getElementById("representtableDivContainer").style.display= "none";
+                                document.getElementById("vstableDivContainer").style.display= "inline";
+                                console.log("tried to hide");
+                            }
+                            if(graphStoreIndex==2){
+                                //document.getElementById("teechiptableDivContainer").style.display= "inline";
+                               document.getElementById("representtableDivContainer").style.display= "none";
+                               document.getElementById("vstableDivContainer").style.display= "none";
+                               console.log("tried to hide");
+                            }
+                            if(graphStoreIndex==3){
+                                document.getElementById("teechiptableDivContainer").style.display= "none";
+                                document.getElementById("representtableDivContainer").style.display= "inline";
+                                document.getElementById("vstableDivContainer").style.display= "none";
+                                
+                                console.log("tried to hide");
+                            }
+                            
+                            if(graphTypeIndex==1){
+                                Morris.Area({
+                                   element: 'salesChart',
+                                   data: data,
+                                    xkey: 'time',
+                                    parseTime: false,
+                                    ykeys: ['b', 'a'],
+                                    labels: ['Revenue', 'Facebook Ad-Spend'],
+                                    fillOpacity: 0.1,
+                                    lineColors: ['#26a65b','#446cb3'],
+                                    preUnits: '$',
+                                    behaveLikeLine: true,
+                                    resize:true
+                                });
+                            }else{
+                                Morris.Area({
+                                   element: 'salesChart',
+                                   data: data,
+                                    xkey: 'time',
+                                    parseTime: false,
+                                    ykeys: ['b', 'a'],
+                                    labels: ['Sales', 'Visits'],
+                                    fillOpacity: 0.1,
+                                    lineColors: ['#26a65b','#446cb3'],
+                                    behaveLikeLine: true,
+                                    resize:true,
+                                });
+                            }
+                        }
+                    },
+                    error : function (xmlHttpRequest, textStatus, errorThrown) {
+                    alert("Error " + errorThrown);
+                    if(textStatus==='timeout')
+                        alert("Request on From Midnight Data timed out");
+                    } 
+                });
+        
+                $.ajax({
+                    url: "/home/get_top_summary",
+                    type: "get",
+                    data: {parameters: {graphtypeindex: graphTypeIndex, graphtimeindex: graphTimeIndex, graphstoreindex: graphStoreIndex}},
+                    dataType: "json",
+         
+                    success : function (data) {
+                        data = data.response
+                        /*Check if this is the most current request*/
+                        if(topGraphRequestIndex==globalTopGraphRequestIndex){
+                            console.log("Response was: "+data);
+                            myArray=data.split("customSplitter");
+                            document.getElementById("topSummaryRevenue").innerHTML="$"+ myArray[0];
+                            document.getElementById("topSummarySpent").innerHTML= "$"+ myArray[1];
+                            document.getElementById("topSummaryProfit").innerHTML= "$"+ myArray[2];
+                            document.getElementById("topSummaryROI").innerHTML= myArray[3]+"%";
+                            document.getElementById("topSummaryOrders").innerHTML= myArray[4];
+                        }
+                    },
+                            
+                            
+                    error : function (xmlHttpRequest, textStatus, errorThrown) {
+                        alert("Error " + errorThrown);
+                        if(textStatus==='timeout')
+                            alert("Request on From Midnight Data timed out");
+                    } 
+                });
+            }
         });
     </script>    
 
