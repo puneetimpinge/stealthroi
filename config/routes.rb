@@ -8,6 +8,14 @@ Rails.application.routes.draw do
       get "reports"
       get "setting"
       get "ads_manager"
+
+      get "get_data"
+    end  
+  end 
+
+  resources :home do
+    collection do
+      get "get_data"
     end  
   end  
   # The priority is based upon order of creation: first created -> highest priority.
