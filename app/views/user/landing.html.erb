@@ -243,10 +243,12 @@
                 <div class="container">
                     <div class="three-row-up text-center">
                         <div class="col-md-4 ">
-                        <a href="/user/dashboard" class="hvr-float-shadow">
+                       <!--  <a href="/user/dashboard" class="hvr-float-shadow">
                             <img src="/assets/dashboard.png" alt="pic" class="animated  tossing"/>
                             <h2>Dashboard</h2>
-                        </a>
+                        </a> -->
+                        <%= link_to '<img src="/assets/dashboard.png" alt="pic" class="animated  tossing"/>
+                            <h2>Dashboard</h2>'.html_safe, "/user/dashboard", method: :get, :class => "hvr-float-shadow"  %>
                     </div>
                         <div class="col-md-4 ">
                             <a href="/user/reports" class="hvr-float-shadow">
