@@ -4,10 +4,20 @@ class HomeController < ApplicationController
   	render :layout => "logout_layout"
   end
 
-  def get_data
+  def get_viralstyle
   	response = HTTParty.get('http://stealthroi.com/phpscripts/frommidnightdata.php')
   	render :json => { :response => response }
   end
+
+  def  get_teechip
+  	response = HTTParty.get('http://stealthroi.com/phpscripts/frommidnightdatateechip.php')
+  	render :json => { :response => response }
+  end
+  	
+  def get_represent
+  	response = HTTParty.get('http://stealthroi.com/phpscripts/frommidnightdatarepresent.php')
+  	render :json => { :response => response }
+  end	
 
   def get_top_campaigns
   	response = HTTParty.get('http://stealthroi.com/phpscripts/topCampaignHandlerScript.php')

@@ -15,7 +15,10 @@ Rails.application.routes.draw do
 
   resources :home do
     collection do
-      get "get_data"
+      get "get_viralstyle"
+      get "get_teechip"
+      get "get_represent"
+
       get "get_top_campaigns"
       get "get_top_graph"
       get "get_top_summary"

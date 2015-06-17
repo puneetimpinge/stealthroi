@@ -5,10 +5,53 @@
             <%= render :partial => "/shared/header" %>
             <div class="wrapper wrapper-content">
             	<div class="row">
-                	<div class="col-lg-12 main-heading">
-                    	<h1>Dashboard</h1>
+                	<div class="main-heading">
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                    	   <h1>Dashboard</h1>
+                        </div>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                            
+                    <div class="btn-group wrapper-dropdown-5 c8">
+                        <button type="button" class="btn btn-default dropdown-toggle select-btn-1" data-toggle="dropdown" id="graphStoreButton">
+                            <span data-bind="label">Viralstyle</span>&nbsp; 
+                        </button>
+                        <ul class="dropdown-menu select-drop-menu" role="menu">
+                            <li><a href="#"  onclick="topGraphRedraw(0,0,1);">Viralstyle</a></li>
+                            <li><a href="#"  onclick="topGraphRedraw(0,0,2);">TeeChip</a></li>
+                            <li><a href="#"  onclick="topGraphRedraw(0,0,3);">Represent</a></li>
+                            <li><a href="#"  onclick="topGraphRedraw(0,0,4);">TeeSpring</a></li>
+                            
+                            <li><a href="#"  onclick="topGraphRedraw(0,0,99);">All</a></li>
+                        </ul>
+                    </div>
+                    <!-- <div class="btn-group wrapper-dropdown-5 c8">
+                        <button type="button" class="btn btn-default dropdown-toggle select-btn-1" data-toggle="dropdown" id="graphTypeButton">
+                            <span data-bind="label">Sales</span>&nbsp;  
+                        </button>
+                        <ul class="dropdown-menu select-drop-menu" role="menu">
+                            <li><a href="#" onclick="topGraphRedraw(1,0,0);">Sales</a></li>
+                            <li><a href="#" onclick="topGraphRedraw(2,0,0);">Revenue</a></li>
+                        </ul>
+                    </div> -->
+                    <div class="btn-group wrapper-dropdown-5 c8">
+                        <button type="button" class="btn btn-default dropdown-toggle select-btn-1" data-toggle="dropdown" id="graphTimeButton">
+                            <span data-bind="label">Today</span>&nbsp;  
+                        </button>
+                        <ul class="dropdown-menu select-drop-menu" role="menu">
+                            <li ><a href="#" onclick="topGraphRedraw(0,1,0);">Today</a></li>
+                            <li><a href="#" onclick="topGraphRedraw(0,2,0);">Yesterday</a></li>
+                            <li><a href="#" onclick="topGraphRedraw(0,3,0);">Last 7 Days</a></li>
+                            <li><a href="#"  onclick="topGraphRedraw(0,4,0);">This Month</a></li>
+                            <li><a href="#" onclick="topGraphRedraw(0,5,0);">Last Month</a></li>
+                            <li><a href="#" onclick="topGraphRedraw(0,6,0);">All Year</a></li>
+                        </ul>
+                    </div>
+                    
+                    
+                </div>
                     </div>
                 </div>
+                
                 <div class="row">
                     <div class="col-lg-2 col-md-2 col-sm-6 col-xs-12">
                         <div class="dashboard-stat blue-madison">
@@ -107,7 +150,7 @@
                         <div class="ibox-title">
                             <h5>Hourly Revenue Report</h5>
                             <div class="ibox-tools">
-                                <div class="dropdown">
+                                <!-- <div class="dropdown">
                                     <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="dLabel" >
                                         <img src="/assets/dollar.png"/>
                                     </a>
@@ -173,7 +216,7 @@
                                     <option>Represent</option>
                                     <option>Teespring</option>
                                     <option>All</option>
-                                </select>
+                                </select> -->
                                  <a class="collapse-link">
                                     <i class="fa fa-chevron-up"></i>
                                 </a>
@@ -577,8 +620,9 @@
         var globalTopGraphRequestIndex = 0; 
 
         $(document).ready(function() {  
+            /*Viralstyle table code*/
             $.ajax({
-                url: "/home/get_data",
+                url: "/home/get_viralstyle",
                 type: "get",
                 dataType: "json",
                 success : function (data) {
@@ -597,6 +641,51 @@
                      alert("Error");
                 } 
             }) 
+
+            /*TEECHIP table code*/
+            // $.ajax({
+            //     url: "/home/get_teechip",
+            //     type: "get",
+            //     dataType: "json",
+            //     success : function (data) {
+            //         document.getElementById("teechiptableDiv").innerHTML= data;
+            //         $('#teechip-table').dataTable({
+            //             "aLengthMenu": [
+            //                 [10, 25, 50, 100, -1],
+            //                 [10, 25, 50, 100, "All"]
+            //             ]
+            //         });
+            //     },
+            //     error : function (xmlHttpRequest, textStatus, errorThrown) {
+            //         alert("Error " + errorThrown);
+            //         if(textStatus==='timeout'){
+            //             alert("Request on From Midnight Data timed out");
+            //         }
+            //     } 
+            // });
+
+
+            // /*REPRESENT table code*/
+            //     $.ajax({
+            //         url: "/home/get_represent",
+            //         type: "get",
+            //         dataType: "json",
+            //         success : function (data) {
+            //             document.getElementById("representtableDiv").innerHTML= data;
+            //             $('#represent-table').dataTable({
+            //                 "aLengthMenu": [
+            //                     [10, 25, 50, 100, -1],
+            //                     [10, 25, 50, 100, "All"]
+            //                 ]
+            //             });
+            //         },
+            //         error : function (xmlHttpRequest, textStatus, errorThrown) {
+            //             alert("Error " + errorThrown);
+            //             if(textStatus==='timeout')
+            //                 alert("Request on From Midnight Data timed out");
+            //         }
+            //     });
+
             topGraphRedraw(0,0,0);
             topCampaignSummary();
 
@@ -621,7 +710,121 @@
                 });
             }   
 
-            function topGraphRedraw(newGraphTypeIndex, newGraphTimeIndex, newGraphStoreIndex){
+            
+        });
+    </script>    
+
+    <script>
+        $(document).ready(function() {
+
+            var lineData = {
+                labels: ["0.01", "0.02", "0.03", "0.04", "0.05", "0.06", "0.07"],
+                datasets: [
+                    {
+                        label: "Example dataset",
+                        fillColor: "rgba(227,243,234,0.6)",
+                        strokeColor: "rgba(38,166,91,1)",
+                        pointColor: "rgba(38,166,91,1)",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "rgba(38,166,91,1)",
+                        data: [65, 59, 80, 81, 56, 55, 40]
+                    },
+                    {
+                        label: "Example dataset",
+                        fillColor: "rgba(68,108,179,0.5)",
+                        strokeColor: "rgba(68,108,179,0.7)",
+                        pointColor: "rgba(68,108,179,1)",
+                        pointStrokeColor: "#fff",
+                        pointHighlightFill: "#fff",
+                        pointHighlightStroke: "rgba(68,108,179,1)",
+                        data: [0, 0, 0, 0, 0, 0, 0]
+                    }
+                ]
+            };
+
+            var lineOptions = {
+                scaleShowGridLines: true,
+                scaleGridLineColor: "rgba(0,0,0,.05)",
+                scaleGridLineWidth: 1,
+                bezierCurve: true,
+                bezierCurveTension: 0,
+                pointDot: true,
+                pointDotRadius: 10,
+                pointDotStrokeWidth: 1,
+                pointHitDetectionRadius: 20,
+                datasetStroke: true,
+                datasetStrokeWidth: 6,
+                datasetFill: true,
+                responsive: true,
+				scaleFontFamily: " 'robotoregular', sans-serif, Arial, Helvetica",
+				scaleFontSize: 16,
+				responsive: true,
+				tooltipFillColor: "rgba(91,179,240,0.55)",
+				tooltipFontColor: "#446cb3",
+				tooltipTitleFontFamily: "robotoregular', sans-serif, Arial, Helvetica",
+				tooltipTitleFontSize: 14,
+				tooltipTitleFontStyle: "light",
+				tooltipTitleFontColor: "#fff",
+				tooltipYPadding: 12,
+				tooltipXPadding: 50,
+				tooltipCaretSize: 8,
+				tooltipCornerRadius: 5,
+				tooltipXOffset: 10,
+				tooltipTemplate: ""
+            };
+
+
+            var ctx = document.getElementById("lineChart").getContext("2d");
+            var myNewChart = new Chart(ctx).Line(lineData, lineOptions);
+
+        });
+    </script>
+     <!-- Page-Level Scripts -->
+    <script>
+        $(document).ready(function() {
+            $('.dataTables-example').dataTable({
+                responsive: true,
+                "dom": 'T<"clear">lfrtip',
+                
+            });
+
+            /* Init DataTables */
+            var oTable = $('#editable').dataTable();
+
+            /* Apply the jEditable handlers to the table */
+            oTable.$('td').editable( '../example_ajax.php', {
+                "callback": function( sValue, y ) {
+                    var aPos = oTable.fnGetPosition( this );
+                    oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+                },
+                "submitdata": function ( value, settings ) {
+                    return {
+                        "row_id": this.parentNode.getAttribute('id'),
+                        "column": oTable.fnGetPosition( this )[2]
+                    };
+                },
+
+                "width": "90%",
+                "height": "100%"
+            } );
+
+
+        });
+
+        function fnClickAddRow() {
+            $('#editable').dataTable().fnAddData( [
+                "Custom row",
+                "New row",
+                "New row",
+                "New row",
+                "New row" ] );
+
+        }
+    </script>
+
+    <script type="text/javascript">
+        function topGraphRedraw(newGraphTypeIndex, newGraphTimeIndex, newGraphStoreIndex){
                 var topGraphRequestIndex; //Variable with local scope
                 console.log("Something about the graph needs to change. Lets Replace the graph area with a loading animation. Also the top Summary section needs to be replaced with animation");
                 document.getElementById("salesChart").innerHTML= '<div class="text-center full-width-load"><div id="preloader_2"><span></span><span></span><span></span><span></span><span></span></div></div>';
@@ -753,114 +956,4 @@
                     } 
                 });
             }
-        });
-    </script>    
-
-    <script>
-        $(document).ready(function() {
-
-            var lineData = {
-                labels: ["0.01", "0.02", "0.03", "0.04", "0.05", "0.06", "0.07"],
-                datasets: [
-                    {
-                        label: "Example dataset",
-                        fillColor: "rgba(227,243,234,0.6)",
-                        strokeColor: "rgba(38,166,91,1)",
-                        pointColor: "rgba(38,166,91,1)",
-                        pointStrokeColor: "#fff",
-                        pointHighlightFill: "#fff",
-                        pointHighlightStroke: "rgba(38,166,91,1)",
-                        data: [65, 59, 80, 81, 56, 55, 40]
-                    },
-                    {
-                        label: "Example dataset",
-                        fillColor: "rgba(68,108,179,0.5)",
-                        strokeColor: "rgba(68,108,179,0.7)",
-                        pointColor: "rgba(68,108,179,1)",
-                        pointStrokeColor: "#fff",
-                        pointHighlightFill: "#fff",
-                        pointHighlightStroke: "rgba(68,108,179,1)",
-                        data: [0, 0, 0, 0, 0, 0, 0]
-                    }
-                ]
-            };
-
-            var lineOptions = {
-                scaleShowGridLines: true,
-                scaleGridLineColor: "rgba(0,0,0,.05)",
-                scaleGridLineWidth: 1,
-                bezierCurve: true,
-                bezierCurveTension: 0,
-                pointDot: true,
-                pointDotRadius: 10,
-                pointDotStrokeWidth: 1,
-                pointHitDetectionRadius: 20,
-                datasetStroke: true,
-                datasetStrokeWidth: 6,
-                datasetFill: true,
-                responsive: true,
-				scaleFontFamily: " 'robotoregular', sans-serif, Arial, Helvetica",
-				scaleFontSize: 16,
-				responsive: true,
-				tooltipFillColor: "rgba(91,179,240,0.55)",
-				tooltipFontColor: "#446cb3",
-				tooltipTitleFontFamily: "robotoregular', sans-serif, Arial, Helvetica",
-				tooltipTitleFontSize: 14,
-				tooltipTitleFontStyle: "light",
-				tooltipTitleFontColor: "#fff",
-				tooltipYPadding: 12,
-				tooltipXPadding: 50,
-				tooltipCaretSize: 8,
-				tooltipCornerRadius: 5,
-				tooltipXOffset: 10,
-				tooltipTemplate: ""
-            };
-
-
-            var ctx = document.getElementById("lineChart").getContext("2d");
-            var myNewChart = new Chart(ctx).Line(lineData, lineOptions);
-
-        });
-    </script>
-     <!-- Page-Level Scripts -->
-    <script>
-        $(document).ready(function() {
-            $('.dataTables-example').dataTable({
-                responsive: true,
-                "dom": 'T<"clear">lfrtip',
-                
-            });
-
-            /* Init DataTables */
-            var oTable = $('#editable').dataTable();
-
-            /* Apply the jEditable handlers to the table */
-            oTable.$('td').editable( '../example_ajax.php', {
-                "callback": function( sValue, y ) {
-                    var aPos = oTable.fnGetPosition( this );
-                    oTable.fnUpdate( sValue, aPos[0], aPos[1] );
-                },
-                "submitdata": function ( value, settings ) {
-                    return {
-                        "row_id": this.parentNode.getAttribute('id'),
-                        "column": oTable.fnGetPosition( this )[2]
-                    };
-                },
-
-                "width": "90%",
-                "height": "100%"
-            } );
-
-
-        });
-
-        function fnClickAddRow() {
-            $('#editable').dataTable().fnAddData( [
-                "Custom row",
-                "New row",
-                "New row",
-                "New row",
-                "New row" ] );
-
-        }
-    </script>
+    </script>>
