@@ -1,26 +1,105 @@
-<h2>Log in</h2>
-
-<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
-  </div>
-
-  <% if devise_mapping.rememberable? -%>
-    <div class="field">
-      <%= f.check_box :remember_me %>
-      <%= f.label :remember_me %>
+<div class="page-class">
+  <header class="header" >
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-3 col-xs-9">
+          <h1 class="logo" ><a href="/"><img src="/assets/logo.png"/></a></h1>
+        </div>
+        <div class="header-right col-sm-9 col-xs-3">
+          <nav class="navigation">
+            <button data-target=".navbar-collapse" data-toggle="collapse" class="navbar-toggle collapsed" type="button"> <span class="sr-only">Navigation</span> <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+            <div id="navbar" class="collapse navbar-collapse">
+              <ul class="nav navbar-nav">
+                
+                <li><a href="/users/sign_in" class="btn-default-theme" >Login</a></li>
+                <li><a href="/users/sign_up" class="btn-default-theme" >Signup</a></li>
+              </ul>
+            </div>
+          </nav>
+        </div>
+      </div>
     </div>
-  <% end -%>
+  </header>
 
-  <div class="actions">
-    <%= f.submit "Log in" %>
+  <div class="modal-theme">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          
+          <h4 class="modal-title" id="myModalLabel">LOGIN</h4>
+        </div>
+        <div class="modal-body">
+          
+              <div class="row">
+                  <div class="col-md-5">
+                    <h3>Login With:</h3>
+                      <p class="social-login">
+                        <a href="#"><img src="/assets/fb-login.png" alt=""/></a>
+                          <a href="#"><img src="/assets/google-login.png" alt=""/></a>
+                          <a href="#"><img src="/assets/twitter-login.png" alt=""/></a>
+                          
+                      </p>  
+                  </div>
+                  <div class="col-md-7">
+                    <h3>Sign Up With:</h3>
+                      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+                          <div class=" form-group input-group input-group-lg">
+                                <span class="input-group-addon" id="sizing-addon1"><img src="/assets/email.png" alt="" width="26" height="19"/></span>
+                                <%= f.text_field :fname,:class=>"form-control",placeholder:"Username", "aria-describedby"=>"sizing-addon1",:required=>"required" %>
+                                <!-- <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon1" required> -->
+                          </div>
+                          <div class="form-group input-group input-group-lg">
+                                <span class="input-group-addon" id="sizing-addon1"><img src="/assets/lock.png" alt="" width="26" height="19"/></span>
+                                <%= f.password_field :password,:class=>"form-control",placeholder:"Password", "aria-describedby"=>"sizing-addon1",:required=>"required" %>
+                                <!-- <input type="password" class="form-control" placeholder="Password" aria-describedby="sizing-addon1" required> -->
+                          </div>
+                          
+                          <div class=" form-group">
+                              <div class="checkbox">
+                                <%= f.check_box :remember_me,id: "check2",value: "check1" %>
+                                  <!-- <input id="check2" type="checkbox" name="check" value="check1"> -->
+                                <label for="check2">Remember Me</label>
+                              </div>
+                          </div>
+                          <%= f.submit 'Sign In', class: 'btn-default-theme' %>
+                          <!-- <button type="submit" class="btn-default-theme">Sign In</button> -->
+                      <%end%>
+                      <p class="links-popup">
+                          <a href="javascript:void(0);">I forget my password </a>
+                          <a href="/users/sign_up" >Register a new membership</a>
+                       </p>
+                  </div>
+              </div>
+                
+             
+        </div>
+        
+      </div>
+    </div>
   </div>
-<% end %>
+</div>  
 
-<%= render "devise/shared/links" %>
+<footer class="footer">
+  <div class="container">
+      <a href="#home" class="back-top"><img src="/assets/backTotop.png" alt="pic"/></a>
+        <p class="copy-text">Copyright © 2015 <span>StealthROI</span>. All rights reserved.</p>
+    <p class="t-social"><a href="#"><img src="/assets/icon-facebook.png" alt="" /></a> <a href="#"><img src="/assets/icon-twitter.png" alt="" /></a> <a href="#"><img src="/assets/icon-gplus.png" alt="" /></a></p>
+    </div>
+
+</footer>
+
+<script>
+$(function() {
+    var header = $(".header");
+    $(window).scroll(function(e) {    
+        var scroll = $(window).scrollTop();
+    
+        if (scroll >= 150) {
+            header.addClass("shrink");
+       e.preventDefault();
+        } else {
+            header.removeClass("shrink");
+        }
+    });
+});
+</script>
