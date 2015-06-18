@@ -47,3 +47,7 @@ end
 gem 'httparty'
 gem 'morrisjs-rails'
 gem 'raphael-rails'
+# gem 'mysql2'
+gem 'rails_db_info'
+gem 'bcrypt-ruby'
+gem 'devise'

@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  accesslevel: 1
+  viralstyleapikey: MyString
+  fname: MyString
+  email: MyString
+  emailverificationcode: MyString
+  tableprefix: MyString
+  timezonecode: MyString
+  passwordhash: MyString
+
+two:
+  accesslevel: 1
+  viralstyleapikey: MyString
+  fname: MyString
+  email: MyString
+  emailverificationcode: MyString
+  tableprefix: MyString
+  timezonecode: MyString
+  passwordhash: MyString

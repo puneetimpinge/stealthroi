@@ -20,33 +20,40 @@
                 </div>
                 <div class="col-md-7">
                 	<h3>Register a new Account:</h3>
-                    <form>
+                    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+                        <%= devise_error_messages! %>
                         <div class=" form-group input-group input-group-lg">
                               <span class="input-group-addon" id="sizing-addon1"><img src="/assets/user.png" alt="" width="26" height="19"/></span>
-                              <input type="text" class="form-control" placeholder="Full Name" aria-describedby="sizing-addon1">
+                              <%= f.text_field :fname,:class=>"form-control",placeholder:"Full Name", "aria-describedby"=>"sizing-addon1",:required=>"required" %>
+                              <!-- <input type="text" class="form-control" placeholder="Full Name" aria-describedby="sizing-addon1"> -->
 						            </div>
                         <div class="form-group input-group input-group-lg">
                               <span class="input-group-addon" id="sizing-addon1"><img src="/assets/email.png" alt="" width="26" height="19"/></span>
-                              <input type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon1">
+                              <%= f.email_field :email,:class=>"form-control",placeholder:"Email", "aria-describedby"=>"sizing-addon1",:required=>"required" %>
+                              <!-- <input type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon1"> -->
 						            </div>
                         <div class=" form-group input-group input-group-lg">
                               <span class="input-group-addon" id="sizing-addon1"><img src="/assets/lock.png" alt="" width="26" height="19"/></span>
-                              <input type="text" class="form-control" placeholder="Enter Password" aria-describedby="sizing-addon1">
+                              <%= f.password_field :password,:class=>"form-control",placeholder:"Enter Password", "aria-describedby"=>"sizing-addon1",:required=>"required" %>
+                              <!-- <input type="text" class="form-control" placeholder="Enter Password" aria-describedby="sizing-addon1"> -->
 						            </div>
                         <div class=" form-group input-group input-group-lg">
                               <span class="input-group-addon" id="sizing-addon1"><img src="/assets/retyp.png" alt="" width="26" height="19"/></span>
-                              <input type="text" class="form-control" placeholder="Retype Password" aria-describedby="sizing-addon1">
+                              <%= f.password_field :password_confirmation,:class=>"form-control",placeholder:"Retype Password", "aria-describedby"=>"sizing-addon1",:required=>"required" %>
+                              <!-- <input type="text" class="form-control" placeholder="Retype Password" aria-describedby="sizing-addon1"> -->
 						            </div>
                         
                         
                         <div class=" form-group">
                             <div class="checkbox">
-                                <input id="check1" type="checkbox" name="check" value="check1">
+                                <input id="check1" type="checkbox" name="check" value="check1" required>
                                 <label for="check1">I agree to <a href="#">terms</a></label>
+                                <p><input type="checkbox" required name="terms"> I accept the <u>Terms and Conditions</u></p>
                             </div>
                         </div>
-                        <button type="submit" class="btn-default-theme">Sign In</button>
-                    </form>
+                        <!-- <button type="submit" class="btn-default-theme">Sign In</button> -->
+                        <%= f.submit 'Sign In', class: 'btn-default-theme' %>
+                    <%end%>
                     <p class="links-popup">
                       <a href="javascript:void(0);" data-toggle="modal" data-target="#loginModal"  data-dismiss="modal" aria-label="Close">I already have an account.</a>
                     </p>
@@ -78,24 +85,29 @@
                 </div>
                 <div class="col-md-7 col-sm-7 col-xs-12">
                   <h3>Sign Up With:</h3>
-                    <form action="/user/landing">
+                    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
                         <div class=" form-group input-group input-group-lg">
                               <span class="input-group-addon" id="sizing-addon1"><img src="/assets/email.png" alt="" width="26" height="19"/></span>
-                              <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon1" required>
+                              <%= f.text_field :fname,:class=>"form-control",placeholder:"Username", "aria-describedby"=>"sizing-addon1",:required=>"required" %>
+                              <!-- <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon1" required> -->
                         </div>
                         <div class="form-group input-group input-group-lg">
                               <span class="input-group-addon" id="sizing-addon1"><img src="/assets/lock.png" alt="" width="26" height="19"/></span>
-                              <input type="password" class="form-control" placeholder="Password" aria-describedby="sizing-addon1" required>
+                              <%= f.password_field :password,:class=>"form-control",placeholder:"Password", "aria-describedby"=>"sizing-addon1",:required=>"required" %>
+                              <!-- <input type="password" class="form-control" placeholder="Password" aria-describedby="sizing-addon1" required> -->
                         </div>
                         
                         <div class=" form-group">
                             <div class="checkbox">
-                                <input id="check2" type="checkbox" name="check" value="check1">
+                            <%= f.check_box :remember_me,id: "check2",value: "check1",:required=>"required" %>
+
+                                <!-- <input id="check2" type="checkbox" name="user[remember_me]" value="check1"> -->
                                 <label for="check2">Remember Me</label>
                             </div>
                         </div>
-                        <button type="submit" class="btn-default-theme">Sign In</button>
-                    </form>
+                        <!-- <button type="submit" class="btn-default-theme">Sign In</button> -->
+                        <%= f.submit 'Sign In', class: 'btn-default-theme' %>
+                    <%end%>
                     <p class="links-popup">
                         <a href="javascript:void(0);" data-toggle="modal" data-target="#resetModal" data-dismiss="modal" arial-label="Close">I forget my password </a>
                         <a href="javascript:void(0);" data-toggle="modal" data-target="#signupModal"  data-dismiss="modal" aria-label="Close">Register a new membership</a>

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   root 'home#index'
   resources :user do
     collection do
@@ -10,6 +11,7 @@ Rails.application.routes.draw do
       get "ads_manager"
 
       get "get_data"
+      get "login"
     end  
   end 
 
