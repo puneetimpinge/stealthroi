@@ -1,5 +1,10 @@
 Rails.application.routes.draw do
-  devise_for :users
+  devise_for :users#, :controllers => { :passwords => "passwords" }
+  # as :user do
+  #   get 'users/edit' => 'devise/registrations#edit', :as => 'edit_user_registration'    
+  #   put 'users/:id' => 'devise/registrations#update', :as => 'user_registration'            
+  # end
+
   root 'home#index'
   resources :user do
     collection do
@@ -14,6 +19,14 @@ Rails.application.routes.draw do
       get "login"
     end  
   end 
+  # get 'user/landing' => 'user#landing'
+  # get 'user/dashboard' => 'user#dashboard'
+  # get 'user/keywords' => 'user#keywords'
+  # get 'user/reports' => 'user#reports'
+  # get 'user/setting' => 'user#setting'
+  # get 'user/ads_manager' => 'user#ads_manager'
+  # get 'user/get_data' => 'user#get_data'
+  # get 'user/login' => 'user#login'
 
   resources :home do
     collection do

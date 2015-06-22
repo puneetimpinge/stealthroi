@@ -29,14 +29,15 @@ email in next 10 minutes.</p>
         <div class="row row-centered">
                 <p>Please enter your email address to recieve details for your new password.</p>
                 <div class="col-md-7 col-centered">
-                  <form>
+                  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post },:remote => true) do |f| %>
                         <div class=" form-group input-group input-group-lg">
                               <span class="input-group-addon" id="sizing-addon1"><img src="/assets/email.png" alt="" width="26" height="19"/></span>
-                              <input type="text" class="form-control" placeholder="Account Email" aria-describedby="sizing-addon1" >
-            </div>
-                        
-                        <button type="submit" class="btn-default-theme" data-toggle="modal" data-target="#thankModal" data-dismiss="modal" arial-label="Close">Reset Password</button>
-                    </form>
+                              <%= f.email_field :email, class: "form-control", placeholder: "Account Email", "aria-describedby"=>"sizing-addon1" %>
+<!--                               <input type="text" class="form-control" placeholder="Account Email" aria-describedby="sizing-addon1" >
+ -->                        </div>
+                        <%= f.submit "Reset Password",type: "submit",class: "btn-default-theme" %>
+                        <!-- <button type="submit" class="btn-default-theme" data-toggle="modal" data-target="#thankModal" data-dismiss="modal" arial-label="Close">Reset Password</button> -->
+                    <%end%>
                 </div>
             </div>
       </div>

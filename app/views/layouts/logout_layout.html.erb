@@ -27,13 +27,24 @@
 	<%#= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
 	<%#= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   	<%= csrf_meta_tags %>
-  	<%= javascript_include_tag 'home' %>
   	<%= stylesheet_link_tag 'home' %>
+  	<%= javascript_include_tag 'home' %>
+  	
 
 </head>
 <body id="home">
+<%if notice%><div class="notice" style="color:green;padding:10px"><span><%= notice %></span></div><%end%>
+<%if alert%><div class="alert" style="color:red;padding:10px;margin:0;border:0"><span><%= alert %></span></div><%end%>
 
 <%= yield %>
+
+<script type="text/javascript">
+	$(document).ready(function(){
+	  setTimeout(function(){
+	    $('.notice,.alert').slideUp();
+	  }, 4000);
+	 })
+</script>
 
 </body>
 </html>

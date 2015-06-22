@@ -29,6 +29,10 @@ class UserController < ApplicationController
 
 	end
 
+	def show
+		render :nothing
+	end
+
 	# def create
 	# 	params[:user][:accesslevel] = 1
 	# 	user = User.find_by_email(params[:email])
