@@ -1,0 +1,120 @@
+
+    <div id="wrapper">
+        <%= render :partial => "/shared/left_side_menu" %>
+        <div id="page-wrapper" class="gray-bg sidebar-content">
+            <%= render :partial => "/shared/header" %>
+            
+            <div class="wrapper wrapper-content">
+                <div class="row">
+                    <div class="col-lg-12 main-heading">                    
+                        <h1>Payment Status : <%= current_user.payment.transaction_id.nil? ? 'Unpaid' : 'Paid'%></h1>
+                    </div>
+                </div>
+                
+                <%if current_user.payment.transaction_id.nil?%>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="settings-page">
+                                <h3>Payment</h3>
+                                <div role="tabpanel" class="tabby">
+                                    
+                                    <div class="tab-content">
+                                        <div role="tabpanel" class="tab-pane  active" id="info">
+                                            <%= form_for @payment, url: payment_index_path do |c| %>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <div class="col-md-3">
+                                                            <%= c.label :first_name %>
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <%= c.text_field :first_name,class: "form-control", required: true %>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <div class="col-md-3">
+                                                            <%= c.label :last_name %>
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <%= c.text_field :last_name,class: "form-control", required: true %>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <div class="col-md-3">
+                                                            <%= c.label :card_type %>
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <%= c.select :card_type, [["Visa", "visa"], ["MasterCard", "master"], ["Discover", "discover"], ["American Express", "american_express"]],class: "form-control" %>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <% ["card_number","address","city","state","postal_code","country_code"].each do |obj| %>
+                                                    <div class="row">
+                                                        <div class="form-group">
+                                                            <div class="col-md-3">
+                                                                 <%= c.label obj.to_sym %>
+                                                            </div>
+                                                            <div class="col-md-9">
+                                                                <%= c.text_field obj.to_sym,class: "form-control", required: true %>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                <%end%>
+
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <div class="col-md-3">
+                                                            <%= c.label :card_verification, "Card Verification Value (CVV)" %>
+                                                        </div>
+                                                        <div class="col-md-9">
+                                                            <%= c.text_field :cvv2,class: "form-control", required: true %>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        <div class="col-md-3">
+                                                            <%= c.label :card_expires_on %>
+                                                        </div>
+                                                        <div class="col-md-2">
+                                                            <%= c.date_select :card_expires_on, start_year: Date.today.year, end_year: (Date.today.year+10), class: "form-control", required: true %>
+                                                        </div>
+
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="row">
+                                                    <div class="form-group">
+                                                        
+                                                        <div class="col-md-9 col-md-offset-3">
+                                                            <%= c.submit "Submit", class: "btn-admin btn-blue"%>
+                                                            <input type="submit" value="Cancel" class="btn-admin btn-grey"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            <%end%>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>      
+                    </div>
+                <%else%>
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <div class="settings-page">
+                                <h2><%= "Payment ID: #{current_user.payment.transaction_id}" %></h2>
+                                <%=link_to "Cancel Payment", payment_path(current_user.payment.id), method: "delete"%>
+                            </div>
+                        </div>
+                    </div>                    
+                <%end%>
+            </div>
+        <%= render :partial => "/shared/footer" %>
+        </div>
+    </div>

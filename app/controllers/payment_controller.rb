@@ -2,13 +2,17 @@ class PaymentController < ApplicationController
 	before_action :authenticate_user!
 	include PayPal::SDK::REST
 
-	def new
-		#if current_user.payment.nil?
-			@payment = current_user.build_payment
-		# else
-		# 	redirect_to root_url, alert: "Payment is already done"
-		# end
+	def index
+		@payment = current_user.build_payment if current_user.payment.nil?
 	end
+
+	# def new
+	# 	#if current_user.payment.nil?
+	# 		@payment = current_user.build_payment
+	# 	# else
+	# 	# 	redirect_to root_url, alert: "Payment is already done"
+	# 	# end
+	# end
 
 	def create
 		@payment = Payment.new({
@@ -38,20 +42,27 @@ class PaymentController < ApplicationController
 		    :description => "This is the payment transaction description." }]})
 
 		@payment.create
-		# binding.pry
 		if @payment.id.nil?
 			error = @payment.error
-			redirect_to root_url, :alert => error.name+"\n"+error.details.to_s
+			redirect_to payment_index_url, :alert => error.name+"\n"+error.details.to_s
 		else
 			params[:payment][:transaction_id] = @payment.id
 			params[:payment][:amount] = 10
-			# binding.pry
 			@data = current_user.build_payment(payment_params)
 			if @data.save
-				redirect_to root_url, :notice => "Payment Done with payment id #{@payment.id}"
+				redirect_to payment_index_url, :notice => "Payment Done with payment id #{@payment.id}"
 			else
-				redirect_to root_url, :alert => "Something went wrong."
+				redirect_to payment_index_url, :alert => "Something went wrong."
 			end
+		end
+	end
+
+	def destroy
+		if current_user.payment.id == params[:id].to_i
+			current_user.payment.delete
+			redirect_to root_url
+		else
+			redirect_to root_url, alert: "Something went wrong."
 		end
 	end
 
