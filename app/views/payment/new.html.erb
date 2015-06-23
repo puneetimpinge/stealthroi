@@ -1,0 +1,58 @@
+<div class="field payment_method">
+  <fieldset class="card_info">
+    <legend>Card info</legend>
+    <%= form_for @payment, url: payment_index_path do |c| %>
+      <div class="field">
+        <%= c.label :first_name %>
+        <%= c.text_field :first_name %>
+      </div>
+      <div class="field">
+        <%= c.label :last_name %>
+        <%= c.text_field :last_name %>
+      </div>
+      <div class="field">
+        <%= c.label :card_type %>
+        <%= c.select :card_type, [["Visa", "visa"], ["MasterCard", "master"], ["Discover", "discover"], ["American Express", "american_express"]] %>
+      </div>
+      <div class="field">
+        <%= c.label :card_number %>
+        <%= c.text_field :card_number %>
+      </div>
+
+      <div class="field">
+        <%= c.label :address %>
+        <%= c.text_field :address %>
+      </div>
+      <div class="field">
+        <%= c.label :city %>
+        <%= c.text_field :city %>
+      </div>
+      <div class="field">
+        <%= c.label :state %>
+        <%= c.text_field :state %>
+      </div>
+      <div class="field">
+        <%= c.label :postal_code %>
+        <%= c.text_field :postal_code %>
+      </div>
+      <div class="field">
+        <%= c.label :country_code %>
+        <%= c.text_field :country_code %>
+      </div>
+
+      <div class="field">
+        <%= c.label :card_verification, "Card Verification Value (CVV)" %>
+        <%= c.text_field :cvv2 %>
+      </div>
+      <div class="field">
+        <%= c.label :card_expires_on %>
+        <%= c.date_select :card_expires_on, start_year: Date.today.year, end_year: (Date.today.year+10) %>
+      </div>
+
+      <div class="actions">
+        <%= c.submit "Registration Payment", class: "btn", style: "color: white;background: rgb(242, 118, 73);" %>
+      </div>
+
+    <% end %>
+  </fieldset>
+</div>

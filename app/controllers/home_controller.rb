@@ -1,7 +1,11 @@
 class HomeController < ApplicationController
   require 'httparty'
   def index
-  	render :layout => "logout_layout"
+    if current_user.nil? 
+  	 render :layout => "logout_layout"
+    else
+      redirect_to "/user/landing"
+    end
   end
 
   def get_viralstyle

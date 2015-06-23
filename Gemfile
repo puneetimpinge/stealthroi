@@ -48,6 +48,7 @@ gem 'httparty'
 gem 'morrisjs-rails'
 gem 'raphael-rails'
 # gem 'mysql2'
-gem 'rails_db_info'
+gem 'rails_db_info' #http://localhost:3000/rails/info/db
 gem 'bcrypt-ruby'
 gem 'devise'
+gem 'paypal-sdk-rest'
