@@ -17,7 +17,7 @@ class ApplicationController < ActionController::Base
 
     devise_parameter_sanitizer.for(:sign_up) { 
         |u| u.permit(:fname, :email, :password, :password_confirmation,:accesslevel,:viralstyleapikey,
-        	:emailverificationcode,:tableprefix,:timezonecode,:password_hash) 
+        	:emailverificationcode,:tableprefix,:timezonecode,:password_hash,:card_type, :card_number,:cvv,:card_expires_on,:card_name,:payment_status) 
     }
 
     devise_parameter_sanitizer.for(:account_update) { |u| 
