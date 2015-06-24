@@ -365,11 +365,21 @@ email in next 10 minutes.</p>
 </footer>
 
 <script type="text/javascript">
+  $(document).ready(function() {
+    $($('form')[1]).valid()
+    $("#user_password").rules("add",{minlength: 8});
+    $("#user_password_confirmation").rules("add",{minlength: 8,equalTo: "#user_password"});
+    // $("#check1").rules("add",{required: true});
+  });
+
   $("#next_btn").click(function(e){
     e.preventDefault();
     e.stopPropagation();
-    $(".signup_box").hide()
-    $(".payment_box").show()
+
+    if ($($('form')[1]).valid()){
+      $(".signup_box").hide()
+      $(".payment_box").show()
+    }
   })
 
    $("#back_btn").click(function(e){
@@ -392,5 +402,18 @@ email in next 10 minutes.</p>
     #user_card_expires_on_1i,#user_card_expires_on_2i{
       width: 50%;
       padding: 10px;
+    }
+    label.error{
+      font-weight: 0;
+      display: table-caption;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+      font-size: 12px;
+    }
+    .input-group-lg label:before{
+      border:none !important;
+      width: 0 !important;
+      height: 0 !important;
     }
 </style>
