@@ -1,5 +1,5 @@
 class RegistrationsController < Devise::RegistrationsController
-    before_filter :validate_payment, :only => 'create'
+    #before_filter :validate_payment, :only => 'create'
     include PayPal::SDK::REST
 
 private

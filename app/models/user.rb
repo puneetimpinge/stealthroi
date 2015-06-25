@@ -56,7 +56,6 @@ class User < ActiveRecord::Base
           :description => "This is the payment transaction description." }]})
 
       @payment.create
-      binding.pry
       if @payment.id.nil?
         error = @payment.error
         self.errors.add :payment_status, error

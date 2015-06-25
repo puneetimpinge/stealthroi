@@ -52,6 +52,7 @@ email in next 10 minutes.</p>
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><img src="/assets/close.png" alt=""/></span></button>
         <h4 class="modal-title" id="myModalLabel">SIGNUP</h4>
+        <h5 id="error_msg" style="color:red;display:none"></h5>
       </div>
       <div class="modal-body">
         
@@ -128,7 +129,7 @@ email in next 10 minutes.</p>
                                 <!-- <input type="text" class="form-control" placeholder="Enter Password" aria-describedby="sizing-addon1"> -->
                           </div>
 
-                          <%= f.submit 'Sign Up', class: 'btn-default-theme' %>
+                          <%= f.submit 'Sign Up', class: 'btn-default-theme', id: "signup_btn" %>
                           <a href="#" id="back_btn">Back</a>
                         </div>
                     <%end%>
@@ -387,6 +388,40 @@ email in next 10 minutes.</p>
     $(".signup_box").show()
     $(".payment_box").hide()
   })
+
+   $("#signup_btn").click(function(e){
+    e.preventDefault();
+
+    var card_name = $("#user_card_name").val();
+    var card_number = $("#user_card_number").val();
+    var cvv = $("#user_cvv").val();
+    var card_type = $("#user_card_type").val();
+    var card_year = $("#user_card_expires_on_1i").val();
+    var card_month = $("#user_card_expires_on_2i").val();
+
+    $.ajax({
+      type: 'post',
+      url: '/user/verify_payment',
+      async: false,
+      data: 'card_name='+card_name+'&card_number='+card_number+'&cvv='+cvv+'&card_type='+card_type+'&card_year='+card_year+'&card_month='+card_month,
+      success: function(e){
+        if (e.status == true){
+          $($('form')[1]).submit();  
+        }else{
+          var msg = JSON.stringify(e.message.details) 
+          $("#error_msg").html(msg).css("display","block")
+          setTimeout(function(){
+            $('#error_msg').slideUp();
+          }, 5000);
+        }
+        
+      },
+      error: function(){
+        alert('Something went wrong.')
+      }
+    })
+  })
+
 
 </script>
 
