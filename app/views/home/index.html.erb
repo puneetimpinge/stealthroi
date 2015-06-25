@@ -391,35 +391,62 @@ email in next 10 minutes.</p>
 
    $("#signup_btn").click(function(e){
     e.preventDefault();
+    if ($('#preview1').html() == ""){
+      var opts = {
+              lines: 17,
+              length: 40,
+              width: 22,
+              radius: 60,
+              corners: 1,
+              rotate: 90,
+              direction: 1,
+              color: '#000',
+              speed: 1.3,
+              trail: 96,
+              shadow: false,
+              hwaccel: false,
+              className: 'spinner',
+              zIndex: 2e9,
+              top: '50%',
+              left: '50%'
+      };
+      var target = document.getElementById('preview1');
+      var spinner = new Spinner(opts).spin(target);
+      target.appendChild(spinner.el);
 
-    var card_name = $("#user_card_name").val();
-    var card_number = $("#user_card_number").val();
-    var cvv = $("#user_cvv").val();
-    var card_type = $("#user_card_type").val();
-    var card_year = $("#user_card_expires_on_1i").val();
-    var card_month = $("#user_card_expires_on_2i").val();
+      var card_name = $("#user_card_name").val();
+      var card_number = $("#user_card_number").val();
+      var cvv = $("#user_cvv").val();
+      var card_type = $("#user_card_type").val();
+      var card_year = $("#user_card_expires_on_1i").val();
+      var card_month = $("#user_card_expires_on_2i").val();
 
-    $.ajax({
-      type: 'post',
-      url: '/user/verify_payment',
-      async: false,
-      data: 'card_name='+card_name+'&card_number='+card_number+'&cvv='+cvv+'&card_type='+card_type+'&card_year='+card_year+'&card_month='+card_month,
-      success: function(e){
-        if (e.status == true){
-          $($('form')[1]).submit();  
-        }else{
-          var msg = JSON.stringify(e.message.details) 
-          $("#error_msg").html(msg).css("display","block")
-          setTimeout(function(){
-            $('#error_msg').slideUp();
-          }, 5000);
+      $.ajax({
+        type: 'post',
+        url: '/user/verify_payment',
+        // async: false,
+        data: 'card_name='+card_name+'&card_number='+card_number+'&cvv='+cvv+'&card_type='+card_type+'&card_year='+card_year+'&card_month='+card_month,
+        success: function(e){
+          if (e.status == true){
+            target.removeChild(spinner.el);
+            $($('form')[1]).submit();  
+          }else{
+            var msg = JSON.stringify(e.message.details) 
+            $("#error_msg").html(msg).css("display","block")
+            $('#signupModal').animate({scrollTop: '100px'}, 300);
+            target.removeChild(spinner.el);
+            setTimeout(function(){
+              $('#error_msg').slideUp();
+            }, 5000);
+          }
+          
+        },
+        error: function(){
+          target.removeChild(spinner.el);
+          alert('Something went wrong.')
         }
-        
-      },
-      error: function(){
-        alert('Something went wrong.')
-      }
-    })
+      })
+    }  
   })
 
 
