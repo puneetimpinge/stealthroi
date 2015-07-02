@@ -52,7 +52,7 @@ email in next 10 minutes.</p>
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><img src="/assets/close.png" alt=""/></span></button>
         <h4 class="modal-title" id="myModalLabel">SIGNUP</h4>
-        <h5 id="error_msg" style="color:red;display:none"></h5>
+        <h5 class="error_msg" style="color:red;display:none"></h5>
       </div>
       <div class="modal-body">
         <div class="row">
@@ -125,6 +125,7 @@ email in next 10 minutes.</p>
                   <%= f.date_select :card_expires_on, discard_day: true, start_year: Date.today.year, end_year: (Date.today.year+10), class: "form-control", required: true %>
                   <!-- <input type="text" class="form-control" placeholder="Enter Password" aria-describedby="sizing-addon1"> -->
                 </div>
+                <%= f.hidden_field :payment_status,value: "false", class: "payment_status" %>
 
                 <%= f.submit 'Sign Up', class: 'btn-default-theme', id: "signup_btn" %>
                 <a href="#" id="back_btn">Back</a>
@@ -148,14 +149,13 @@ email in next 10 minutes.</p>
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><img src="/assets/close.png" alt=""/></span></button>
           <h4 class="modal-title" id="myModalLabel">SIGNUP</h4>
-          <h5 id="error_msg" style="color:red;display:none"></h5>
+          <h5 class="error_msg" style="color:red;display:none"></h5>
         </div>
         <div class="modal-body">
           <div class="row">
             <div class="col-md-7">
               <h3>Register a new Account:</h3>
               <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-                <%= devise_error_messages! %>
                 <div class="signup_box" style="display:none">
                   <%= f.text_field :fname, :value => session['facebook_data']['info']['name'] %>
                   <%= f.email_field :email,:value => session['facebook_data']['info']['email'] %>
@@ -164,6 +164,7 @@ email in next 10 minutes.</p>
                   <%= f.password_field :password_confirmation,:value => password %>
                   <%= f.text_field :provider, :value => session['facebook_data']['provider'] %>
                   <%= f.text_field :uid, :value => session['facebook_data']['uid'] %>
+                  <%= f.hidden_field :payment_status,value: "false", class: "payment_status" %>
                 </div>
 
                 <div class="payment_box">
@@ -187,7 +188,7 @@ email in next 10 minutes.</p>
                     <span class="input-group-addon" id="sizing-addon1"><img src="/assets/lock.png" alt="" width="26" height="19"/></span>
                     <%= f.date_select :card_expires_on, discard_day: true, start_year: Date.today.year, end_year: (Date.today.year+10), class: "form-control", required: true %>
                   </div>
-                  <%= f.submit 'Pay Now', class: 'btn-default-theme', id: "signup_btn" %>
+                  <%= f.submit 'Pay Now', class: 'btn-default-theme', id: "payment_btn" %>
                 </div>
               <%end%>
             </div>
@@ -443,7 +444,7 @@ email in next 10 minutes.</p>
     $(".payment_box").hide()
   })
 
-   $("#signup_btn").click(function(e){
+   $("#signup_btn, #payment_btn").click(function(e){
     e.preventDefault();
     if ($('#preview1').html() == ""){
       var opts = {
@@ -468,12 +469,13 @@ email in next 10 minutes.</p>
       var spinner = new Spinner(opts).spin(target);
       target.appendChild(spinner.el);
 
-      var card_name = $("#user_card_name").val();
-      var card_number = $("#user_card_number").val();
-      var cvv = $("#user_cvv").val();
-      var card_type = $("#user_card_type").val();
-      var card_year = $("#user_card_expires_on_1i").val();
-      var card_month = $("#user_card_expires_on_2i").val();
+      var card_name = $(this).parent().find("#user_card_name").val();
+      var card_number = $(this).parent().find("#user_card_number").val();
+      var cvv = $(this).parent().find("#user_cvv").val();
+      var card_type = $(this).parent().find("#user_card_type").val();
+      var card_year = $(this).parent().find("#user_card_expires_on_1i").val();
+      var card_month = $(this).parent().find("#user_card_expires_on_2i").val();
+      var src = $(this)
 
       $.ajax({
         type: 'post',
@@ -482,16 +484,17 @@ email in next 10 minutes.</p>
         data: 'card_name='+card_name+'&card_number='+card_number+'&cvv='+cvv+'&card_type='+card_type+'&card_year='+card_year+'&card_month='+card_month,
         success: function(e){
           if (e.status == true){
+            $(".payment_status").val("true")
             target.removeChild(spinner.el);
-            $($('form')[1]).submit();  
+            $(src.parent().parent()[0]).submit()
           }else{
             var msg = JSON.stringify(e.message.details) 
-            $("#error_msg").html(msg).css("display","block")
+            $(".error_msg").html(msg).css("display","block")
             $('#signupModal').animate({scrollTop: '100px'}, 300);
             target.removeChild(spinner.el);
             setTimeout(function(){
-              $('#error_msg').slideUp();
-            }, 5000);
+              $('.error_msg').slideUp();
+            }, 10000);
           }
           
         },
