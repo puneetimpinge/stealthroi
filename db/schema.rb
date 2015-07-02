@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150624050921) do
+ActiveRecord::Schema.define(version: 20150626093547) do
 
   create_table "card_transactions", force: :cascade do |t|
     t.integer  "card_id",       limit: 4
@@ -73,6 +73,8 @@ ActiveRecord::Schema.define(version: 20150624050921) do
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
     t.string   "payment_status",         limit: 255, default: "false"
+    t.string   "provider",               limit: 255
+    t.string   "uid",                    limit: 255
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

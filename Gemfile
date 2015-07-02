@@ -52,3 +52,4 @@ gem 'rails_db_info' #http://localhost:3000/rails/info/db
 gem 'bcrypt-ruby'
 gem 'devise'
 gem 'paypal-sdk-rest'
+gem 'omniauth-facebook'
