@@ -140,6 +140,65 @@ email in next 10 minutes.</p>
   </div>
 </div>
 <!--Signup-->
+<!--Payment-->
+<% if session.has_key?("facebook_data") %>
+  <div class="modal fade modal-theme" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><img src="/assets/close.png" alt=""/></span></button>
+          <h4 class="modal-title" id="myModalLabel">SIGNUP</h4>
+          <h5 id="error_msg" style="color:red;display:none"></h5>
+        </div>
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-7">
+              <h3>Register a new Account:</h3>
+              <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+                <%= devise_error_messages! %>
+                <div class="signup_box" style="display:none">
+                  <%= f.text_field :fname, :value => session['facebook_data']['info']['name'] %>
+                  <%= f.email_field :email,:value => session['facebook_data']['info']['email'] %>
+                  <% password = Devise.friendly_token[0,20] %>
+                  <%= f.password_field :password,:value => password %>
+                  <%= f.password_field :password_confirmation,:value => password %>
+                  <%= f.text_field :provider, :value => session['facebook_data']['provider'] %>
+                  <%= f.text_field :uid, :value => session['facebook_data']['uid'] %>
+                </div>
+
+                <div class="payment_box">
+                  <div class=" form-group input-group input-group-lg">
+                    <span class="input-group-addon" id="sizing-addon1"><img src="/assets/user.png" alt="" width="26" height="19"/></span>
+                    <%= f.text_field :card_name,:class=>"form-control",placeholder:"Card Name", "aria-describedby"=>"sizing-addon1" %>
+                  </div>
+                  <div class="form-group input-group input-group-lg">
+                    <span class="input-group-addon" id="sizing-addon1"><img src="/assets/email.png" alt="" width="26" height="19"/></span>
+                    <%= f.text_field :card_number,:class=>"form-control",placeholder:"Card Number", "aria-describedby"=>"sizing-addon1" %>
+                  </div>
+                  <div class=" form-group input-group input-group-lg">
+                    <span class="input-group-addon" id="sizing-addon1"><img src="/assets/lock.png" alt="" width="26" height="19"/></span>
+                    <%= f.text_field :cvv,:class=>"form-control",placeholder:"CVV", "aria-describedby"=>"sizing-addon1" %>
+                  </div>
+                  <div class=" form-group input-group input-group-lg">
+                    <span class="input-group-addon" id="sizing-addon1"><img src="/assets/retyp.png" alt="" width="26" height="19"/></span>
+                    <%= f.select :card_type, [["Visa", "visa"], ["MasterCard", "master"], ["Discover", "discover"], ["American Express", "american_express"]], :class=> "form-control" %>
+                  </div>
+                  <div class=" form-group input-group input-group-lg">
+                    <span class="input-group-addon" id="sizing-addon1"><img src="/assets/lock.png" alt="" width="26" height="19"/></span>
+                    <%= f.date_select :card_expires_on, discard_day: true, start_year: Date.today.year, end_year: (Date.today.year+10), class: "form-control", required: true %>
+                  </div>
+                  <%= f.submit 'Pay Now', class: 'btn-default-theme', id: "signup_btn" %>
+                </div>
+              <%end%>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<%end%>
+<!---payment>
+
 <!--Login-->
 <div class="modal fade modal-theme" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -357,6 +416,11 @@ email in next 10 minutes.</p>
 
 <script type="text/javascript">
   $(document).ready(function() {
+    <% if session.has_key?("facebook_data") %>
+      $("#paymentModal").modal('show')
+      <% session.delete("facebook_data") %>
+    <%end%>
+
     $($('form')[1]).valid()
     $("#user_password").rules("add",{minlength: 8});
     $("#user_password_confirmation").rules("add",{minlength: 8,equalTo: "#user_password"});
