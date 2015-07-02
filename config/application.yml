@@ -11,4 +11,4 @@ test:
 production:
   <<: *defaults
   facebook_app_id: "784389335013233"
-  facebook_secret: "6ba98f5a049a440d964cf54e7a2f46e2|2T"
+  facebook_secret: "d7ba8c239b96acce604f07a9c2570cff"
