@@ -7,12 +7,12 @@
       </div>
       <div class="modal-body">
         <div class="row row-centered"><br>
-        <img src="/assets/tick.png" alt="pic"/>
-                <p>An email has been sent to <a href="mailto:example@example.com">example@example.com</a> with instructions on how<br/>
+          <img src="/assets/tick.png" alt="pic"/>
+          <p>An email has been sent to <a href="mailto:example@example.com">example@example.com</a> with instructions on how<br/>
 to set your password. Please check your spam or junk folder if you  do not see the<br/>
 email in next 10 minutes.</p>
-                <p>If you do not recieve email <a href="#">click here</a></p>
-            </div>
+          <p>If you do not recieve email <a href="#">click here</a></p>
+        </div>
       </div>
     </div>
   </div>
@@ -27,19 +27,19 @@ email in next 10 minutes.</p>
       </div>
       <div class="modal-body">
         <div class="row row-centered">
-                <p>Please enter your email address to recieve details for your new password.</p>
-                <div class="col-md-7 col-centered">
-                  <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post },:remote => true) do |f| %>
-                        <div class=" form-group input-group input-group-lg">
-                              <span class="input-group-addon" id="sizing-addon1"><img src="/assets/email.png" alt="" width="26" height="19"/></span>
-                              <%= f.email_field :email, class: "form-control", placeholder: "Account Email", "aria-describedby"=>"sizing-addon1" %>
-<!--                               <input type="text" class="form-control" placeholder="Account Email" aria-describedby="sizing-addon1" >
- -->                        </div>
-                        <%= f.submit "Reset Password",type: "submit",class: "btn-default-theme" %>
-                        <!-- <button type="submit" class="btn-default-theme" data-toggle="modal" data-target="#thankModal" data-dismiss="modal" arial-label="Close">Reset Password</button> -->
-                    <%end%>
-                </div>
-            </div>
+          <p>Please enter your email address to recieve details for your new password.</p>
+          <div class="col-md-7 col-centered">
+            <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post },:remote => true) do |f| %>
+              <div class=" form-group input-group input-group-lg">
+                <span class="input-group-addon" id="sizing-addon1"><img src="/assets/email.png" alt="" width="26" height="19"/></span>
+                <%= f.email_field :email, class: "form-control", placeholder: "Account Email", "aria-describedby"=>"sizing-addon1" %>
+                <!-- <input type="text" class="form-control" placeholder="Account Email" aria-describedby="sizing-addon1"> -->
+              </div>
+              <%= f.submit "Reset Password",type: "submit",class: "btn-default-theme" %>
+              <!-- <button type="submit" class="btn-default-theme" data-toggle="modal" data-target="#thankModal" data-dismiss="modal" arial-label="Close">Reset Password</button> -->
+            <%end%>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -55,90 +55,86 @@ email in next 10 minutes.</p>
         <h5 id="error_msg" style="color:red;display:none"></h5>
       </div>
       <div class="modal-body">
-        
-            <div class="row">
-                <div class="col-md-5">
-                	<h3>SignUp With :</h3>
-                    <p class="social-login">
-                    	<a href="<%= user_omniauth_authorize_path(:facebook) %>"><img src="/assets/fb-signup.png" alt=""/></a>
-                        <a href="#"><img src="/assets/google-signup.png" alt=""/></a>
-                        <a href="#"><img src="/assets/twitter-signup.png" alt=""/></a>
-                        
-                    </p>	
+        <div class="row">
+          <div class="col-md-5">
+          	<h3>SignUp With :</h3>
+            <p class="social-login">
+            	<a href="<%= user_omniauth_authorize_path(:facebook) %>"><img src="/assets/fb-signup.png" alt=""/></a>
+              <a href="#"><img src="/assets/google-signup.png" alt=""/></a>
+              <a href="#"><img src="/assets/twitter-signup.png" alt=""/></a>
+            </p>	
+          </div>
+          <div class="col-md-7">
+          	<h3>Register a new Account:</h3>
+            <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+              <%= devise_error_messages! %>
+              <div class="signup_box">
+                <div class=" form-group input-group input-group-lg">
+                  <span class="input-group-addon" id="sizing-addon1"><img src="/assets/user.png" alt="" width="26" height="19"/></span>
+                  <%= f.text_field :fname,:class=>"form-control",placeholder:"Full Name", "aria-describedby"=>"sizing-addon1",:required=>"required" %>
+                  <!-- <input type="text" class="form-control" placeholder="Full Name" aria-describedby="sizing-addon1"> -->
+		            </div>
+                <div class="form-group input-group input-group-lg">
+                  <span class="input-group-addon" id="sizing-addon1"><img src="/assets/email.png" alt="" width="26" height="19"/></span>
+                  <%= f.email_field :email,:class=>"form-control",placeholder:"Email", "aria-describedby"=>"sizing-addon1",:required=>"required" %>
+                  <!-- <input type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon1"> -->
+		            </div>
+                <div class=" form-group input-group input-group-lg">
+                  <span class="input-group-addon" id="sizing-addon1"><img src="/assets/lock.png" alt="" width="26" height="19"/></span>
+                  <%= f.password_field :password,:class=>"form-control",placeholder:"Enter Password", "aria-describedby"=>"sizing-addon1",:required=>"required" %>
+                  <!-- <input type="text" class="form-control" placeholder="Enter Password" aria-describedby="sizing-addon1"> -->
+		            </div>
+                <div class=" form-group input-group input-group-lg">
+                  <span class="input-group-addon" id="sizing-addon1"><img src="/assets/retyp.png" alt="" width="26" height="19"/></span>
+                  <%= f.password_field :password_confirmation,:class=>"form-control",placeholder:"Retype Password", "aria-describedby"=>"sizing-addon1",:required=>"required" %>
+                  <!-- <input type="text" class="form-control" placeholder="Retype Password" aria-describedby="sizing-addon1"> -->
+		            </div>
+                
+                <div class=" form-group">
+                  <div class="checkbox">
+                    <input id="check1" type="checkbox" name="check" value="check1" required>
+                    <label for="check1">I agree to <a href="#">terms</a></label>
+                  </div>
                 </div>
-                <div class="col-md-7">
-                	<h3>Register a new Account:</h3>
-                    <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-                        <%= devise_error_messages! %>
-                        <div class="signup_box">
-                        <div class=" form-group input-group input-group-lg">
-                              <span class="input-group-addon" id="sizing-addon1"><img src="/assets/user.png" alt="" width="26" height="19"/></span>
-                              <%= f.text_field :fname,:class=>"form-control",placeholder:"Full Name", "aria-describedby"=>"sizing-addon1",:required=>"required" %>
-                              <!-- <input type="text" class="form-control" placeholder="Full Name" aria-describedby="sizing-addon1"> -->
-						            </div>
-                        <div class="form-group input-group input-group-lg">
-                              <span class="input-group-addon" id="sizing-addon1"><img src="/assets/email.png" alt="" width="26" height="19"/></span>
-                              <%= f.email_field :email,:class=>"form-control",placeholder:"Email", "aria-describedby"=>"sizing-addon1",:required=>"required" %>
-                              <!-- <input type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon1"> -->
-						            </div>
-                        <div class=" form-group input-group input-group-lg">
-                              <span class="input-group-addon" id="sizing-addon1"><img src="/assets/lock.png" alt="" width="26" height="19"/></span>
-                              <%= f.password_field :password,:class=>"form-control",placeholder:"Enter Password", "aria-describedby"=>"sizing-addon1",:required=>"required" %>
-                              <!-- <input type="text" class="form-control" placeholder="Enter Password" aria-describedby="sizing-addon1"> -->
-						            </div>
-                        <div class=" form-group input-group input-group-lg">
-                              <span class="input-group-addon" id="sizing-addon1"><img src="/assets/retyp.png" alt="" width="26" height="19"/></span>
-                              <%= f.password_field :password_confirmation,:class=>"form-control",placeholder:"Retype Password", "aria-describedby"=>"sizing-addon1",:required=>"required" %>
-                              <!-- <input type="text" class="form-control" placeholder="Retype Password" aria-describedby="sizing-addon1"> -->
-						            </div>
-                        
-                        
-                        <div class=" form-group">
-                            <div class="checkbox">
-                                <input id="check1" type="checkbox" name="check" value="check1" required>
-                                <label for="check1">I agree to <a href="#">terms</a></label>
-                            </div>
-                        </div>
-                        <button class="btn-default-theme" id="next_btn" type="submit">Next</button>
-                        </div>
+                <button class="btn-default-theme" id="next_btn" type="submit">Next</button>
+              </div>
 
-                        <div class="payment_box" style="display:none">
-                          <div class=" form-group input-group input-group-lg">
-                              <span class="input-group-addon" id="sizing-addon1"><img src="/assets/user.png" alt="" width="26" height="19"/></span>
-                              <%= f.text_field :card_name,:class=>"form-control",placeholder:"Card Name", "aria-describedby"=>"sizing-addon1" %>
-                              <!-- <input type="text" class="form-control" placeholder="Full Name" aria-describedby="sizing-addon1"> -->
-                          </div>
-                          <div class="form-group input-group input-group-lg">
-                                <span class="input-group-addon" id="sizing-addon1"><img src="/assets/email.png" alt="" width="26" height="19"/></span>
-                                <%= f.text_field :card_number,:class=>"form-control",placeholder:"Card Number", "aria-describedby"=>"sizing-addon1" %>
-                                <!-- <input type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon1"> -->
-                          </div>
-                          <div class=" form-group input-group input-group-lg">
-                                <span class="input-group-addon" id="sizing-addon1"><img src="/assets/lock.png" alt="" width="26" height="19"/></span>
-                                <%= f.text_field :cvv,:class=>"form-control",placeholder:"CVV", "aria-describedby"=>"sizing-addon1" %>
-                                <!-- <input type="text" class="form-control" placeholder="Enter Password" aria-describedby="sizing-addon1"> -->
-                          </div>
-                          <div class=" form-group input-group input-group-lg">
-                                <span class="input-group-addon" id="sizing-addon1"><img src="/assets/retyp.png" alt="" width="26" height="19"/></span>
-                                <%= f.select :card_type, [["Visa", "visa"], ["MasterCard", "master"], ["Discover", "discover"], ["American Express", "american_express"]], :class=> "form-control" %>
-                                <!-- <input type="text" class="form-control" placeholder="Retype Password" aria-describedby="sizing-addon1"> -->
-                          </div>
-                          <div class=" form-group input-group input-group-lg">
-                                <span class="input-group-addon" id="sizing-addon1"><img src="/assets/lock.png" alt="" width="26" height="19"/></span>
-                                <%= f.date_select :card_expires_on, discard_day: true, start_year: Date.today.year, end_year: (Date.today.year+10), class: "form-control", required: true %>
-                                <!-- <input type="text" class="form-control" placeholder="Enter Password" aria-describedby="sizing-addon1"> -->
-                          </div>
-
-                          <%= f.submit 'Sign Up', class: 'btn-default-theme', id: "signup_btn" %>
-                          <a href="#" id="back_btn">Back</a>
-                        </div>
-                    <%end%>
-                    <p class="links-popup">
-                      <a href="javascript:void(0);" data-toggle="modal" data-target="#loginModal"  data-dismiss="modal" aria-label="Close">I already have an account.</a>
-                      
-                    </p>
+              <div class="payment_box" style="display:none">
+                <div class=" form-group input-group input-group-lg">
+                  <span class="input-group-addon" id="sizing-addon1"><img src="/assets/user.png" alt="" width="26" height="19"/></span>
+                  <%= f.text_field :card_name,:class=>"form-control",placeholder:"Card Name", "aria-describedby"=>"sizing-addon1" %>
+                  <!-- <input type="text" class="form-control" placeholder="Full Name" aria-describedby="sizing-addon1"> -->
                 </div>
-            </div>
+                <div class="form-group input-group input-group-lg">
+                  <span class="input-group-addon" id="sizing-addon1"><img src="/assets/email.png" alt="" width="26" height="19"/></span>
+                  <%= f.text_field :card_number,:class=>"form-control",placeholder:"Card Number", "aria-describedby"=>"sizing-addon1" %>
+                  <!-- <input type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon1"> -->
+                </div>
+                <div class=" form-group input-group input-group-lg">
+                  <span class="input-group-addon" id="sizing-addon1"><img src="/assets/lock.png" alt="" width="26" height="19"/></span>
+                  <%= f.text_field :cvv,:class=>"form-control",placeholder:"CVV", "aria-describedby"=>"sizing-addon1" %>
+                  <!-- <input type="text" class="form-control" placeholder="Enter Password" aria-describedby="sizing-addon1"> -->
+                </div>
+                <div class=" form-group input-group input-group-lg">
+                  <span class="input-group-addon" id="sizing-addon1"><img src="/assets/retyp.png" alt="" width="26" height="19"/></span>
+                  <%= f.select :card_type, [["Visa", "visa"], ["MasterCard", "master"], ["Discover", "discover"], ["American Express", "american_express"]], :class=> "form-control" %>
+                  <!-- <input type="text" class="form-control" placeholder="Retype Password" aria-describedby="sizing-addon1"> -->
+                </div>
+                <div class=" form-group input-group input-group-lg">
+                  <span class="input-group-addon" id="sizing-addon1"><img src="/assets/lock.png" alt="" width="26" height="19"/></span>
+                  <%= f.date_select :card_expires_on, discard_day: true, start_year: Date.today.year, end_year: (Date.today.year+10), class: "form-control", required: true %>
+                  <!-- <input type="text" class="form-control" placeholder="Enter Password" aria-describedby="sizing-addon1"> -->
+                </div>
+
+                <%= f.submit 'Sign Up', class: 'btn-default-theme', id: "signup_btn" %>
+                <a href="#" id="back_btn">Back</a>
+              </div>
+            <%end%>
+            <p class="links-popup">
+              <a href="javascript:void(0);" data-toggle="modal" data-target="#loginModal"  data-dismiss="modal" aria-label="Close">I already have an account.</a>
+            </p>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -153,51 +149,45 @@ email in next 10 minutes.</p>
         <h4 class="modal-title" id="myModalLabel">LOGIN</h4>
       </div>
       <div class="modal-body">
-        
-            <div class="row">
-                <div class="col-md-5 col-sm-5 col-xs-12">
-                  <h3>Login With:</h3>
-                    <p class="social-login">
-                      <a href="<%= user_omniauth_authorize_path(:facebook) %>"><img src="/assets/fb-login.png" alt=""/></a>
-                        <a href="#"><img src="/assets/google-login.png" alt=""/></a>
-                        <a href="#"><img src="/assets/twitter-login.png" alt=""/></a>
-                    </p>  
+        <div class="row">
+          <div class="col-md-5 col-sm-5 col-xs-12">
+            <h3>Login With:</h3>
+            <p class="social-login">
+              <a href="<%= user_omniauth_authorize_path(:facebook) %>"><img src="/assets/fb-login.png" alt=""/></a>
+                <a href="#"><img src="/assets/google-login.png" alt=""/></a>
+                <a href="#"><img src="/assets/twitter-login.png" alt=""/></a>
+            </p>  
+          </div>
+          <div class="col-md-7 col-sm-7 col-xs-12">
+            <h3>Sign Up With:</h3>
+            <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+              <div class=" form-group input-group input-group-lg">
+                <span class="input-group-addon" id="sizing-addon1"><img src="/assets/email.png" alt="" width="26" height="19"/></span>
+                <%= f.text_field :fname,:class=>"form-control",placeholder:"Username", "aria-describedby"=>"sizing-addon1",:required=>"required" %>
+                <!-- <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon1" required> -->
+              </div>
+              <div class="form-group input-group input-group-lg">
+                <span class="input-group-addon" id="sizing-addon1"><img src="/assets/lock.png" alt="" width="26" height="19"/></span>
+                <%= f.password_field :password,:class=>"form-control",placeholder:"Password", "aria-describedby"=>"sizing-addon1",:required=>"required" %>
+                <!-- <input type="password" class="form-control" placeholder="Password" aria-describedby="sizing-addon1" required> -->
+              </div>
+              
+              <div class=" form-group">
+                <div class="checkbox">
+                  <%= f.check_box :remember_me,id: "check2",value: "check1" %>
+                  <!-- <input id="check2" type="checkbox" name="user[remember_me]" value="check1"> -->
+                  <label for="check2">Remember Me</label>
                 </div>
-                <div class="col-md-7 col-sm-7 col-xs-12">
-                  <h3>Sign Up With:</h3>
-                    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-                        <div class=" form-group input-group input-group-lg">
-                              <span class="input-group-addon" id="sizing-addon1"><img src="/assets/email.png" alt="" width="26" height="19"/></span>
-                              <%= f.text_field :fname,:class=>"form-control",placeholder:"Username", "aria-describedby"=>"sizing-addon1",:required=>"required" %>
-                              <!-- <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon1" required> -->
-                        </div>
-                        <div class="form-group input-group input-group-lg">
-                              <span class="input-group-addon" id="sizing-addon1"><img src="/assets/lock.png" alt="" width="26" height="19"/></span>
-                              <%= f.password_field :password,:class=>"form-control",placeholder:"Password", "aria-describedby"=>"sizing-addon1",:required=>"required" %>
-                              <!-- <input type="password" class="form-control" placeholder="Password" aria-describedby="sizing-addon1" required> -->
-                        </div>
-                        
-                        <div class=" form-group">
-                            <div class="checkbox">
-                            <%= f.check_box :remember_me,id: "check2",value: "check1" %>
-
-                                <!-- <input id="check2" type="checkbox" name="user[remember_me]" value="check1"> -->
-                                <label for="check2">Remember Me</label>
-                            </div>
-                        </div>
-                        <%= f.submit 'Sign In', class: 'btn-default-theme' %>
-
-                        
-                        
-                    <%end%>
-                    <p class="links-popup">
-                        <a href="javascript:void(0);" data-toggle="modal" data-target="#resetModal" data-dismiss="modal" arial-label="Close">I forget my password </a>
-                        <a href="javascript:void(0);" data-toggle="modal" data-target="#signupModal"  data-dismiss="modal" aria-label="Close">Register a new membership</a>
-                     </p>
-                </div>
-            </div>
+              </div>
+              <%= f.submit 'Sign In', class: 'btn-default-theme' %>
+            <%end%>
+            <p class="links-popup">
+              <a href="javascript:void(0);" data-toggle="modal" data-target="#resetModal" data-dismiss="modal" arial-label="Close">I forget my password </a>
+              <a href="javascript:void(0);" data-toggle="modal" data-target="#signupModal"  data-dismiss="modal" aria-label="Close">Register a new membership</a>
+            </p>
+          </div>
+        </div>
       </div>
-      
     </div>
   </div>
 </div>
@@ -234,31 +224,31 @@ email in next 10 minutes.</p>
     <!-- Wrapper for slides -->
     <div class="carousel-inner" role="listbox">
       <div class="item active">
-      <div class="container">
-      <img src="/assets/banner_img2.png" alt="..."> 
-        <div class="carousel-caption"> <span class="heading_main"> 
-        	STEALTHROI saves
-            time from group 
-            organisation </span> <span class="sub_heading"> Manage your ads easily now. </span> <a href="#"  class="btn-default-theme">GET STARTED</a> 
+        <div class="container">
+          <img src="/assets/banner_img2.png" alt="..."> 
+          <div class="carousel-caption"> <span class="heading_main"> 
+          	STEALTHROI saves
+              time from group 
+              organisation </span> <span class="sub_heading"> Manage your ads easily now. </span> <a href="#"  class="btn-default-theme">GET STARTED</a> 
           </div>
-        
-      </div>
+        </div>
       </div>
       <div class="item">
-      <div class="container">
-        <div class="carousel-caption"> <span class="heading_main"> 
-        	STEALTHROI saves
-            time from group 
-            organisation </span> <span class="sub_heading"> Manage your ads easily now. </span> <a href="#"  class="btn-default-theme">GET STARTED</a> 
+        <div class="container">
+          <div class="carousel-caption"> <span class="heading_main"> 
+          	STEALTHROI saves
+              time from group 
+              organisation </span> <span class="sub_heading"> Manage your ads easily now. </span> <a href="#"  class="btn-default-theme">GET STARTED</a> 
           </div>
-        <img src="/assets/banner_img3.png" alt="..."> 
-      </div>
-      
+          <img src="/assets/banner_img3.png" alt="..."> 
+        </div>
       </div>
     </div>
     
     <!-- Controls --> 
-    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev"> <span class="custom_scroll_icon left" aria-hidden="true"><img src="/assets/prev.png" alt="pic"/></span> <span class="sr-only">Previous</span> </a> <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next"> <span class="custom_scroll_icon right" aria-hidden="true"><img src="/assets/next.png" alt="pic"/></span> <span class="sr-only">Next</span> </a> </div>
+    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev"> <span class="custom_scroll_icon left" aria-hidden="true"><img src="/assets/prev.png" alt="pic"/></span> <span class="sr-only">Previous</span> </a> 
+    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next"> <span class="custom_scroll_icon right" aria-hidden="true"><img src="/assets/next.png" alt="pic"/></span> <span class="sr-only">Next</span> </a>
+  </div>
 </section>
 <!--banner -->
 <section class="section about-sec" id="about">
