@@ -4,6 +4,8 @@ development:
   <<: *defaults
   facebook_app_id: "922539601172541"
   facebook_secret: "f3b1858a69c7419da98324b4fd078096"
+  GOOGLE_CLIENT_ID: "207667956651-bfhe5s5a5j87qpt6l009u56iltksa863.apps.googleusercontent.com"
+  GOOGLE_CLIENT_SECRET: "GyBk63XNiHbr_IGbtYGNvS2X"
 
 test:
   <<: *defaults
@@ -12,3 +14,5 @@ production:
   <<: *defaults
   facebook_app_id: "784389335013233"
   facebook_secret: "d7ba8c239b96acce604f07a9c2570cff"
+  GOOGLE_CLIENT_ID: "622645347210-2cnr3smube8gfd28dgjhvapfslr9buj0.apps.googleusercontent.com"
+  GOOGLE_CLIENT_SECRET: "GYwbSjhPgJYNnfJ8rMDI7Rku"

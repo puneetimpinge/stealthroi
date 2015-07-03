@@ -25,81 +25,69 @@
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          
           <h4 class="modal-title" id="myModalLabel">LOGIN</h4>
         </div>
         <div class="modal-body">
-          
-              <div class="row">
-                  <div class="col-md-5">
-                    <h3>Login With:</h3>
-                      <p class="social-login">
-                        <a href="<%= user_omniauth_authorize_path(:facebook) %>"><img src="/assets/fb-login.png" alt=""/></a>
-                          <a href="#"><img src="/assets/google-login.png" alt=""/></a>
-                          <a href="#"><img src="/assets/twitter-login.png" alt=""/></a>
-                          
-                      </p>  
-                  </div>
-                  <div class="col-md-7">
-                    <h3>Sign Up With:</h3>
-                      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-                          <div class=" form-group input-group input-group-lg">
-                                <span class="input-group-addon" id="sizing-addon1"><img src="/assets/email.png" alt="" width="26" height="19"/></span>
-                                <%= f.text_field :fname,:class=>"form-control",placeholder:"Username", "aria-describedby"=>"sizing-addon1",:required=>"required" %>
-                                <!-- <input type="text" class="form-control" placeholder="Username" aria-describedby="sizing-addon1" required> -->
-                          </div>
-                          <div class="form-group input-group input-group-lg">
-                                <span class="input-group-addon" id="sizing-addon1"><img src="/assets/lock.png" alt="" width="26" height="19"/></span>
-                                <%= f.password_field :password,:class=>"form-control",placeholder:"Password", "aria-describedby"=>"sizing-addon1",:required=>"required" %>
-                                <!-- <input type="password" class="form-control" placeholder="Password" aria-describedby="sizing-addon1" required> -->
-                          </div>
-                          
-                          <div class=" form-group">
-                              <div class="checkbox">
-                                <%= f.check_box :remember_me,id: "check2",value: "check1" %>
-                                  <!-- <input id="check2" type="checkbox" name="check" value="check1"> -->
-                                <label for="check2">Remember Me</label>
-                              </div>
-                          </div>
-                          <%= f.submit 'Sign In', class: 'btn-default-theme' %>
-                          <!-- <button type="submit" class="btn-default-theme">Sign In</button> -->
-                      <%end%>
-                      <p class="links-popup">
-                          <a href="javascript:void(0);">I forget my password </a>
-                          <a href="/users/sign_up" >Register a new membership</a>
-                       </p>
-                  </div>
-              </div>
+          <div class="row">
+            <div class="col-md-5">
+              <h3>Login With:</h3>
+              <p class="social-login">
+                <a href="<%= user_omniauth_authorize_path(:facebook) %>"><img src="/assets/fb-login.png" alt=""/></a>
+                <a href="<%= user_omniauth_authorize_path(:google_oauth2) %>"><img src="/assets/google-login.png" alt=""/></a>
+                <a href="#"><img src="/assets/twitter-login.png" alt=""/></a>  
+              </p>  
+            </div>
+            <div class="col-md-7">
+              <h3>Sign Up With:</h3>
+              <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+                <div class=" form-group input-group input-group-lg">
+                  <span class="input-group-addon" id="sizing-addon1"><img src="/assets/email.png" alt="" width="26" height="19"/></span>
+                  <%= f.text_field :fname,:class=>"form-control",placeholder:"Username", "aria-describedby"=>"sizing-addon1",:required=>"required" %>
+                </div>
+                <div class="form-group input-group input-group-lg">
+                  <span class="input-group-addon" id="sizing-addon1"><img src="/assets/lock.png" alt="" width="26" height="19"/></span>
+                  <%= f.password_field :password,:class=>"form-control",placeholder:"Password", "aria-describedby"=>"sizing-addon1",:required=>"required" %>
+                </div>
                 
-             
+                <div class=" form-group">
+                  <div class="checkbox">
+                    <%= f.check_box :remember_me,id: "check2",value: "check1" %>
+                    <label for="check2">Remember Me</label>
+                  </div>
+                </div>
+                <%= f.submit 'Sign In', class: 'btn-default-theme' %>
+              <%end%>
+              <p class="links-popup">
+                <a href="javascript:void(0);">I forget my password </a>
+                <a href="/users/sign_up" >Register a new membership</a>
+               </p>
+            </div>
+          </div>
         </div>
-        
       </div>
     </div>
   </div>
-</div>  
+</div>
 
 <footer class="footer">
   <div class="container">
-      <a href="#home" class="back-top"><img src="/assets/backTotop.png" alt="pic"/></a>
-        <p class="copy-text">Copyright © 2015 <span>StealthROI</span>. All rights reserved.</p>
+    <a href="#home" class="back-top"><img src="/assets/backTotop.png" alt="pic"/></a>
+    <p class="copy-text">Copyright © 2015 <span>StealthROI</span>. All rights reserved.</p>
     <p class="t-social"><a href="#"><img src="/assets/icon-facebook.png" alt="" /></a> <a href="#"><img src="/assets/icon-twitter.png" alt="" /></a> <a href="#"><img src="/assets/icon-gplus.png" alt="" /></a></p>
-    </div>
-
+  </div>
 </footer>
 
 <script>
-$(function() {
+  $(function() {
     var header = $(".header");
-    $(window).scroll(function(e) {    
-        var scroll = $(window).scrollTop();
-    
-        if (scroll >= 150) {
-            header.addClass("shrink");
-       e.preventDefault();
-        } else {
-            header.removeClass("shrink");
-        }
+    $(window).scroll(function(e) {
+      var scroll = $(window).scrollTop();
+      if (scroll >= 150) {
+        header.addClass("shrink");
+        e.preventDefault();
+      } else {
+        header.removeClass("shrink");
+      }
     });
-});
+  });
 </script>

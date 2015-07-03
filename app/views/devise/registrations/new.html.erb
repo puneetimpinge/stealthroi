@@ -34,7 +34,7 @@
               <h3>SignUp With :</h3>
               <p class="social-login">
                 <a href="<%= user_omniauth_authorize_path(:facebook) %>"><img src="/assets/fb-signup.png" alt=""/></a>
-                <a href="#"><img src="/assets/google-signup.png" alt=""/></a>
+                <a href="<%= user_omniauth_authorize_path(:google_oauth2) %>"><img src="/assets/google-signup.png" alt=""/></a>
                 <a href="#"><img src="/assets/twitter-signup.png" alt=""/></a>
               </p>
             </div>
@@ -104,40 +104,40 @@
 
   <footer class="footer">
     <div class="container">
-        <a href="#home" class="back-top"><img src="/assets/backTotop.png" alt="pic"/></a>
-          <p class="copy-text">Copyright © 2015 <span>StealthROI</span>. All rights reserved.</p>
+      <a href="#home" class="back-top"><img src="/assets/backTotop.png" alt="pic"/></a>
+      <p class="copy-text">Copyright © 2015 <span>StealthROI</span>. All rights reserved.</p>
       <p class="t-social"><a href="#"><img src="/assets/icon-facebook.png" alt="" /></a> <a href="#"><img src="/assets/icon-twitter.png" alt="" /></a> <a href="#"><img src="/assets/icon-gplus.png" alt="" /></a></p>
       </div>
   </footer>
 </div>
 
 <script>
-$(function() {
-  var header = $(".header");
-  $(window).scroll(function(e) {
-    var scroll = $(window).scrollTop();
-    if (scroll >= 150) {
-      header.addClass("shrink");
-    }else {
-      header.removeClass("shrink");
-    }
+  $(function() {
+    var header = $(".header");
+    $(window).scroll(function(e) {
+      var scroll = $(window).scrollTop();
+      if (scroll >= 150) {
+        header.addClass("shrink");
+      }else {
+        header.removeClass("shrink");
+      }
+    });
+    $("#user_password").rules("add",{minlength: 8});
+    $("#user_password_confirmation").rules("add",{minlength: 8,equalTo: "#user_password"});
   });
-  $("#user_password").rules("add",{minlength: 8});
-  $("#user_password_confirmation").rules("add",{minlength: 8,equalTo: "#user_password"});
-});
 
-$("#next_btn").click(function(e){
-  e.preventDefault();
-  e.stopPropagation();
-  $($('form')[0]).valid();
-  $("#user_password").rules("add",{minlength: 8});
-  $("#user_password_confirmation").rules("add",{minlength: 8,equalTo: "#user_password"});
+  $("#next_btn").click(function(e){
+    e.preventDefault();
+    e.stopPropagation();
+    $($('form')[0]).valid();
+    $("#user_password").rules("add",{minlength: 8});
+    $("#user_password_confirmation").rules("add",{minlength: 8,equalTo: "#user_password"});
 
-  if ($($('form')[0]).valid()){
-    $(".signup_box").hide()
-    $(".payment_box").show()
-  }
-})
+    if ($($('form')[0]).valid()){
+      $(".signup_box").hide()
+      $(".payment_box").show()
+    }
+  })
 
   $("#back_btn").click(function(e){
     e.preventDefault();
