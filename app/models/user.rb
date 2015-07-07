@@ -3,7 +3,7 @@ class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable,:omniauthable, :omniauth_providers => [:facebook, :google_oauth2]#, :confirmable
+         :recoverable, :rememberable, :trackable, :validatable,:omniauthable, :omniauth_providers => [:facebook, :google_oauth2, :twitter]#, :confirmable
 
   #has_one :payment
   attr_accessor :card_type, :card_number,:cvv,:card_expires_on,:card_name
@@ -17,6 +17,25 @@ class User < ActiveRecord::Base
       user.password = Devise.friendly_token[0,20]
       user.fname = auth.info.name   # assuming the user model has a name
       # user.image = auth.info.image # assuming the user model has an image
+    end
+  end
+
+  def self.find_for_twitter_oauth(auth)
+    user = User.where(:provider => auth.provider, :uid => auth.uid).first
+    if user
+      return user
+    else
+      registered_user = User.where(:email => auth.uid + "@twitter.com").first
+      if registered_user
+        return registered_user
+      else
+        # user = User.create(name:auth.info.name,
+        #   provider:auth.provider,
+        #   uid:auth.uid,
+        #   email:auth.uid+"@twitter.com",
+        #   password:Devise.friendly_token[0,20]
+        # )
+      end
     end
   end
 

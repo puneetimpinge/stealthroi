@@ -54,3 +54,4 @@ gem 'devise'
 gem 'paypal-sdk-rest'
 gem 'omniauth-facebook'
 gem "omniauth-google-oauth2"
+gem 'omniauth-twitter'

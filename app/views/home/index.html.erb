@@ -61,7 +61,7 @@ email in next 10 minutes.</p>
             <p class="social-login">
             	<a href="<%= user_omniauth_authorize_path(:facebook) %>"><img src="/assets/fb-signup.png" alt=""/></a>
               <a href="<%= user_omniauth_authorize_path(:google_oauth2) %>"><img src="/assets/google-signup.png" alt=""/></a>
-              <a href="#"><img src="/assets/twitter-signup.png" alt=""/></a>
+              <a href="<%= user_omniauth_authorize_path(:twitter) %>"><img src="/assets/twitter-signup.png" alt=""/></a>
             </p>	
           </div>
           <div class="col-md-7">
@@ -215,7 +215,7 @@ email in next 10 minutes.</p>
             <p class="social-login">
               <a href="<%= user_omniauth_authorize_path(:facebook) %>"><img src="/assets/fb-login.png" alt=""/></a>
                 <a href="<%= user_omniauth_authorize_path(:google_oauth2) %>"><img src="/assets/google-login.png" alt=""/></a>
-                <a href="#"><img src="/assets/twitter-login.png" alt=""/></a>
+                <a href="<%= user_omniauth_authorize_path(:twitter) %>"><img src="/assets/twitter-login.png" alt=""/></a>
             </p>  
           </div>
           <div class="col-md-7 col-sm-7 col-xs-12">
