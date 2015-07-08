@@ -59,9 +59,9 @@ email in next 10 minutes.</p>
           <div class="col-md-5">
           	<h3>SignUp With :</h3>
             <p class="social-login">
-            	<a href="<%= user_omniauth_authorize_path(:facebook) %>"><img src="/assets/fb-signup.png" alt=""/></a>
-              <a href="<%= user_omniauth_authorize_path(:google_oauth2) %>"><img src="/assets/google-signup.png" alt=""/></a>
-              <a href="<%= user_omniauth_authorize_path(:twitter) %>"><img src="/assets/twitter-signup.png" alt=""/></a>
+            	<a href="<%= user_omniauth_authorize_path(:facebook) %>" class="popup" id="facebook"><img src="/assets/fb-signup.png" alt=""/></a>
+              <a href="<%= user_omniauth_authorize_path(:google_oauth2) %>" class="popup" id="google_oauth2" ><img src="/assets/google-signup.png" alt=""/></a>
+              <a href="<%= user_omniauth_authorize_path(:twitter) %>" class="popup" id="twitter"><img src="/assets/twitter-signup.png" alt=""/></a>
             </p>	
           </div>
           <div class="col-md-7">
@@ -144,17 +144,17 @@ email in next 10 minutes.</p>
 <!--Payment-->
 <% if session.has_key?("facebook_data") %>
   <div class="modal fade modal-theme" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog" style="width:60%">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><img src="/assets/close.png" alt=""/></span></button>
-          <h4 class="modal-title" id="myModalLabel">SIGNUP</h4>
+          <h4 class="modal-title" id="myModalLabel">Hi <%=session['facebook_data']['info']['name']%></h4>
           <h5 class="error_msg" style="color:red;display:none"></h5>
         </div>
         <div class="modal-body">
           <div class="row">
-            <div class="col-md-7">
-              <h3>Register a new Account:</h3>
+            <div class="col-md-9" style="margin-left:75px">
+              <h3>Please Complete Your Payment:</h3>
               <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
                 <div class="signup_box" style="display:none">
                   <%= f.text_field :fname, :value => session['facebook_data']['info']['name'] %>
@@ -169,6 +169,10 @@ email in next 10 minutes.</p>
 
                 <div class="payment_box">
                   <div class=" form-group input-group input-group-lg">
+                    <span class="input-group-addon" id="sizing-addon1"><img src="/assets/retyp.png" alt="" width="26" height="19"/></span>
+                    <%= f.select :card_type, [["Visa", "visa"], ["MasterCard", "master"], ["Discover", "discover"], ["American Express", "american_express"]], :class=> "form-control" %>
+                  </div>
+                  <div class=" form-group input-group input-group-lg">
                     <span class="input-group-addon" id="sizing-addon1"><img src="/assets/user.png" alt="" width="26" height="19"/></span>
                     <%= f.text_field :card_name,:class=>"form-control",placeholder:"Card Name", "aria-describedby"=>"sizing-addon1" %>
                   </div>
@@ -179,10 +183,6 @@ email in next 10 minutes.</p>
                   <div class=" form-group input-group input-group-lg">
                     <span class="input-group-addon" id="sizing-addon1"><img src="/assets/lock.png" alt="" width="26" height="19"/></span>
                     <%= f.text_field :cvv,:class=>"form-control",placeholder:"CVV", "aria-describedby"=>"sizing-addon1" %>
-                  </div>
-                  <div class=" form-group input-group input-group-lg">
-                    <span class="input-group-addon" id="sizing-addon1"><img src="/assets/retyp.png" alt="" width="26" height="19"/></span>
-                    <%= f.select :card_type, [["Visa", "visa"], ["MasterCard", "master"], ["Discover", "discover"], ["American Express", "american_express"]], :class=> "form-control" %>
                   </div>
                   <div class=" form-group input-group input-group-lg">
                     <span class="input-group-addon" id="sizing-addon1"><img src="/assets/lock.png" alt="" width="26" height="19"/></span>
@@ -213,9 +213,9 @@ email in next 10 minutes.</p>
           <div class="col-md-5 col-sm-5 col-xs-12">
             <h3>Login With:</h3>
             <p class="social-login">
-              <a href="<%= user_omniauth_authorize_path(:facebook) %>"><img src="/assets/fb-login.png" alt=""/></a>
-                <a href="<%= user_omniauth_authorize_path(:google_oauth2) %>"><img src="/assets/google-login.png" alt=""/></a>
-                <a href="<%= user_omniauth_authorize_path(:twitter) %>"><img src="/assets/twitter-login.png" alt=""/></a>
+              <a href="<%= user_omniauth_authorize_path(:facebook) %>" class="popup" id="facebook"><img src="/assets/fb-login.png" alt=""/></a>
+                <a href="<%= user_omniauth_authorize_path(:google_oauth2) %>" class="popup" id="google_oauth2"><img src="/assets/google-login.png" alt=""/></a>
+                <a href="<%= user_omniauth_authorize_path(:twitter) %>" class="popup" id="twitter"><img src="/assets/twitter-login.png" alt=""/></a>
             </p>  
           </div>
           <div class="col-md-7 col-sm-7 col-xs-12">
@@ -505,8 +505,6 @@ email in next 10 minutes.</p>
       })
     }  
   })
-
-
 </script>
 
 <style type="text/css">
