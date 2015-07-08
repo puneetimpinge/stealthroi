@@ -488,7 +488,7 @@ email in next 10 minutes.</p>
             target.removeChild(spinner.el);
             $(src.parent().parent()[0]).submit()
           }else{
-            var msg = JSON.stringify(e.message.details) 
+            var msg = JSON.stringify(e.message) 
             $(".error_msg").html(msg).css("display","block")
             $('#signupModal').animate({scrollTop: '100px'}, 300);
             target.removeChild(spinner.el);
