@@ -5,7 +5,11 @@ class ApplicationController < ActionController::Base
   before_action :configure_devise_permitted_parameters, if: :devise_controller?
 
   def after_sign_in_path_for(resource)
-    landing_user_index_path
+    if params[:admin_user].nil?
+      landing_user_index_path
+    else
+      admin_root_url
+    end
   end
 
   protected
