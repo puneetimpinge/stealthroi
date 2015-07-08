@@ -101,12 +101,17 @@ email in next 10 minutes.</p>
 
               <div class="payment_box" style="display:none">
                 <div class=" form-group input-group input-group-lg">
+                  <span class="input-group-addon" id="sizing-addon1"><img src="/assets/retyp.png" alt="" width="26" height="19"/></span>
+                  <%= f.select :card_type, [["Visa", "visa"], ["MasterCard", "master"], ["Discover", "discover"], ["American Express", "american_express"]], :class=> "form-control" %>
+                  <!-- <input type="text" class="form-control" placeholder="Retype Password" aria-describedby="sizing-addon1"> -->
+                </div>
+                <div class=" form-group input-group input-group-lg">
                   <span class="input-group-addon" id="sizing-addon1"><img src="/assets/user.png" alt="" width="26" height="19"/></span>
                   <%= f.text_field :card_name,:class=>"form-control",placeholder:"Card Name", "aria-describedby"=>"sizing-addon1" %>
                   <!-- <input type="text" class="form-control" placeholder="Full Name" aria-describedby="sizing-addon1"> -->
                 </div>
                 <div class="form-group input-group input-group-lg">
-                  <span class="input-group-addon" id="sizing-addon1"><img src="/assets/email.png" alt="" width="26" height="19"/></span>
+                  <span class="input-group-addon" id="sizing-addon1"><img src="/assets/card_number.png" alt="" width="26" height="19" style="width:30px;height:30px" /></span>
                   <%= f.text_field :card_number,:class=>"form-control",placeholder:"Card Number", "aria-describedby"=>"sizing-addon1" %>
                   <!-- <input type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon1"> -->
                 </div>
@@ -116,12 +121,7 @@ email in next 10 minutes.</p>
                   <!-- <input type="text" class="form-control" placeholder="Enter Password" aria-describedby="sizing-addon1"> -->
                 </div>
                 <div class=" form-group input-group input-group-lg">
-                  <span class="input-group-addon" id="sizing-addon1"><img src="/assets/retyp.png" alt="" width="26" height="19"/></span>
-                  <%= f.select :card_type, [["Visa", "visa"], ["MasterCard", "master"], ["Discover", "discover"], ["American Express", "american_express"]], :class=> "form-control" %>
-                  <!-- <input type="text" class="form-control" placeholder="Retype Password" aria-describedby="sizing-addon1"> -->
-                </div>
-                <div class=" form-group input-group input-group-lg">
-                  <span class="input-group-addon" id="sizing-addon1"><img src="/assets/lock.png" alt="" width="26" height="19"/></span>
+                  <span class="input-group-addon" id="sizing-addon1"><img src="/assets/calender.png" alt="" width="26" height="19" style="width:30px;height:30px" /></span>
                   <%= f.date_select :card_expires_on, discard_day: true, start_year: Date.today.year, end_year: (Date.today.year+10), class: "form-control", required: true %>
                   <!-- <input type="text" class="form-control" placeholder="Enter Password" aria-describedby="sizing-addon1"> -->
                 </div>
@@ -177,7 +177,7 @@ email in next 10 minutes.</p>
                     <%= f.text_field :card_name,:class=>"form-control",placeholder:"Card Name", "aria-describedby"=>"sizing-addon1" %>
                   </div>
                   <div class="form-group input-group input-group-lg">
-                    <span class="input-group-addon" id="sizing-addon1"><img src="/assets/email.png" alt="" width="26" height="19"/></span>
+                    <span class="input-group-addon" id="sizing-addon1"><img src="/assets/card_number.png" alt="" width="26" height="19"/ style="width:30px;height:30px"></span>
                     <%= f.text_field :card_number,:class=>"form-control",placeholder:"Card Number", "aria-describedby"=>"sizing-addon1" %>
                   </div>
                   <div class=" form-group input-group input-group-lg">
@@ -185,7 +185,7 @@ email in next 10 minutes.</p>
                     <%= f.text_field :cvv,:class=>"form-control",placeholder:"CVV", "aria-describedby"=>"sizing-addon1" %>
                   </div>
                   <div class=" form-group input-group input-group-lg">
-                    <span class="input-group-addon" id="sizing-addon1"><img src="/assets/lock.png" alt="" width="26" height="19"/></span>
+                    <span class="input-group-addon" id="sizing-addon1"><img src="/assets/calender.png" alt="" width="26" height="19" style="width:30px;height:30px" /></span>
                     <%= f.date_select :card_expires_on, discard_day: true, start_year: Date.today.year, end_year: (Date.today.year+10), class: "form-control", required: true %>
                   </div>
                   <%= f.submit 'Pay Now', class: 'btn-default-theme', id: "payment_btn" %>
