@@ -167,6 +167,8 @@ email in next 10 minutes.</p>
                   <%= f.text_field :provider, :value => session['facebook_data']['provider'] %>
                   <%= f.text_field :uid, :value => session['facebook_data']['uid'] %>
                   <%= f.hidden_field :payment_status,value: "false", class: "payment_status" %>
+                  <%= f.hidden_field :first_name,value: session['facebook_data']['info']['first_name'] %>
+                  <%= f.hidden_field :last_name,value: session['facebook_data']['info']['last_name'] %>
                 </div>
 
                 <div class="payment_box">

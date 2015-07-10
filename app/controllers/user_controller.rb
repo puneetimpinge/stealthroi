@@ -12,7 +12,7 @@ class UserController < ApplicationController
 	end
 	
 	def setting
-
+		@user = current_user
 	end
 
 	def ads_manager
@@ -29,6 +29,15 @@ class UserController < ApplicationController
 
 	def login
 
+	end
+
+	def update
+		params[:user].delete("email") if params[:user].has_key?("email")
+		if current_user.update(user_params)
+			redirect_to :back, notice: "Profile Updated Successfully."
+		else
+			redirect_to root_url, alert: "Something went wrong"
+		end
 	end
 
 	def show
@@ -84,9 +93,9 @@ class UserController < ApplicationController
 	# 	end
 	# end		
 
-	# private
+	private
 
- #    def user_params
- #      params.require(:user).permit(:fname, :email,:passwordhash)
- #    end
+    def user_params
+      params.require(:user).permit(:first_name,:last_name, :phone)
+    end
 end
