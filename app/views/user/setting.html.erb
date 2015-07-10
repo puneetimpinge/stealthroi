@@ -168,17 +168,21 @@
                                 </div>
                                 <div role="tabpanel" class="tab-pane fade" id="password">
                                     <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-                                    	<div class="row">
-                                        	<div class="form-group">
-                                                <div class="col-md-3">
-                                                    <label>Current Password :</label>
-                                                </div>
-                                                <div class="col-md-9">
-                                                    <%= f.password_field :current_password, autocomplete: "off",class: "form-control" %>
-                                                    <!-- <input type="text" class="form-control" /> -->
+                                        <% if current_user.valid_password?("dummypass@12345") %>
+                                            <%= f.hidden_field :current_password,value: "dummypass@12345", class: "payment_status" %>
+                                        <%else%>
+                                            <div class="row">
+                                                <div class="form-group">
+                                                    <div class="col-md-3">
+                                                        <label>Current Password :</label>
+                                                    </div>
+                                                    <div class="col-md-9">
+                                                        <%= f.password_field :current_password, autocomplete: "off",class: "form-control" %>
+                                                        <!-- <input type="text" class="form-control" /> -->
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
+                                        <%end%>
                                         <div class="row">
                                         	<div class="form-group">
                                                 <div class="col-md-3">

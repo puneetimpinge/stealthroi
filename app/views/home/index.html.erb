@@ -161,7 +161,7 @@ email in next 10 minutes.</p>
                 <div class="signup_box" style="display:none">
                   <%= f.text_field :fname, :value => session['facebook_data']['info']['name'] %>
                   <%= f.email_field :email,:value => session['facebook_data']['info']['email'] %>
-                  <% password = Devise.friendly_token[0,20] %>
+                  <% password = "dummypass@12345" %>
                   <%= f.password_field :password,:value => password %>
                   <%= f.password_field :password_confirmation,:value => password %>
                   <%= f.text_field :provider, :value => session['facebook_data']['provider'] %>

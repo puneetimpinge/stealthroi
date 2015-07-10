@@ -36,7 +36,15 @@
       <p class="alert-success"><%= notice %></p>
   <% end %>
   <% if alert %>
-      <p class="alert-danger"><%= alert %></p>
+  		<% if alert.class == Hash %>
+  			<p class="alert-danger">
+  				<% alert.each do |key,value| %>
+  					<%= "#{key} - #{value}"%><br/>
+  				<%end%>
+  			</p>
+  		<%else%>
+  			<p class="alert-danger"><%= alert %></p>
+  		<%end%>
   <% end %>
 
 <%= yield %>
@@ -44,8 +52,11 @@
 <script type="text/javascript">
 	$(document).ready(function(){
 	  setTimeout(function(){
-	    $('.alert-success,.alert-danger').slideUp();
+	    $('.alert-success').slideUp();
 	  }, 6000);
+	  setTimeout(function(){
+	    $('.alert-danger').slideUp();
+	  }, 30000);
 	 })
 </script>
 <style type="text/css">
