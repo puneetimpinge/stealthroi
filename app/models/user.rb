@@ -9,8 +9,15 @@ class User < ActiveRecord::Base
   attr_accessor :card_type, :card_number,:cvv,:card_expires_on,:card_name
 
   attr_accessor :encrypted_password
+  attr_accessor :login
   mount_uploader :avatar, AvatarUploader
    before_save :default_values#, :verify_payment
+
+   def self.find_for_database_authentication(warden_conditions)
+     conditions = warden_conditions.dup
+     login = conditions.delete(:login)
+     where(conditions).where(["lower(fname) = :value OR lower(email) = :value", { :value => login.strip.downcase }]).first
+   end
 
    def self.from_omniauth(auth)
     where(provider: auth.provider, uid: auth.uid).first_or_create do |user|
@@ -49,11 +56,23 @@ class User < ActiveRecord::Base
   end
 
   def default_values
-    self.accesslevel ||= 1
-    self.viralstyleapikey ||= 'test'
-    self.emailverificationcode ||= 'test'
-    self.tableprefix ||= 'test'
-    self.timezonecode ||= 'test'
+    if self.id.nil?
+      self.accesslevel ||= 1
+      self.viralstyleapikey ||= 'test'
+      self.emailverificationcode ||= 'test'
+      self.tableprefix ||= 'test'
+      self.timezonecode ||= 'test'
+      if User.maximum(:id).nil?
+        self.fname = self.fname.gsub(" ","_").downcase
+      else
+        @data = User.where(fname: self.fname.gsub(" ","_").downcase+"#{User.maximum(:id)}").first
+        if @data.nil? 
+          self.fname = self.fname.gsub(" ","_").downcase+"#{User.maximum(:id)}"
+        else
+          self.fname = self.fname.gsub(" ","_").downcase+"#{User.maximum(:id)}"+"_#{rand(1000)}"
+        end
+      end
+    end
   end
   
   def verify_payment

@@ -4,10 +4,10 @@
             <li class="nav-header text-center">
                 <div class="dropdown profile-element"> <span>
                 <div class="logo-main"><img src="/assets/logo_white.png" alt="pic"/></div>
-                        <img alt="image" class="img-circle" src="/assets/user_left.png" />
+                        <img alt="image" class="img-circle" src="<%=current_user.avatar.url.nil? ? '/assets/default.jpg' : current_user.avatar.url %>" style="width:108px;height:108px" />
                          </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                        <span class="clear"> <span class="block m-t-xs"> John Oate
+                        <span class="clear"> <span class="block m-t-xs"> <%=current_user.fname%>
                          </span> <span class="text-muted text-xs block">Administrator </span> </span> </a>
                     
                 </div>

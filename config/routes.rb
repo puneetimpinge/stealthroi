@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       get "get_data"
       get "login"
       post "verify_payment"
+      get "verify_username"
     end  
   end 
   # get 'user/landing' => 'user#landing'

@@ -1,5 +1,5 @@
 class UserController < ApplicationController
-	before_action :authenticate_user!, :except=> "verify_payment"
+	before_action :authenticate_user!, :except=> ["verify_payment","verify_username"]
 	skip_before_filter :verify_authenticity_token, :only=> "verify_payment"
 	include PayPal::SDK::REST
 	
@@ -93,9 +93,14 @@ class UserController < ApplicationController
 	# 	end
 	# end		
 
+	def verify_username
+		@user = User.where(fname: params[:username]).first
+		render :json => {:status => (@user.nil? ? true : false)}
+	end
+
 	private
 
     def user_params
-      params.require(:user).permit(:first_name,:last_name, :phone,:avatar)
+      params.require(:user).permit(:first_name,:last_name, :phone,:avatar, :fname)
     end
 end

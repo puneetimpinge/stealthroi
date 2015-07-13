@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
 
   def configure_devise_permitted_parameters
  	devise_parameter_sanitizer.for(:sign_in) { 
-        |u| u.permit(:fname,:password) 
+        |u| u.permit(:login, :fname,:password, :email, :remember_me) 
     }	
 
     devise_parameter_sanitizer.for(:sign_up) { 

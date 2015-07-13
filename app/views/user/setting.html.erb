@@ -23,7 +23,17 @@
                             </ul>
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane  active" id="info">
-                                <%= form_for(@user, url: user_path(@user), html: { method: :put }) do |f| %>
+                                <%= form_for(@user, url: user_path(@user), html: { method: :put, id: "profile_form" }) do |f| %>
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <div class="col-md-3">
+                                                <label>User Name :</label>
+                                            </div>
+                                            <div class="col-md-9">
+                                                <%= f.text_field :fname,class: "form-control" %>
+                                            </div>
+                                        </div>
+                                    </div>
                                 	<div class="row">
                                     	<div class="form-group">
                                             <div class="col-md-3">
@@ -161,7 +171,7 @@
                                     	<div class="form-group">
                                             
                                             <div class="col-md-9 col-md-offset-3">
-                                                <input type="submit" value="Save Changes" class="btn-admin btn-blue" />
+                                                <input type="submit" value="Save Changes" class="btn-admin btn-blue" id="profile_save" />
                                                 <input type="submit" value="Cancel" class="btn-admin btn-grey"/>
                                             </div>
                                         </div>
@@ -227,11 +237,7 @@
                                         	<div class="col-md-12">
                                             	<div class="image_uploading">
                                                 <div class="image_upload_main">
-                                                    <%if @user.avatar? %>
-                                                        <%= image_tag(@user.avatar_url, height: "231", width: "271") %>
-                                                    <%else%>
-                                                        <img src="/assets/image_uplaod.png" alt="pic"/>
-                                                    <%end%>
+                                                    <%= image_tag(@user.avatar_url.nil? ? "default.jpg" : @user.avatar_url, height: "231", width: "271") %>
                                                 </div>
                                             </div>
                                             </div>
@@ -274,3 +280,42 @@
     <%= render :partial => "/shared/footer" %>
     </div>
 </div>
+
+<script type="text/javascript">
+    $("#user_fname").change(function(){
+        var src = $(this);
+        var username = src.val();
+        $.ajax({
+            type: 'get',
+            url: '/user/verify_username',
+            data: "username="+username,
+            success: function(res){
+                if(res.status == false){
+                    src.parent().parent().prepend("<div class='username_alert' style='color:red'>Username already Exists.</div>")
+                }else{
+                    src.parent().parent().find(".username_alert").remove()
+                }
+            }
+        })
+    });
+
+    $("#profile_save").click(function(e){
+        e.preventDefault();
+        if ($("#user_fname").val() != "<%= current_user.fname%>"){
+            $.ajax({
+                type: 'get',
+                url: '/user/verify_username',
+                data: "username="+$("#user_fname").val(),
+                success: function(res){
+                    if(res.status == false){
+                        alert("Username already Exists.")
+                    }else{
+                        $("#profile_form").submit();
+                    }
+                }
+            })
+        }else{
+            $("#profile_form").submit();
+        }
+    })
+</script>

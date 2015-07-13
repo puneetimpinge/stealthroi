@@ -38,11 +38,11 @@
               </p>  
             </div>
             <div class="col-md-7">
-              <h3>Sign Up With:</h3>
+              <h3>Sign In With:</h3>
               <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
                 <div class=" form-group input-group input-group-lg">
                   <span class="input-group-addon" id="sizing-addon1"><img src="/assets/email.png" alt="" width="26" height="19"/></span>
-                  <%= f.text_field :fname,:class=>"form-control",placeholder:"Username", "aria-describedby"=>"sizing-addon1",:required=>"required" %>
+                  <%= f.text_field :login,:class=>"form-control",placeholder:"Username or Email", "aria-describedby"=>"sizing-addon1",:required=>"required" %>
                 </div>
                 <div class="form-group input-group input-group-lg">
                   <span class="input-group-addon" id="sizing-addon1"><img src="/assets/lock.png" alt="" width="26" height="19"/></span>

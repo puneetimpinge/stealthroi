@@ -194,7 +194,7 @@
     </li>
     <li class="dropdown">
         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                <span class="clear">  <span class="text-muted text-xs block"><img src="/assets/user_right.png"/><%=current_user.fname if current_user%> <b class="caret"></b></span> </span> </a>
+                <span class="clear">  <span class="text-muted text-xs block"><img src="<%=current_user.avatar.url.nil? ? '/assets/default.jpg' : current_user.avatar.url %>" style="width:40px;height:40px;border-radius:20px"/><%=current_user.fname if current_user%> <b class="caret"></b></span> </span> </a>
             <div class="dropdown-menu dropdown-alerts c2">
         	
             <ul class="user-dropdown">
