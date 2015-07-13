@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   attr_accessor :card_type, :card_number,:cvv,:card_expires_on,:card_name
 
   attr_accessor :encrypted_password
+  mount_uploader :avatar, AvatarUploader
    before_save :default_values#, :verify_payment
 
    def self.from_omniauth(auth)
