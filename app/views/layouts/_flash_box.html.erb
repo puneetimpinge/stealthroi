@@ -7,8 +7,7 @@
 			}, 3000);
   	})
   </script>
-  	<!-- <div class="notice" style="color:green;padding:10px"><span><%#= notice %></span></div> -->
-  <%end%>
+<%end%>
 
 <% if alert %>
   <script type="text/javascript">
@@ -21,13 +20,9 @@
   </script>
 <% end %>
 
-  <div class="modal fade modal-theme reset-pass" id="noticeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade modal-theme reset-pass" id="noticeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" style="width:50%">
     <div class="modal-content">
-      <!-- <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><img src="/assets/close.png" alt=""/></span></button>
-        <h4 class="modal-title" id="myModalLabel">Notice</h4>
-      </div> -->
       <div class="modal-body" style="padding:15px">
         <div class="row row-centered"><br>
           <img src="/assets/tick.png" alt="pic" /><br/>
@@ -41,10 +36,6 @@
 <div class="modal fade modal-theme reset-pass" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
   <div class="modal-dialog" style="width:50%">
     <div class="modal-content">
-      <!-- <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><img src="/assets/close.png" alt=""/></span></button>
-        <h4 class="modal-title" id="myModalLabel">Notice</h4>
-      </div> -->
       <div class="modal-body" style="padding:15px">
         <div class="row row-centered"><br>
           <img src="/assets/error.png" alt="pic" width="50" height="50"/><br/>
@@ -60,11 +51,3 @@
     </div>
   </div>
 </div>
-
-<script type="text/javascript">
-  $(document).ready(function(){
-    setTimeout(function(){
-      $('.notice,.alert').slideUp();
-    }, 6000);
-   })
-</script>
