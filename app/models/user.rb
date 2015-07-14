@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,:omniauthable, :omniauth_providers => [:facebook, :google_oauth2, :twitter]#, :confirmable
 
   #has_one :payment
+  validates_uniqueness_of :fname
   attr_accessor :card_type, :card_number,:cvv,:card_expires_on,:card_name
 
   attr_accessor :encrypted_password
