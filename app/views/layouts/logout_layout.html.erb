@@ -35,22 +35,8 @@
 <body id="home">
   <div id="preview1" class="preview"></div>
 
-  <%if notice%>
-  	<div class="notice" style="color:green;padding:10px"><span><%= notice %></span></div>
-  <%end%>
-  <%if alert%>
-  	<div class="alert" style="color:red;padding:10px;margin:0;border:0"><span><%= alert %></span></div>
-  <%end%>
-
-<%= yield %>
-
-<script type="text/javascript">
-	$(document).ready(function(){
-	  setTimeout(function(){
-	    $('.notice,.alert').slideUp();
-	  }, 6000);
-	 })
-</script>
+  <%= render :partial => "/layouts/flash_box" %>
+  <%= yield %>
 
 </body>
 </html>

@@ -32,11 +32,15 @@ class UserController < ApplicationController
 	end
 
 	def update
-		params[:user].delete("email") if params[:user].has_key?("email")
-		if current_user.update(user_params)
-			redirect_to :back, notice: "Profile Updated Successfully."
+		if params.has_key?("user")
+			params[:user].delete("email") if params[:user].has_key?("email")
+			if current_user.update(user_params)
+				redirect_to :back, notice: "Profile Updated Successfully."
+			else
+				redirect_to root_url, alert: "Something went wrong"
+			end
 		else
-			redirect_to root_url, alert: "Something went wrong"
+			redirect_to root_url
 		end
 	end
 
