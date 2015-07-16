@@ -9,8 +9,9 @@ class HomeController < ApplicationController
   end
 
   def get_viralstyle
-  	response = HTTParty.get('http://stealthroi.com/phpscripts/frommidnightdata.php')
-  	render :json => { :response => response }
+  	response = HTTParty.post('http://stealthroi.com/phpscripts/frommidnightdata.php',
+      body: params[:parameters] )
+  	render :json => { :response => response }.to_json
   end
 
   def  get_teechip
@@ -24,8 +25,9 @@ class HomeController < ApplicationController
   end	
 
   def get_top_campaigns
-  	response = HTTParty.get('http://stealthroi.com/phpscripts/topCampaignHandlerScript.php')
-  	render :json => { :response => response }
+  	response = HTTParty.post('http://stealthroi.com/phpscripts/topCampaignHandlerScript.php',
+      body: params[:parameters] )
+  	render :json => { :response => response }.to_json
   end
 
   def get_top_graph

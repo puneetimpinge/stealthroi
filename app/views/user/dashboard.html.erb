@@ -624,9 +624,10 @@
             $.ajax({
                 url: "/home/get_viralstyle",
                 type: "get",
+                data: {parameters: {email: "dev@stealthroi.com"}},
                 dataType: "json",
                 success : function (data) {
-                    console.log(data)
+                    console.log("get_viralstyle" + data)
                     document.getElementById("tableDiv").innerHTML= data.response;
                     $('#my-table').dataTable({
                         "aLengthMenu": [
@@ -694,9 +695,11 @@
                 $.ajax({
                     url: "/home/get_top_campaigns",
                     type: "get",
+                    data: {parameters: {email: "dev@stealthroi.com"}},
                     dataType: "json",
                         success : function (data) {
                             data = data.response
+                            console.log("get_top_campaigns")
                             console.log("Response was: "+data);
                             myArray=data.split("customSplitter");
                             document.getElementById("topSummaryVSCampaigns").innerHTML=myArray[0];
@@ -862,7 +865,7 @@
                 $.ajax({
                     url: "/home/get_top_graph",
                     type: "get",
-                    data: {parameters: {graphtypeindex: graphTypeIndex, graphtimeindex: graphTimeIndex, graphstoreindex: graphStoreIndex}},
+                    data: {parameters: {graphtypeindex: graphTypeIndex, graphtimeindex: graphTimeIndex, graphstoreindex: graphStoreIndex, email: "dev@stealthroi.com"}},
                     dataType: "json",
                     success : function (data) {
                         data = data.response
@@ -931,13 +934,14 @@
                 $.ajax({
                     url: "/home/get_top_summary",
                     type: "get",
-                    data: {parameters: {graphtypeindex: graphTypeIndex, graphtimeindex: graphTimeIndex, graphstoreindex: graphStoreIndex}},
+                    data: {parameters: {graphtypeindex: graphTypeIndex, graphtimeindex: graphTimeIndex, graphstoreindex: graphStoreIndex, email: "dev@stealthroi.com"}},
                     dataType: "json",
          
                     success : function (data) {
                         data = data.response
                         /*Check if this is the most current request*/
                         if(topGraphRequestIndex==globalTopGraphRequestIndex){
+                            console.log("get_top_summary")
                             console.log("Response was: "+data);
                             myArray=data.split("customSplitter");
                             document.getElementById("topSummaryRevenue").innerHTML="$"+ myArray[0];
