@@ -15,7 +15,7 @@
       $('#alertModal').modal('show')
       setTimeout(function(){
         $('#alertModal').modal('hide')
-      }, 5000);
+      }, 10000);
     })
   </script>
 <% end %>
@@ -24,9 +24,10 @@
   <div class="modal-dialog" style="width:50%">
     <div class="modal-content">
       <div class="modal-body" style="padding:15px">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><img src="/assets/close.png" alt=""/></span></button>
         <div class="row row-centered"><br>
           <img src="/assets/tick.png" alt="pic" /><br/>
-          <%=notice%>
+          <div class="notice_message"><%=notice%></div>
         </div>
       </div>
     </div>
@@ -37,6 +38,7 @@
   <div class="modal-dialog" style="width:50%">
     <div class="modal-content">
       <div class="modal-body" style="padding:15px">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><img src="/assets/close.png" alt=""/></span></button>
         <div class="row row-centered"><br>
           <img src="/assets/error.png" alt="pic" width="50" height="50"/><br/>
           <% if alert.class == Hash %>
@@ -44,7 +46,7 @@
                 <%= "#{key} - #{value}"%><br/>
               <%end%>
           <%else%>
-            <%= alert %>
+            <div class="alert_message"><%= alert %></div>
           <%end%>
         </div>
       </div>

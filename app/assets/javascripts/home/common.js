@@ -11,3 +11,26 @@ $(document).ready(function() {
     return false;
   });
 });
+
+function alert_box(msg){
+
+    // var s=""
+    // $.each(msg, function(key, element) {
+    //     s=s+"<br/>"+element.toSource().replace('{','').replace('}','').replace('(','').replace(')','')
+    //     // alert('key: ' + key + '\n' + 'value: ' + element);
+    // });
+
+    $(".alert_message").html(msg)
+    $('#alertModal').css("z-index","1041").modal('show')
+    setTimeout(function(){
+        $('#alertModal').modal('hide')
+    }, 10000);
+  }
+
+  function notice_box(msg){
+    $(".notice_message").html(msg)
+    $('#noticeModal').css("z-index","1041").modal('show')
+    setTimeout(function(){
+        $('#noticeModal').modal('hide')
+    }, 3000);
+  }

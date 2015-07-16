@@ -53,7 +53,7 @@ email in next 10 minutes.</p>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><img src="/assets/close.png" alt=""/></span></button>
         <h4 class="modal-title" id="myModalLabel">SIGNUP</h4>
         <h5 class="error_msg" style="color:red;display:none"></h5>
-        <h5 class="success_msg" style="color:green;display:none">Successful Payment.</h5>
+        <!-- <h5 class="success_msg" style="color:green;display:none">Successful Payment.</h5> -->
       </div>
       <div class="modal-body">
         <div class="row">
@@ -151,7 +151,7 @@ email in next 10 minutes.</p>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><img src="/assets/close.png" alt=""/></span></button>
           <h4 class="modal-title" id="myModalLabel">Hi <%=session['facebook_data']['info']['name']%></h4>
           <h5 class="error_msg" style="color:red;display:none"></h5>
-          <h5 class="success_msg" style="color:green;display:none">Successful Payment.</h5>
+          <!-- <h5 class="success_msg" style="color:green;display:none">Successful Payment.</h5> -->
         </div>
         <div class="modal-body">
           <div class="row">
@@ -523,12 +523,15 @@ email in next 10 minutes.</p>
           if (e.status == true){
             $(".payment_status").val("true")
             target.removeChild(spinner.el);
-            $(".success_msg").css("display","block")
+            // $(".success_msg").css("display","block")
+            // notice_box("Successful Payment.")
             $(src.parent().parent()[0]).submit()
           }else{
             var msg = JSON.stringify(e.message) 
-            $(".error_msg").html(msg).css("display","block")
+            // $(".error_msg").html(msg).css("display","block")
             $('#signupModal').animate({scrollTop: '100px'}, 300);
+            console.log(e.message)
+            alert_box(msg)
             target.removeChild(spinner.el);
             // setTimeout(function(){
             //   $('.error_msg').slideUp();
