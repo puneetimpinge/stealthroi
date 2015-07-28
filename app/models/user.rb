@@ -59,18 +59,20 @@ class User < ActiveRecord::Base
   def default_values
     if self.id.nil?
       self.accesslevel ||= 1
-      self.viralstyleapikey ||= 'test'
-      self.emailverificationcode ||= 'test'
-      self.tableprefix ||= 'test'
-      self.timezonecode ||= 'test'
-      if User.maximum(:id).nil?
-        self.fname = self.fname.gsub(" ","_").downcase
-      else
-        @data = User.where(fname: self.fname.gsub(" ","_").downcase+"#{User.maximum(:id)}").first
-        if @data.nil? 
-          self.fname = self.fname.gsub(" ","_").downcase+"#{User.maximum(:id)}"
+      self.viralstyleapikey ||= ''
+      self.emailverificationcode ||= ''
+      self.tableprefix ||= ''
+      self.timezonecode ||= ''
+      if self.fname.nil?
+        if User.maximum(:id).nil?
+          self.fname = self.fname.gsub(" ","_").downcase
         else
-          self.fname = self.fname.gsub(" ","_").downcase+"#{User.maximum(:id)}"+"_#{rand(1000)}"
+          @data = User.where(fname: self.fname.gsub(" ","_").downcase+"#{User.maximum(:id)}").first
+          if @data.nil? 
+            self.fname = self.fname.gsub(" ","_").downcase+"#{User.maximum(:id)}"
+          else
+            self.fname = self.fname.gsub(" ","_").downcase+"#{User.maximum(:id)}"+"_#{rand(1000)}"
+          end
         end
       end
     end
