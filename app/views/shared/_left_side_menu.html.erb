@@ -15,26 +15,26 @@
                     <img src="/assets/logo_icon.png" alt="pic"/>
                 </div>
             </li>
-            <li class="active">
+            <li class="<%= 'active' if params[:action] == 'dashboard' %>">
                 <!-- <a href="/user/dashboard"><i class="fa fa-tachometer"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a> -->
                 <%= link_to '<i class="fa fa-tachometer"></i> <span class="nav-label">Dashboards</span> <span class="fa arrow"></span></a>'.html_safe, "/user/dashboard", method: :get %>
                 
             </li>
-            <li>
+            <li class="<%= 'active' if params[:action] == 'reports' %>">
                 <!-- <a href="/user/reports"><i class="fa fa-file-text-o"></i> <span class="nav-label">Reports</span><span class="fa arrow"></span></a> -->
                  <%= link_to '<i class="fa fa-file-text-o"></i> <span class="nav-label">Reports</span> <span class="fa arrow"></span></a>'.html_safe, "/user/reports", method: :get %>
             </li>
-            <li>
+            <li class="<%= 'active' if params[:action] == 'ads_manager' %>">
                 <!-- <a href="/user/ads_manager"><i class="fa fa-bullhorn"></i> <span class="nav-label">Ads Manager</span><span class="fa arrow"></span></a> -->
                  <%= link_to '<i class="fa fa-bullhorn"></i> <span class="nav-label">Ads Manager</span> <span class="fa arrow"></span></a>'.html_safe, "/user/ads_manager", method: :get %>
                 
             </li>
-            <li>
+            <li class="<%= 'active' if params[:action] == 'keywords' %>">
                 <!-- <a href="/user/keywords"><i class="fa fa-key"></i> <span class="nav-label">Keywords</span><span class="fa arrow"></span></a> -->
                  <%= link_to '<i class="fa fa-key"></i> <span class="nav-label">Keywords</span> <span class="fa arrow"></span></a>'.html_safe, "/user/keywords", method: :get %>
                 
             </li>
-            <li>
+            <li class="<%= 'active' if params[:action] == 'setting' %>">
                 <!-- <a href="/user/setting"><i class="fa fa-cog"></i> <span class="nav-label">Settings</span><span class="fa arrow"></span></a> -->
                  <%= link_to '<i class="fa fa-cog"></i> <span class="nav-label">Settings</span> <span class="fa arrow"></span></a>'.html_safe, "/user/setting", method: :get %>
                 
