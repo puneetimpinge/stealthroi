@@ -15,6 +15,7 @@ class HomeController < ApplicationController
     nowPlusFifteenTimeStamp = Time.at(Time.now.utc + Time.zone_offset('EDT') + 15.days).strftime('%Y-%m-%d %H:00:00')#.gsub(" ","%20")
     # @data = current_user.campaign_stats.send(params["graphtimeindex"].downcase.gsub(" ","_"))
     @data = current_user.campaign_stats.where('created_at > ? AND created_at < ?', lastHour, nowPlusFifteenTimeStamp)
+    render :json => {:status => false} if @data.empty?
     # startHour = Time.at(Time.now.utc + Time.zone_offset('EDT')).strftime('%Y-%m-%d %H:00:00').gsub(" ","%20")
     # lastHour = Time.at(Time.now.utc + Time.zone_offset('EDT') - 1.hour).strftime('%Y-%m-%d %H:00:00').gsub(" ","%20")
     # nowPlusFifteenTimeStamp = Time.at(Time.now.utc + Time.zone_offset('EDT') + 15.days).strftime('%Y-%m-%d %H:00:00').gsub(" ","%20")

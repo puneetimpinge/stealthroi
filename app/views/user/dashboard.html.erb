@@ -629,7 +629,11 @@
                 // dataType: "json",
                 success : function (data) {
                     //console.log("get_viralstyle" + data)
-                    document.getElementById("tableDiv").innerHTML= $($.parseHTML(data)).filter("#viralstyle_table").html();//data.response;
+                    if(data.status == false){
+                        document.getElementById("tableDiv").innerHTML= "No data to display."
+                    }else{
+                        document.getElementById("tableDiv").innerHTML= $($.parseHTML(data)).filter("#viralstyle_table").html();//data.response;
+                    }
                     $('#my-table').dataTable({
                         "aLengthMenu": [
                             [10, 25, 50, 100, -1],
