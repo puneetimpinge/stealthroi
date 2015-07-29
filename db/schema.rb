@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150710103813) do
+ActiveRecord::Schema.define(version: 20150720083805) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -46,6 +46,22 @@ ActiveRecord::Schema.define(version: 20150710103813) do
 
   add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
   add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
+
+  create_table "campaign_stats", force: :cascade do |t|
+    t.string   "campaign_name",       limit: 255
+    t.integer  "current_order_count", limit: 4
+    t.string   "current_item_count",  limit: 255
+    t.integer  "total_sales_amount",  limit: 4
+    t.integer  "profit",              limit: 4
+    t.integer  "total_visits",        limit: 4
+    t.string   "urlcode",             limit: 255
+    t.integer  "campaign_id",         limit: 4
+    t.integer  "user_id",             limit: 4
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+  end
+
+  add_index "campaign_stats", ["user_id"], name: "index_campaign_stats_on_user_id", using: :btree
 
   create_table "card_transactions", force: :cascade do |t|
     t.integer  "card_id",       limit: 4
@@ -119,6 +135,7 @@ ActiveRecord::Schema.define(version: 20150710103813) do
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
+  add_foreign_key "campaign_stats", "users"
   add_foreign_key "card_transactions", "cards"
   add_foreign_key "cards", "users"
   add_foreign_key "payments", "users"

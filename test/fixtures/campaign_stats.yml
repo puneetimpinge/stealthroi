@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  cmp_id: 1
+  current_order_count: 1
+  current_item_count: MyString
+  total_sales_amount: 1
+  profit: 1
+  total_visits: 1
+  campaign_id: 
+
+two:
+  name: MyString
+  cmp_id: 1
+  current_order_count: 1
+  current_item_count: MyString
+  total_sales_amount: 1
+  profit: 1
+  total_visits: 1
+  campaign_id: 

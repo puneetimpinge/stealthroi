@@ -20,6 +20,7 @@
                                 <li role="presentation" class="active"><a href="#info" aria-controls="info" role="tab" data-toggle="tab">Personal Info</a></li>
                                 <li role="presentation"><a href="#password" aria-controls="password" role="tab" data-toggle="tab">Change Password</a></li>
                                 <li role="presentation"><a href="#avatar" aria-controls="avatar" role="tab" data-toggle="tab">Change Avatar</a></li>
+                                <li role="presentation"><a href="#api" aria-controls="api" role="tab" data-toggle="tab">API Connection</a></li>
                             </ul>
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane  active" id="info">
@@ -270,6 +271,29 @@
                                         </div>
                                     </div>
                                     <%end%>
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="api">
+                                    <%= form_for(@user, url: user_path(@user), html: { method: :put, id: "api_form" }) do |f| %>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <div class="col-md-3">
+                                                    <label>Viralstyle API key :</label>
+                                                </div>
+                                                <div class="col-md-9">
+                                                    <%= f.text_field :viralstyleapikey, autocomplete: "off",class: "form-control" %>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <div class="col-md-9 col-md-offset-3">
+                                                    <%= f.submit "Save",class: "btn-admin btn-blue" %>
+                                                    <input type="submit" value="Cancel" class="btn-admin btn-grey"/>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    <%end%>
+                                    <%= button_to "Connect Facebook","/user/connect_facebook",:class=>"btn btn-primary"%>
                                 </div>
                             </div>
 						</div>

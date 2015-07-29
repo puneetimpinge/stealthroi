@@ -624,11 +624,12 @@
             $.ajax({
                 url: "/home/get_viralstyle",
                 type: "get",
-                data: {parameters: {email: "dev@stealthroi.com"}},
-                dataType: "json",
+                // data: {parameters: {email: "dev@stealthroi.com"}},
+                data: {graphtimeindex: graphTime[graphTimeIndex]},
+                // dataType: "json",
                 success : function (data) {
-                    console.log("get_viralstyle" + data)
-                    document.getElementById("tableDiv").innerHTML= data.response;
+                    //console.log("get_viralstyle" + data)
+                    document.getElementById("tableDiv").innerHTML= $($.parseHTML(data)).filter("#viralstyle_table").html();//data.response;
                     $('#my-table').dataTable({
                         "aLengthMenu": [
                             [10, 25, 50, 100, -1],
@@ -695,7 +696,7 @@
                 $.ajax({
                     url: "/home/get_top_campaigns",
                     type: "get",
-                    data: {parameters: {email: "dev@stealthroi.com"}},
+                    // data: {parameters: {email: "dev@stealthroi.com"}},
                     dataType: "json",
                         success : function (data) {
                             data = data.response
@@ -718,70 +719,70 @@
     </script>    
 
     <script>
-        $(document).ready(function() {
+    //     $(document).ready(function() {
 
-            var lineData = {
-                labels: ["0.01", "0.02", "0.03", "0.04", "0.05", "0.06", "0.07"],
-                datasets: [
-                    {
-                        label: "Example dataset",
-                        fillColor: "rgba(227,243,234,0.6)",
-                        strokeColor: "rgba(38,166,91,1)",
-                        pointColor: "rgba(38,166,91,1)",
-                        pointStrokeColor: "#fff",
-                        pointHighlightFill: "#fff",
-                        pointHighlightStroke: "rgba(38,166,91,1)",
-                        data: [65, 59, 80, 81, 56, 55, 40]
-                    },
-                    {
-                        label: "Example dataset",
-                        fillColor: "rgba(68,108,179,0.5)",
-                        strokeColor: "rgba(68,108,179,0.7)",
-                        pointColor: "rgba(68,108,179,1)",
-                        pointStrokeColor: "#fff",
-                        pointHighlightFill: "#fff",
-                        pointHighlightStroke: "rgba(68,108,179,1)",
-                        data: [0, 0, 0, 0, 0, 0, 0]
-                    }
-                ]
-            };
+    //         var lineData = {
+    //             labels: ["0.01", "0.02", "0.03", "0.04", "0.05", "0.06", "0.07"],
+    //             datasets: [
+    //                 {
+    //                     label: "Example dataset",
+    //                     fillColor: "rgba(227,243,234,0.6)",
+    //                     strokeColor: "rgba(38,166,91,1)",
+    //                     pointColor: "rgba(38,166,91,1)",
+    //                     pointStrokeColor: "#fff",
+    //                     pointHighlightFill: "#fff",
+    //                     pointHighlightStroke: "rgba(38,166,91,1)",
+    //                     data: [65, 59, 80, 81, 56, 55, 40]
+    //                 },
+    //                 {
+    //                     label: "Example dataset",
+    //                     fillColor: "rgba(68,108,179,0.5)",
+    //                     strokeColor: "rgba(68,108,179,0.7)",
+    //                     pointColor: "rgba(68,108,179,1)",
+    //                     pointStrokeColor: "#fff",
+    //                     pointHighlightFill: "#fff",
+    //                     pointHighlightStroke: "rgba(68,108,179,1)",
+    //                     data: [0, 0, 0, 0, 0, 0, 0]
+    //                 }
+    //             ]
+    //         };
 
-            var lineOptions = {
-                scaleShowGridLines: true,
-                scaleGridLineColor: "rgba(0,0,0,.05)",
-                scaleGridLineWidth: 1,
-                bezierCurve: true,
-                bezierCurveTension: 0,
-                pointDot: true,
-                pointDotRadius: 10,
-                pointDotStrokeWidth: 1,
-                pointHitDetectionRadius: 20,
-                datasetStroke: true,
-                datasetStrokeWidth: 6,
-                datasetFill: true,
-                responsive: true,
-				scaleFontFamily: " 'robotoregular', sans-serif, Arial, Helvetica",
-				scaleFontSize: 16,
-				responsive: true,
-				tooltipFillColor: "rgba(91,179,240,0.55)",
-				tooltipFontColor: "#446cb3",
-				tooltipTitleFontFamily: "robotoregular', sans-serif, Arial, Helvetica",
-				tooltipTitleFontSize: 14,
-				tooltipTitleFontStyle: "light",
-				tooltipTitleFontColor: "#fff",
-				tooltipYPadding: 12,
-				tooltipXPadding: 50,
-				tooltipCaretSize: 8,
-				tooltipCornerRadius: 5,
-				tooltipXOffset: 10,
-				tooltipTemplate: ""
-            };
+    //         var lineOptions = {
+    //             scaleShowGridLines: true,
+    //             scaleGridLineColor: "rgba(0,0,0,.05)",
+    //             scaleGridLineWidth: 1,
+    //             bezierCurve: true,
+    //             bezierCurveTension: 0,
+    //             pointDot: true,
+    //             pointDotRadius: 10,
+    //             pointDotStrokeWidth: 1,
+    //             pointHitDetectionRadius: 20,
+    //             datasetStroke: true,
+    //             datasetStrokeWidth: 6,
+    //             datasetFill: true,
+    //             responsive: true,
+				// scaleFontFamily: " 'robotoregular', sans-serif, Arial, Helvetica",
+				// scaleFontSize: 16,
+				// responsive: true,
+				// tooltipFillColor: "rgba(91,179,240,0.55)",
+				// tooltipFontColor: "#446cb3",
+				// tooltipTitleFontFamily: "robotoregular', sans-serif, Arial, Helvetica",
+				// tooltipTitleFontSize: 14,
+				// tooltipTitleFontStyle: "light",
+				// tooltipTitleFontColor: "#fff",
+				// tooltipYPadding: 12,
+				// tooltipXPadding: 50,
+				// tooltipCaretSize: 8,
+				// tooltipCornerRadius: 5,
+				// tooltipXOffset: 10,
+				// tooltipTemplate: ""
+    //         };
 
 
-            var ctx = document.getElementById("lineChart").getContext("2d");
-            var myNewChart = new Chart(ctx).Line(lineData, lineOptions);
+    //         var ctx = document.getElementById("lineChart").getContext("2d");
+    //         var myNewChart = new Chart(ctx).Line(lineData, lineOptions);
 
-        });
+    //     });
     </script>
      <!-- Page-Level Scripts -->
     <script>
@@ -865,10 +866,13 @@
                 $.ajax({
                     url: "/home/get_top_graph",
                     type: "get",
-                    data: {parameters: {graphtypeindex: graphTypeIndex, graphtimeindex: graphTimeIndex, graphstoreindex: graphStoreIndex, email: "dev@stealthroi.com"}},
+                    // data: {parameters: {graphtypeindex: graphTypeIndex, graphtimeindex: graphTimeIndex, graphstoreindex: graphStoreIndex, email: "dev@stealthroi.com"}},
+                    data: {graphtypeindex: graphTypeIndex, graphtimeindex: graphTime[graphTimeIndex], graphstoreindex: graphStoreIndex},
                     dataType: "json",
                     success : function (data) {
                         data = data.response
+                        console.log("get_top_graph")
+                        console.log(data)
                         /*Check if this is the most current request*/                    
                         if(topGraphRequestIndex==globalTopGraphRequestIndex){
                             //Yes this is the most current request, Update Morris Area
@@ -934,7 +938,7 @@
                 $.ajax({
                     url: "/home/get_top_summary",
                     type: "get",
-                    data: {parameters: {graphtypeindex: graphTypeIndex, graphtimeindex: graphTimeIndex, graphstoreindex: graphStoreIndex, email: "dev@stealthroi.com"}},
+                    data: {parameters: {graphtypeindex: graphTypeIndex, graphtimeindex: graphTime[graphTimeIndex], graphstoreindex: graphStoreIndex, email: "dev@stealthroi.com"}},
                     dataType: "json",
          
                     success : function (data) {
@@ -960,4 +964,33 @@
                     } 
                 });
             }
-    </script>>
+
+            function campaignDetails(urlcode){
+                //document.getElementById("notificationIcon").innerHTML='<i class="fa fa-bell c_bell"  id="notificationIcon" onclick="readNotifications()"></i> ';
+                console.log("Campaign Details for urlcode : "+urlcode+" are being fetched.....");
+                document.getElementById("campaignDetailsHeader").innerHTML='Ad Spend details for <a href="https://www.viralstyle.com/'+urlcode+'"  target="_blank"> https://www.viralstyle.com/'+urlcode+'</a>';
+                document.getElementById("campaignDetailsBody").innerHTML="<p>Please Wait....</p><div class='text-center full-width-load'><div id='preloader_2'><span></span><span></span><span></span><span></span><span></span></div></div>";
+                $.ajax({
+                    url: '/home/get_campaign_details',//"http://stealthroi.com/phpscripts/campaignDetails.php",
+                    //cache: false,
+                    type: 'get',//"POST",
+                    data: {email:"dev@stealthroi.com", urlcode: urlcode},
+                    dataType: "json",
+                    success : function (data) {
+                        data = data.response
+                        document.getElementById("campaignDetailsBody").innerHTML=data;
+                        console.log("The response for campaign details was : "+data);
+                    },
+                        error : function (xmlHttpRequest, textStatus, errorThrown) {
+                        alert("Error " + errorThrown);
+                        if(textStatus==='timeout')
+                            console.log("Request on Campaign Details Timed out.");
+                    } 
+                });
+            }
+    </script>
+    <style type="text/css">
+    .modal-backdrop{
+        height: 200%;
+    }
+    </style>

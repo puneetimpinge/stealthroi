@@ -57,3 +57,6 @@ gem "omniauth-google-oauth2"
 gem 'omniauth-twitter'
 gem 'activeadmin', github: 'activeadmin'
 gem 'carrierwave'
+gem 'whenever', :require => false
+gem 'certified'
+gem 'koala'

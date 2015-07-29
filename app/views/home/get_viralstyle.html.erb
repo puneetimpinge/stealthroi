@@ -1,0 +1,47 @@
+<div id="viralstyle_table">
+	<table class="table table-striped table-condensed pull-down" id="my-table1">
+	    <thead>
+	        <tr>
+		       	<th align="center">Name</th>
+			   	<th align="center">Units Sold</th>
+			   	<th align="center">Ad Count</th>
+			   	<th align="center">Revenue</th>
+				<th align="center">Ad Spent</th>
+				<th align="center">Profit</th>
+				<th align="center">ROI</th>
+	        </tr>
+	    </thead>
+		<tbody>
+			<% @data.group(:campaign_name).each_with_index do |obj,i| %>
+				<tr>
+					<td><a href="" data-toggle="modal" data-target="#campaignModal" data-urlcode="sports/lovesquaredboy" onclick="campaignDetails('<%#=obj['url'].split('https://viralstyle.com/').last%>')"><%=obj['campaign_name']%></a></td>
+					<td><%=@data.where(campaign_id: obj.id).map(&:current_order_count).sum %></td>
+					<td align="center">No Active Ads</td>
+					<td><%=@data.where(campaign_id: obj.id).map(&:profit).sum %></td>
+					<td>0</td>
+					<td></td>
+					<td></td>
+				</tr>
+			<%end%>
+		</tbody>
+	</table>
+	<div class="modal fade modal-theme reset-pass" id="campaignModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	  <div class="modal-dialog">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><img src="/assets/close.png" alt=""/></span></button>
+	        <h4 class="modal-title" id="myModalLabel">Adset Spend Details</h4>
+	      </div>
+	      <div class="modal-body">
+	      	<div class="row row-centered"><br>
+				<p id="campaignDetailsHeader"></p>
+				<div id="campaignDetailsBody">
+				<p>Please Wait....</p>
+				<div class="text-center full-width-load"><div id='preloader_2'><span></span><span></span><span></span><span></span><span></span></div></div>
+				</div>
+            </div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+</div>

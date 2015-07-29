@@ -22,6 +22,8 @@ Rails.application.routes.draw do
       get "login"
       post "verify_payment"
       get "verify_username"
+      post "connect_facebook"
+      get "get_fb_token"
     end  
   end 
   # get 'user/landing' => 'user#landing'
@@ -42,6 +44,7 @@ Rails.application.routes.draw do
       get "get_top_campaigns"
       get "get_top_graph"
       get "get_top_summary"
+      get "get_campaign_details"
     end  
   end  
 

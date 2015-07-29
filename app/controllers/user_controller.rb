@@ -102,9 +102,26 @@ class UserController < ApplicationController
 		render :json => {:status => (@user.nil? ? true : false)}
 	end
 
+	def connect_facebook
+		@oauth = Koala::Facebook::OAuth.new(ENV['facebook_app_id'], ENV['facebook_secret'], "#{request.protocol}#{request.host}/user/get_fb_token/")
+    	redirect_to @oauth.url_for_oauth_code(:permissions => "manage_pages ,email,publish_actions, ads_read, ads_management")
+	end
+
+	def get_fb_token
+		if params[:code]
+	      @oauth = Koala::Facebook::OAuth.new(ENV['facebook_app_id'], ENV['facebook_secret'], "#{request.protocol}#{request.host}/get_fb_token/")
+	      session[:access_token] = @oauth.get_access_token(params[:code])
+	      # @api = Koala::Facebook::API.new(session[:access_token])
+	      # current_user.update_attributes(:fb_token=>session[:access_token])
+	      binding.pry
+	      flash[:notice] = "Connected with Facebook"
+	      redirect_to "/"
+	    end 
+	end
+
 	private
 
     def user_params
-      params.require(:user).permit(:first_name,:last_name, :phone,:avatar, :fname)
+      params.require(:user).permit(:first_name,:last_name, :phone,:avatar, :fname, :viralstyleapikey)
     end
 end
