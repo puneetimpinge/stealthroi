@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150720083805) do
+ActiveRecord::Schema.define(version: 20150817055910) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 20150720083805) do
     t.integer  "current_order_count", limit: 4
     t.string   "current_item_count",  limit: 255
     t.integer  "total_sales_amount",  limit: 4
-    t.integer  "profit",              limit: 4
+    t.float    "profit",              limit: 24
     t.integer  "total_visits",        limit: 4
     t.string   "urlcode",             limit: 255
     t.integer  "campaign_id",         limit: 4
@@ -89,6 +89,25 @@ ActiveRecord::Schema.define(version: 20150720083805) do
   end
 
   add_index "cards", ["user_id"], name: "index_cards_on_user_id", using: :btree
+
+  create_table "fb_ads", force: :cascade do |t|
+    t.string   "adid",       limit: 255
+    t.string   "urlcode",    limit: 255
+    t.string   "urldomain",  limit: 255
+    t.float    "t_spend",    limit: 24
+    t.float    "tot_spend",  limit: 24
+    t.integer  "user_id",    limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "fbauthtokens", force: :cascade do |t|
+    t.string   "email",      limit: 255
+    t.string   "fbtoken",    limit: 255
+    t.integer  "user_id",    limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "payments", force: :cascade do |t|
     t.string   "first_name",     limit: 255
@@ -129,6 +148,8 @@ ActiveRecord::Schema.define(version: 20150720083805) do
     t.string   "last_name",              limit: 255
     t.string   "phone",                  limit: 255
     t.string   "avatar",                 limit: 255
+    t.string   "fbadaccount",            limit: 255
+    t.string   "timezone",               limit: 255
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

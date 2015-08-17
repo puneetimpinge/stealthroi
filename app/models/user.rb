@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
 
   #has_one :payment
   has_many :campaign_stats
+  has_many :fb_ads
+  has_one :fbauthtoken
   validates_uniqueness_of :fname
   attr_accessor :card_type, :card_number,:cvv,:card_expires_on,:card_name
 

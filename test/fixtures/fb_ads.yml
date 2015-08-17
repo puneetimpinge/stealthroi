@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  ad_id: 1
+  urlcode: MyString
+  urldomain: MyString
+  t_spend: 1
+  tot_spend: 1
+
+two:
+  ad_id: 1
+  urlcode: MyString
+  urldomain: MyString
+  t_spend: 1
+  tot_spend: 1

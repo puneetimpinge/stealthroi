@@ -1,9 +1,9 @@
-ActiveAdmin.register CampaignStat do
+ActiveAdmin.register FbAd do
 
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
 #
-permit_params :campaign_name, :current_order_count, :current_item_count, :total_sales_amount, :profit,:total_visits,:urlcode,:campaign_id
+permit_params :adid,:urlcode, :urldomain, :t_spend, :tot_spend
 #
 # or
 #

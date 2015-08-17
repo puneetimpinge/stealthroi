@@ -122,10 +122,11 @@ class HomeController < ApplicationController
     end
 
     (start_time.to_i..end_time.to_i).step(step).each_with_index do |a,i|
+        spend = FbAd.where('created_at > ? AND created_at < ? AND urldomain = ?', Time.zone.at(a),Time.zone.at(a)+time_inc, "https://viralstyle").map(&:t_spend).compact.sum.to_s
         data = CampaignStat.where('created_at > ? AND created_at < ?', Time.zone.at(a),Time.zone.at(a)+time_inc)
         earned = data.map(&:profit).sum.to_f.to_s
         order = data.map(&:current_order_count).sum
-        h[i] = {a: "0.00",b: earned, c: order, time: Time.zone.at(a).strftime(time_format)}
+        h[i] = {a: spend,b: earned, c: order, time: Time.zone.at(a).strftime(time_format)}
     end
       
     render :json => { :response => h }.to_json
@@ -156,10 +157,11 @@ class HomeController < ApplicationController
 
     # render :json => { :response => "#{totalEarned}customSplitter#{totalSpent}customSplitter#{totalProfit}customSplitter#{totalROI}customSplitter#{totalOrders}" }.to_json
     @data = current_user.campaign_stats.send(params["parameters"]["graphtimeindex"].downcase.gsub(" ","_"))
-    totalEarned = @data.map(&:profit).sum
-    totalSpent = 0
-    totalProfit = 0
-    totalROI = 0
+    @spend = current_user.fb_ads.send(params["parameters"]["graphtimeindex"].downcase.gsub(" ","_")).where(urldomain: "https://viralstyle")
+    totalEarned = @data.map(&:profit).sum.round(2)
+    totalSpent = @spend.map(&:t_spend).compact.sum.round(2)
+    totalProfit = (totalEarned - totalSpent).round(2)
+    totalROI = totalSpent > 0 ? ((totalProfit/totalSpent)*100).round(2) : -100
     totalOrders = @data.map(&:current_order_count).sum
  
     render :json => { :response => "#{totalEarned}customSplitter#{totalSpent}customSplitter#{totalProfit}customSplitter#{totalROI}customSplitter#{totalOrders}" }.to_json

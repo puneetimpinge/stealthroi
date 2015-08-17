@@ -5,6 +5,7 @@
 
 # Example:
 #
+set :environment, "development"
 env :PATH, ENV['PATH']
 env :GEM_PATH, ENV['GEM_PATH']
 # env :PATH, ENV['PATH']
@@ -30,5 +31,6 @@ end
 # every 2.minutes do
 every :hour do
 	# rake "get_data"
-  command 'bin/rake get_data'
+  command 'cd /home/ritika/RubymineProjects/Puneet/stealth_app && bundle install && bin/rake get_data'
+  command 'cd /home/ritika/RubymineProjects/Puneet/stealth_app && bundle install && bin/rake get_fb_ads_data'
 end

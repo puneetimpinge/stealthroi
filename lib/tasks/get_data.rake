@@ -31,11 +31,12 @@ task :get_data => :environment do
 			       headers: {"X-Authorization" => "#{user.viralstyleapikey}"})
 
 			      unless user.campaign_stats.all.last.nil?
-			      	if user.campaign_stats.all.last.profit > 0
+			      	if (user.campaign_stats.all.where(campaign_id: obj['id']).last.profit > 0 && data['data']['profit'] > 0)
 				    	data['data']['profit'] = data['data']['profit'] - user.campaign_stats.all.last.profit
 				    end
 			      end
 			      data['data']['urlcode'] = obj['url']
+			      data['data']['created_at'] = Time.zone.now
 			      user.campaign_stats.create(data['data'])
 
 			      # response['data'].delete("utm_stats")

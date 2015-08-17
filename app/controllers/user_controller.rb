@@ -13,6 +13,10 @@ class UserController < ApplicationController
 	
 	def setting
 		@user = current_user
+		if !current_user.fbauthtoken.nil?
+			@graph = Koala::Facebook::API.new(current_user.fbauthtoken.fbtoken)
+			@campaign = @graph.get_object("me/adaccounts", {}, api_version: "v2.3")
+		end
 	end
 
 	def ads_manager
@@ -104,24 +108,31 @@ class UserController < ApplicationController
 
 	def connect_facebook
 		@oauth = Koala::Facebook::OAuth.new(ENV['facebook_app_id'], ENV['facebook_secret'], "#{request.protocol}#{request.host}/user/get_fb_token/")
-    	redirect_to @oauth.url_for_oauth_code(:permissions => "manage_pages ,email,publish_actions, ads_read, ads_management")
+    	redirect_to @oauth.url_for_oauth_code(:permissions => "ads_read, ads_management")
 	end
 
 	def get_fb_token
 		if params[:code]
-	      @oauth = Koala::Facebook::OAuth.new(ENV['facebook_app_id'], ENV['facebook_secret'], "#{request.protocol}#{request.host}/get_fb_token/")
-	      session[:access_token] = @oauth.get_access_token(params[:code])
+	      @oauth = Koala::Facebook::OAuth.new(ENV['facebook_app_id'], ENV['facebook_secret'], "#{request.protocol}#{request.host}/user/get_fb_token/")
+	      session[:fb_access_token] = @oauth.get_access_token(params[:code])
 	      # @api = Koala::Facebook::API.new(session[:access_token])
 	      # current_user.update_attributes(:fb_token=>session[:access_token])
-	      binding.pry
+	      current_user.build_fbauthtoken(email: current_user.email, fbtoken: session[:fb_access_token]).save
 	      flash[:notice] = "Connected with Facebook"
-	      redirect_to "/"
+	      redirect_to "/user/setting"
 	    end 
+	end
+
+	def disconnect_facebook
+		current_user.fbauthtoken.delete
+		current_user.update_attributes(:fbadaccount => "")
+		flash[:notice] = "Disconnect with Facebook"
+		redirect_to "/user/setting"
 	end
 
 	private
 
     def user_params
-      params.require(:user).permit(:first_name,:last_name, :phone,:avatar, :fname, :viralstyleapikey)
+      params.require(:user).permit(:first_name,:last_name, :phone,:avatar, :fname, :viralstyleapikey, :fbadaccount, :timezone)
     end
 end
