@@ -1,12 +1,31 @@
+<%@notifications = Notification.all%>
 <ul class="nav navbar-top-links navbar-right">
     <li class="dropdown">
         <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
-            <img src="/assets/bell.png"/>  <span class="label label-primary">8</span>
+            <img src="/assets/bell.png"/>  <!-- <span class="label label-primary">8</span> -->
         </a>
         <div class="dropdown-menu dropdown-alerts c1">
-        	<h3>You have 2 notifications</h3>
+        	<h3>You have <%=@notifications.count%> notifications</h3>
             <ul class="slim-scroll-notification">
-            <li>
+                <% @notifications.each do |obj| %>            
+                    <li>
+                        <div class="notification_buzz">
+                        	<div class="notify pull-left">
+                            	<%= obj.notification_text %>
+                                <!-- Total ad-spent for Teechip <br/>yesterday was $759.77 -->
+                            </div>
+                            <div class="time_image pull-right">
+                            	<span class="time_exist">
+                                	<%= (Time.zone.now - obj.created_at)/1.hour < 1 ? ((Time.zone.now - obj.created_at)/1.minutes).to_i.to_s+" minutes ago" : ((Time.zone.now - obj.created_at)/1.hour > 24 ? ((Time.zone.now - obj.created_at)/1.days).to_i.to_s+" days ago" : ((Time.zone.now - obj.created_at)/1.hour).to_i.to_s+" hours ago" )%>
+                                </span>
+                                <span class="dollar_sign">
+                                	<img src="/assets/dollar_notify.png" alt=""/>
+                                </span>
+                            </div>
+                        </div>
+                    </li>
+                <% end %>
+            <!-- <li>
                 <div class="notification_buzz">
                 	<div class="notify pull-left">
                     	Total ad-spent for Teechip <br/>yesterday was $759.77
@@ -65,22 +84,7 @@
                         </span>
                     </div>
                 </div>
-            </li>
-            <li>
-                <div class="notification_buzz">
-                	<div class="notify pull-left">
-                    	Total ad-spent for Teechip <br/>yesterday was $759.77
-                    </div>
-                    <div class="time_image pull-right">
-                    	<span class="time_exist">
-                        	2 hours
-                        </span>
-                        <span class="dollar_sign">
-                        	<img src="/assets/dollar_notify.png" alt=""/>
-                        </span>
-                    </div>
-                </div>
-            </li>
+            </li> -->
             </ul>
            
             <div class="text-center link-block last-child-div">
@@ -90,7 +94,7 @@
             </div>
         </div>
     </li>
-    <li class="dropdown">
+    <!-- <li class="dropdown">
         <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
             <img src="/assets/message.png"/>  <span class="label label-primary">16</span>
         </a>
@@ -191,7 +195,7 @@
         <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
             <img src="/assets/status.png"/>  <span class="label label-primary">16</span>
         </a>
-    </li>
+    </li> -->
     <li class="dropdown">
         <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                 <span class="clear">  <span class="text-muted text-xs block"><img src="<%=current_user.avatar.url.nil? ? '/assets/default.jpg' : current_user.avatar.url %>" style="width:40px;height:40px;border-radius:20px"/><%= (current_user.first_name.nil? || current_user.first_name.empty? ? current_user.fname : "#{current_user.first_name} #{current_user.last_name}" )%> <b class="caret"></b></span> </span> </a>
