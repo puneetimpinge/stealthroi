@@ -1,9 +1,9 @@
 task :get_fb_ads_data => :environment do
-	@user = User.where(id: 115)
+	@user = User.where("fbadaccount IS NOT NULL")
 
 	@user.each do |user|
-		@graph = Koala::Facebook::API.new("CAAWFe43jMFABABPZCkvDhl9MCc8bzLYdzE8AFX2sN4qH9M4jkjZASZCfGivzmTmRZCmEAtRokqZAlgaUF2IZBMUncUlKPVHdZBZAWggGvmoXGq0sJBcf4dROvGeNeG6rPxMCU9YKRZCML3KAJ7YKlZAVZB46XCkpCLfZCZBsDyP2B0sF7wJuZCGxIoIgZCa")
-		timezone_name = @graph.get_object("act_10150961048316867", {fields: "timezone_name"}, api_version: "v2.3")['timezone_name']
+		@graph = Koala::Facebook::API.new("#{user.fbauthtoken.fbtoken}")
+		timezone_name = @graph.get_object("#{user.fbadaccount}", {fields: "timezone_name"}, api_version: "v2.3")['timezone_name']
 
 		timeNow = Time.now.in_time_zone("America/New_York").to_i
 		startOfHour = Time.at(timeNow).in_time_zone("America/New_York").strftime('%Y-%m-%d %H:00:00').in_time_zone("America/New_York").to_i
@@ -17,7 +17,7 @@ task :get_fb_ads_data => :environment do
 		# 	ad_stats = @graph.get_object("/act_10150961048316867/reportstats?date_preset=today&data_columns=adgroup_id, spend&limit=1000", {}, api_version: "v2.3")
 		# end
 
-		ad_profile = @graph.get_object("/act_10150961048316867/adgroups?fields=id,creative{id,object_story_id, object_story_spec}&limit=2000&adgroup_status=['ACTIVE']", {}, api_version: "v2.3")
+		ad_profile = @graph.get_object("/#{user.fbadaccount}/adgroups?fields=id,creative{id,object_story_id, object_story_spec}&limit=2000&adgroup_status=['ACTIVE']", {}, api_version: "v2.3")
 #=========
 		# record = ""
 		# ad_profile.each do |a| 
@@ -75,7 +75,7 @@ task :get_fb_ads_data => :environment do
 						# user.fb_ads.all.where(adid: id).update_all(urlcode: urlCode, urldomain: urlDomain)
 						if urlDomain.include?("viralstyle")
 							puts "===============In viralstyle================"
-							spend = @graph.get_object("/act_10150961048316867/reportstats?date_preset=today&data_columns=adgroup_id, spend&filters=[{'field': 'adgroup_id','type': '=','value': #{id}}]", {}, api_version: "v2.3")
+							spend = @graph.get_object("/#{user.fbadaccount}/reportstats?date_preset=today&data_columns=adgroup_id, spend&filters=[{'field': 'adgroup_id','type': '=','value': #{id}}]", {}, api_version: "v2.3")
 							last_rec = FbAd.where(adid: id).last
 							if last_rec.nil? || last_rec.tot_spend.nil? || last_rec.tot_spend.empty?
 								t_spend = spend
