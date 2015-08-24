@@ -801,21 +801,21 @@
             var oTable = $('#editable').dataTable();
 
             /* Apply the jEditable handlers to the table */
-            oTable.$('td').editable( '../example_ajax.php', {
-                "callback": function( sValue, y ) {
-                    var aPos = oTable.fnGetPosition( this );
-                    oTable.fnUpdate( sValue, aPos[0], aPos[1] );
-                },
-                "submitdata": function ( value, settings ) {
-                    return {
-                        "row_id": this.parentNode.getAttribute('id'),
-                        "column": oTable.fnGetPosition( this )[2]
-                    };
-                },
+            // oTable.$('td').editable( '../example_ajax.php', {
+            //     "callback": function( sValue, y ) {
+            //         var aPos = oTable.fnGetPosition( this );
+            //         oTable.fnUpdate( sValue, aPos[0], aPos[1] );
+            //     },
+            //     "submitdata": function ( value, settings ) {
+            //         return {
+            //             "row_id": this.parentNode.getAttribute('id'),
+            //             "column": oTable.fnGetPosition( this )[2]
+            //         };
+            //     },
 
-                "width": "90%",
-                "height": "100%"
-            } );
+            //     "width": "90%",
+            //     "height": "100%"
+            // } );
 
 
         });
@@ -942,7 +942,7 @@
                 $.ajax({
                     url: "/home/get_top_summary",
                     type: "get",
-                    data: {parameters: {graphtypeindex: graphTypeIndex, graphtimeindex: graphTime[graphTimeIndex], graphstoreindex: graphStoreIndex, email: "dev@stealthroi.com"}},
+                    data: {parameters: {graphtypeindex: graphTypeIndex, graphtimeindex: graphTime[graphTimeIndex], graphstoreindex: graphStoreIndex }},
                     dataType: "json",
          
                     success : function (data) {
@@ -978,10 +978,10 @@
                     url: '/home/get_campaign_details',//"http://stealthroi.com/phpscripts/campaignDetails.php",
                     //cache: false,
                     type: 'get',//"POST",
-                    data: {email:"dev@stealthroi.com", urlcode: urlcode},
-                    dataType: "json",
+                    data: {email: "dev@stealthroi.com", urlcode: urlcode},
+                    dataType: "text",
                     success : function (data) {
-                        data = data.response
+                        // data = data.response
                         document.getElementById("campaignDetailsBody").innerHTML=data;
                         console.log("The response for campaign details was : "+data);
                     },

@@ -10,11 +10,28 @@ class HomeController < ApplicationController
   end
 
   def get_viralstyle
-    startHour = Time.at(Time.now.utc + Time.zone_offset('EDT')).strftime('%Y-%m-%d %H:00:00')#.gsub(" ","%20")
-    lastHour = Time.at(Time.now.utc + Time.zone_offset('EDT') - 1.hour).strftime('%Y-%m-%d %H:00:00')#.gsub(" ","%20")
-    nowPlusFifteenTimeStamp = Time.at(Time.now.utc + Time.zone_offset('EDT') + 15.days).strftime('%Y-%m-%d %H:00:00')#.gsub(" ","%20")
-    # @data = current_user.campaign_stats.send(params["graphtimeindex"].downcase.gsub(" ","_"))
-    @data = current_user.campaign_stats.where('created_at > ? AND created_at < ?', lastHour, nowPlusFifteenTimeStamp)
+    # startHour = Time.at(Time.now.utc + Time.zone_offset('EDT')).strftime('%Y-%m-%d %H:00:00')#.gsub(" ","%20")
+    # lastHour = Time.at(Time.now.utc + Time.zone_offset('EDT') - 1.hour).strftime('%Y-%m-%d %H:00:00')#.gsub(" ","%20")
+    # nowPlusFifteenTimeStamp = Time.at(Time.now.utc + Time.zone_offset('EDT') + 15.days).strftime('%Y-%m-%d %H:00:00')#.gsub(" ","%20")
+    # # @data = current_user.campaign_stats.send(params["graphtimeindex"].downcase.gsub(" ","_"))
+    # @data = current_user.campaign_stats.where('created_at > ? AND created_at < ?', lastHour, nowPlusFifteenTimeStamp)
+    # @data = current_user.campaign_stats.send(params[:graphtimeindex].downcase().gsub(" ", "_"))
+    # @fb = current_user.fb_ads.send(params[:graphtimeindex].downcase.gsub(" ","_")).where(urldomain: "https://viralstyle")
+    # @spend = @fb.map(&:t_spend).compact.sum.round(2)
+    startHour = Time.at(Time.now.utc + Time.zone_offset('EDT')).strftime('%Y-%m-%d %H:00:00').gsub(" ","%20")
+    lastHour = Time.at(Time.now.utc + Time.zone_offset('EDT') - 1.hour).strftime('%Y-%m-%d %H:00:00').gsub(" ","%20")
+    nowPlusFifteenTimeStamp = Time.at(Time.now.utc + Time.zone_offset('EDT') + 15.days).strftime('%Y-%m-%d %H:00:00').gsub(" ","%20")
+
+    @data = HTTParty.get("https://viralstyle.com/api/v1/campaigns?end_date_start=#{lastHour}&end_date_end=#{nowPlusFifteenTimeStamp}",
+     headers: {"X-Authorization" => "#{current_user.viralstyleapikey}"})
+    @fb = FbAd.all
+    @a=[]
+    unless @data.nil?
+      @data['data'].each do |obj|
+        @a << HTTParty.get("https://viralstyle.com/api/v1/campaigns/#{obj['id']}/stats?date_start=#{lastHour}&date_end=#{startHour}",
+             headers: {"X-Authorization" => "#{current_user.viralstyleapikey}"})
+      end
+    end
     render :json => {:status => false} if @data.empty?
     # startHour = Time.at(Time.now.utc + Time.zone_offset('EDT')).strftime('%Y-%m-%d %H:00:00').gsub(" ","%20")
     # lastHour = Time.at(Time.now.utc + Time.zone_offset('EDT') - 1.hour).strftime('%Y-%m-%d %H:00:00').gsub(" ","%20")
@@ -186,8 +203,27 @@ class HomeController < ApplicationController
   # end
 
   def get_campaign_details
-    response = HTTParty.post("http://stealthroi.com/phpscripts/campaignDetails.php",
-      body: params[:parameters] )
-    render :json => { :response => response }.to_json
+    @data = current_user.fb_ads.all
+    @a=[];@b=[];
+    unless @data.empty?
+      @graph = Koala::Facebook::API.new("#{current_user.fbauthtoken.fbtoken}")
+      @data.each do |obj|
+        a = @graph.get_object("/#{obj.adid}/insights?fields=ctr,cpc,spend,cpm,adgroup_name", {}, api_version: "v2.3")
+        @a << a.first['adgroup_name']; @a << a.first['spend'];
+        b = @graph.get_object("/#{obj.adid}/conversions?fields=values", {}, api_version: "v2.3")
+        b['values'].first['conversions'].each do |c|
+          if(c['action_type'] == "offsite_conversion.checkout")
+            @a << c['post_click_28d']
+          end
+        end
+        @a << a.first['ctr']; @a << a.first['cpm']; @a << a.first['cpc'];
+        @b << @a;@a=[]
+      end
+    end
+
+    render layout: false
+    # response = HTTParty.post("http://stealthroi.com/phpscripts/campaignDetails.php",
+    #   body: params )
+    # render :json => { :response => response }.to_json
   end
 end

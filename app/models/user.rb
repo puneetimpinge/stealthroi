@@ -6,10 +6,10 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable,:omniauthable, :omniauth_providers => [:facebook, :google_oauth2, :twitter]#, :confirmable
 
   #has_one :payment
-  has_many :campaign_stats
-  has_many :fb_ads
-  has_one :fbauthtoken
-  has_many :notifications
+  has_many :campaign_stats, dependent: :destroy
+  has_many :fb_ads, dependent: :destroy
+  has_one :fbauthtoken, dependent: :destroy
+  has_many :notifications, dependent: :destroy
   validates_uniqueness_of :fname
   attr_accessor :card_type, :card_number,:cvv,:card_expires_on,:card_name
 

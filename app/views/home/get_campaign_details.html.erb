@@ -1,0 +1,26 @@
+<% if @b.empty? %>
+	<tr>No record to display.</tr>
+<%else%>
+	<table class="table table-striped table-condensed pull-down" id="my-table">
+		<thead>
+			<tr>
+				<th style="text-align: center">Ad Name</th>
+				<th style="text-align: center">Total Ad Spent</th>
+				<th style="text-align: center">Conversions</th>
+				<th style="text-align: center">CTR</th>
+				<th style="text-align: center">CPM</th>
+				<th style="text-align: center">Cost Per Conversion</th>
+			</tr>
+		</thead>
+		<% @b.each do |obj| %>
+			<tr>
+				<td><%=obj[0]%></td>
+				<td>$<%=obj[1]%></td>
+				<td><%=obj[2]%></td>
+				<td><%=obj[3].round(2)%>%</td>
+				<td>$<%=obj[4].round(2)%></td>
+				<td>$<%=obj[5].round(2)%></td>
+			</tr>
+		<%end%>
+	</table>
+<%end%>

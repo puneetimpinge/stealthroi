@@ -1,4 +1,4 @@
-<%@notifications = Notification.all%>
+<%@notifications = current_user.notifications.all%>
 <ul class="nav navbar-top-links navbar-right">
     <li class="dropdown">
         <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">
@@ -16,7 +16,8 @@
                             </div>
                             <div class="time_image pull-right">
                             	<span class="time_exist">
-                                	<%= (Time.zone.now - obj.created_at)/1.hour < 1 ? ((Time.zone.now - obj.created_at)/1.minutes).to_i.to_s+" minutes ago" : ((Time.zone.now - obj.created_at)/1.hour > 24 ? ((Time.zone.now - obj.created_at)/1.days).to_i.to_s+" days ago" : ((Time.zone.now - obj.created_at)/1.hour).to_i.to_s+" hours ago" )%>
+                                    <span data-livestamp=<%="#{obj.created_at.to_i}"%> ></span>
+                                	<%#= (Time.zone.now - obj.created_at)/1.hour < 1 ? ((Time.zone.now - obj.created_at)/1.minutes).to_i.to_s+" minutes ago" : ((Time.zone.now - obj.created_at)/1.hour > 24 ? ((Time.zone.now - obj.created_at)/1.days).to_i.to_s+" days ago" : ((Time.zone.now - obj.created_at)/1.hour).to_i.to_s+" hours ago" )%>
                                 </span>
                                 <span class="dollar_sign">
                                 	<img src="/assets/dollar_notify.png" alt=""/>

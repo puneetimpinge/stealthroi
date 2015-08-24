@@ -12,36 +12,54 @@
 	        </tr>
 	    </thead>
 		<tbody>
+<%
+=begin%>
 			<% @data.group(:campaign_name).each_with_index do |obj,i| %>
 				<tr>
 					<td><a href="" data-toggle="modal" data-target="#campaignModal" data-urlcode="sports/lovesquaredboy" onclick="campaignDetails('<%#=obj['url'].split('https://viralstyle.com/').last%>')"><%=obj['campaign_name']%></a></td>
-					<td><%=@data.where(campaign_id: obj.id).map(&:current_order_count).sum %></td>
-					<td align="center">No Active Ads</td>
-					<td><%=@data.where(campaign_id: obj.id).map(&:profit).sum %></td>
-					<td>0</td>
-					<td></td>
-					<td></td>
+					<td><%=@data.where(campaign_id: obj.campaign_id).map(&:current_order_count).sum %></td>
+					<td><%=@fb.map(&:adid).compact.count %></td>
+					<td><%=@data.where(campaign_id: obj.campaign_id).map(&:profit).sum.round(2) %></td>
+					<td><%=@spend%></td>
+					<td><%=@data.map(&:profit).sum.round(2) - @spend %></td>
+					<td><%= (@spent.nil? ) ? -100 : (((@data.map(&:profit).sum.round(2) - @spend)/@spend)*100).round(2) %>%</td>
+				</tr>
+			<%end%>
+<%
+=end%>
+			<% @data['data'].each_with_index do |obj,i| %>
+				<tr>
+					<td><a href="" data-toggle="modal" data-target="#campaignModal" data-urlcode="<%=obj['url'].split('.com/').last%>" onclick="campaignDetails('<%=obj['url'].split('.com/').last%>')"><%=obj['name']%></a></td>
+					<td><%=obj['order_count'] %></td>
+					<td><%=@fb.where(urlcode: "https://www.viralstyle.com").count%></td>
+					<td>$<%=@a[i]['data']['profit']%></td>
+					<td>$<%=@fb.all.map(&:t_spend).sum%></td>
+					<td>$<%=@a[i]['data']['profit'] - @fb.all.map(&:t_spend).sum%></td>
+					<td><%=@fb.all.map(&:t_spend).sum > 0 ? ((@a[i]['data']['profit']/@fb.all.map(&:t_spend).sum)*100).round(2) : 0%>%</td>
 				</tr>
 			<%end%>
 		</tbody>
 	</table>
+
 	<div class="modal fade modal-theme reset-pass" id="campaignModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-	  <div class="modal-dialog">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><img src="/assets/close.png" alt=""/></span></button>
-	        <h4 class="modal-title" id="myModalLabel">Adset Spend Details</h4>
-	      </div>
-	      <div class="modal-body">
-	      	<div class="row row-centered"><br>
-				<p id="campaignDetailsHeader"></p>
-				<div id="campaignDetailsBody">
-				<p>Please Wait....</p>
-				<div class="text-center full-width-load"><div id='preloader_2'><span></span><span></span><span></span><span></span><span></span></div></div>
-				</div>
-            </div>
-	      </div>
-	    </div>
-	  </div>
+		<div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		        	<span aria-hidden="true"><img src="/assets/close.png" alt=""/></span>
+		        </button>
+		        <h4 class="modal-title" id="myModalLabel">Adset Spend Details</h4>
+		      </div>
+		      <div class="modal-body">
+		      	<div class="row row-centered"><br>
+					<p id="campaignDetailsHeader"></p>
+					<div id="campaignDetailsBody">
+					<p>Please Wait....</p>
+					<div class="text-center full-width-load"><div id='preloader_2'><span></span><span></span><span></span><span></span><span></span></div></div>
+					</div>
+	            </div>
+		      </div>
+		    </div>
+	  	</div>
 	</div>
 </div>

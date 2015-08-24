@@ -60,3 +60,4 @@ gem 'carrierwave'
 gem 'whenever', :require => false
 gem 'certified'
 gem 'koala'
+gem 'rails-livestamp', '~> 1.1.3'
