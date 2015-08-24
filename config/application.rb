@@ -28,6 +28,6 @@ module StealthApp
         Devise::RegistrationsController.layout proc{ |controller| user_signed_in? ? "application"   : "logout_layout" }
     end
     config.time_zone = 'Eastern Time (US & Canada)'
-    config.active_record.default_timezone = 'Eastern Time (US & Canada)'
+    # config.active_record.default_timezone = 'Eastern Time (US & Canada)'
   end
 end
