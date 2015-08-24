@@ -82,7 +82,7 @@ task :get_fb_ads_data => :environment do
 							else
 								t_spend = spend - last_rec.tot_spend
 							end
-							user.fb_ads.create(adid: id, urlcode: urlCode, urldomain: urlDomain, created_at: Time.zone.now, tot_spend: spend, t_spend: t_spend)
+							user.fb_ads.create(adid: id, urlcode: urlCode, urldomain: urlDomain, tot_spend: spend, t_spend: t_spend)
 						end
 					end
 				# else

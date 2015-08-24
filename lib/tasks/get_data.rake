@@ -36,7 +36,7 @@ task :get_data => :environment do
 				    end
 			      end
 			      data['data']['urlcode'] = obj['url']
-			      data['data']['created_at'] = Time.zone.now
+			      # data['data']['created_at'] = Time.zone.now
 			      user.campaign_stats.create(data['data'])
 
 			      # response['data'].delete("utm_stats")
