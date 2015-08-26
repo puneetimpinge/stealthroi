@@ -203,23 +203,24 @@ class HomeController < ApplicationController
   # end
 
   def get_campaign_details
-    @data = current_user.fb_ads.all
-    @a=[];@b=[];
-    unless @data.empty?
-      @graph = Koala::Facebook::API.new("#{current_user.fbauthtoken.fbtoken}")
-      @data.each do |obj|
-        a = @graph.get_object("/#{obj.adid}/insights?fields=ctr,cpc,spend,cpm,adgroup_name", {}, api_version: "v2.3")
-        @a << a.first['adgroup_name']; @a << a.first['spend'];
-        b = @graph.get_object("/#{obj.adid}/conversions?fields=values", {}, api_version: "v2.3")
-        b['values'].first['conversions'].each do |c|
-          if(c['action_type'] == "offsite_conversion.checkout")
-            @a << c['post_click_28d']
-          end
-        end
-        @a << a.first['ctr']; @a << a.first['cpm']; @a << a.first['cpc'];
-        @b << @a;@a=[]
-      end
-    end
+    @b = AdKeyword.where(target_page: params[:urlcode])
+    # @data = current_user.fb_ads.all
+    # @a=[];@b=[];
+    # unless @data.empty?
+    #   @graph = Koala::Facebook::API.new("#{current_user.fbauthtoken.fbtoken}")
+    #   @data.each do |obj|
+    #     a = @graph.get_object("/#{obj.adid}/insights?fields=ctr,cpc,spend,cpm,adgroup_name", {}, api_version: "v2.3")
+    #     @a << a.first['adgroup_name']; @a << a.first['spend'];
+    #     b = @graph.get_object("/#{obj.adid}/conversions?fields=values", {}, api_version: "v2.3")
+    #     b['values'].first['conversions'].each do |c|
+    #       if(c['action_type'] == "offsite_conversion.checkout")
+    #         @a << c['post_click_28d']
+    #       end
+    #     end
+    #     @a << a.first['ctr']; @a << a.first['cpm']; @a << a.first['cpc'];
+    #     @b << @a;@a=[]
+    #   end
+    # end
 
     render layout: false
     # response = HTTParty.post("http://stealthroi.com/phpscripts/campaignDetails.php",

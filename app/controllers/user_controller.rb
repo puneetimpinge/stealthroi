@@ -28,7 +28,7 @@ class UserController < ApplicationController
 	end
 
 	def keywords
-
+		@data = AdKeyword.all
 	end
 
 	def login

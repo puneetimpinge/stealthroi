@@ -24,6 +24,7 @@ task :get_keywords => :environment do
 						b['conversions'].each do |c|
 							if c['action_type'] == 'offsite_conversion.checkout'
 								conversions = c['post_click_28d']
+								cpc = spend/conversions
 							end
 						end
 					end

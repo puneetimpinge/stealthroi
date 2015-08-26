@@ -14,12 +14,12 @@
 		</thead>
 		<% @b.each do |obj| %>
 			<tr>
-				<td><%=obj[0]%></td>
-				<td>$<%=obj[1]%></td>
-				<td><%=obj[2]%></td>
-				<td><%=obj[3].round(2)%>%</td>
-				<td>$<%=obj[4].round(2)%></td>
-				<td>$<%=obj[5].round(2)%></td>
+				<td><%=obj.name%><%#=obj[0]%></td>
+				<td>$<%=obj.totalspend%><%#=obj[1]%></td>
+				<td><%=obj.conversions%><%#=obj[2]%></td>
+				<td><%=obj.ctr.round(2)%><%#=obj[3].round(2)%>%</td>
+				<td>$<%=obj.cpm.round(2)%><%#=obj[4].round(2)%></td>
+				<td>$<%=obj.cpc.round(2)%><%#=obj[5].round(2)%></td>
 			</tr>
 		<%end%>
 	</table>
