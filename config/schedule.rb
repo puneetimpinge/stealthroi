@@ -33,6 +33,7 @@ every :hour do
 	# rake "get_data"
   command 'cd /home/ritika/RubymineProjects/Puneet/stealth_app && bundle install && bin/rake get_data'
   command 'cd /home/ritika/RubymineProjects/Puneet/stealth_app && bundle install && bin/rake get_fb_ads_data'
+  command 'cd /home/ritika/RubymineProjects/Puneet/stealth_app && bundle install && bin/rake get_keywords'
 end
 
 every 1.day, :at => '00:10 am' do

@@ -1,4 +1,5 @@
 task :get_data => :environment do
+	puts "===============Get Viralstyle rake Start=========================="
 	User.all.each do |user|
 		unless user.viralstyleapikey.empty?
 			time = Time.now.in_time_zone("America/New_York").to_i
@@ -45,4 +46,5 @@ task :get_data => :environment do
 			end
 		end
 	end
+	puts "===============Get Viralstyle rake End=========================="
 end

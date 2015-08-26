@@ -10,6 +10,7 @@ class User < ActiveRecord::Base
   has_many :fb_ads, dependent: :destroy
   has_one :fbauthtoken, dependent: :destroy
   has_many :notifications, dependent: :destroy
+  has_many :ad_keywords, dependent: :destroy
   validates_uniqueness_of :fname
   attr_accessor :card_type, :card_number,:cvv,:card_expires_on,:card_name
 

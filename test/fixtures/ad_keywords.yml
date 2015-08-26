@@ -1,0 +1,27 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  group_id: MyString
+  campaign_id: MyString
+  target_domain: MyString
+  target_page: MyString
+  name: MyString
+  ctr: 1.5
+  cpm: 1.5
+  cpc: 1.5
+  totalspend: 1.5
+  conversions: 1
+  user_id: 
+
+two:
+  group_id: MyString
+  campaign_id: MyString
+  target_domain: MyString
+  target_page: MyString
+  name: MyString
+  ctr: 1.5
+  cpm: 1.5
+  cpc: 1.5
+  totalspend: 1.5
+  conversions: 1
+  user_id: 

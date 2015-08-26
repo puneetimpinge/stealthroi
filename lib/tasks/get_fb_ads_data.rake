@@ -1,4 +1,5 @@
 task :get_fb_ads_data => :environment do
+	puts "===============Get Fb Ads rake Start=========================="
 	@user = User.where("fbadaccount IS NOT NULL")
 
 	@user.each do |user|
@@ -138,4 +139,5 @@ task :get_fb_ads_data => :environment do
 		# 	end
 		# end
 	end
+	puts "===============Get Fb Ads rake End=========================="
 end

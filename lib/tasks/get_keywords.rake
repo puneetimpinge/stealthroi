@@ -1,0 +1,38 @@
+task :get_keywords => :environment do
+	puts "===============Get Keyword rake Start=========================="
+	@user = User.where("fbadaccount IS NOT NULL")
+	@user.all.each do |user|
+		@graph = Koala::Facebook::API.new("#{user.fbauthtoken.fbtoken}")
+		ads = user.fb_ads.all
+		unless ads.empty?
+			ads.each do |obj|
+				if AdKeyword.where(group_id: "#{obj.adid}").empty?
+					data = @graph.get_object("/#{obj.adid}/insights?fields=ctr,cpc,spend,cpm,adgroup_name,campaign_id", {}, api_version: "v2.3").first
+					ctr = data['ctr']
+					cpc = data['cpc']
+					spend = data['spend']
+					cpm = data['cpm']
+					target_domain = obj.urldomain
+					target_page = obj.urlcode
+					name = data['adgroup_name']
+					campaign_id = data['campaign_id']
+					group_id = obj.adid
+
+					a=@graph.get_object("/#{obj.adid}/conversions?fields=values", {}, api_version: "v2.3")
+					conversions = 0
+					a['values'].each do |b|
+						b['conversions'].each do |c|
+							if c['action_type'] == 'offsite_conversion.checkout'
+								conversions = c['post_click_28d']
+							end
+						end
+					end
+					rec = user.ad_keywords.new(group_id: group_id, campaign_id: campaign_id, target_domain: target_domain, target_page: target_page,
+						name: name, ctr: ctr, cpm: cpm, cpc: cpc, totalspend: spend,conversions: conversions)
+					rec.save
+				end
+			end
+		end
+	end
+	puts "===============Get Keyword rake End=========================="
+end
