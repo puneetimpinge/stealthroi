@@ -139,8 +139,8 @@ class HomeController < ApplicationController
     end
 
     (start_time.to_i..end_time.to_i).step(step).each_with_index do |a,i|
-        spend = FbAd.where('created_at > ? AND created_at < ? AND urldomain = ?', Time.zone.at(a),Time.zone.at(a)+time_inc, "https://viralstyle").map(&:t_spend).compact.sum.to_s
-        data = CampaignStat.where('created_at > ? AND created_at < ?', Time.zone.at(a),Time.zone.at(a)+time_inc)
+        spend = current_user.fb_ads.where('created_at > ? AND created_at < ? AND urldomain = ?', Time.zone.at(a),Time.zone.at(a)+time_inc, "https://viralstyle").map(&:t_spend).compact.sum.to_s
+        data = current_user.campaign_stats.where('created_at > ? AND created_at < ?', Time.zone.at(a),Time.zone.at(a)+time_inc)
         earned = data.map(&:profit).sum.to_f.to_s
         order = data.map(&:current_order_count).sum
         h[i] = {a: spend,b: earned, c: order, time: Time.zone.at(a).strftime(time_format)}
@@ -178,7 +178,7 @@ class HomeController < ApplicationController
     totalEarned = @data.map(&:profit).sum.round(2)
     totalSpent = @spend.map(&:t_spend).compact.sum.round(2)
     totalProfit = (totalEarned - totalSpent).round(2)
-    totalROI = totalSpent > 0 ? ((totalProfit/totalSpent)*100).round(2) : -100
+    totalROI = totalSpent > 0 ? ((totalProfit/totalSpent)*100).round(2) : 0
     totalOrders = @data.map(&:current_order_count).sum
  
     render :json => { :response => "#{totalEarned}customSplitter#{totalSpent}customSplitter#{totalProfit}customSplitter#{totalROI}customSplitter#{totalOrders}" }.to_json

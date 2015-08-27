@@ -2,6 +2,7 @@ task :get_keywords => :environment do
 	puts "===============Get Keyword rake Start=========================="
 	@user = User.where("fbadaccount IS NOT NULL")
 	@user.all.each do |user|
+		puts "=======#{user.fname}======"
 		@graph = Koala::Facebook::API.new("#{user.fbauthtoken.fbtoken}")
 		ads = user.fb_ads.all
 		unless ads.empty?
@@ -31,6 +32,7 @@ task :get_keywords => :environment do
 					rec = user.ad_keywords.new(group_id: group_id, campaign_id: campaign_id, target_domain: target_domain, target_page: target_page,
 						name: name, ctr: ctr, cpm: cpm, cpc: cpc, totalspend: spend,conversions: conversions)
 					rec.save
+					puts ">>>>>>>>>>>>>>>>>>>>>>NEW RECORD<<<<<<<<<<<<<<<<<<<<<<<<<<"
 				end
 			end
 		end

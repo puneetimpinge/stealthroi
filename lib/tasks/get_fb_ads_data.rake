@@ -3,6 +3,7 @@ task :get_fb_ads_data => :environment do
 	@user = User.where("fbadaccount IS NOT NULL")
 
 	@user.each do |user|
+		puts "=======#{user.fname}======"
 		@graph = Koala::Facebook::API.new("#{user.fbauthtoken.fbtoken}")
 		timezone_name = @graph.get_object("#{user.fbadaccount}", {fields: "timezone_name"}, api_version: "v2.3")['timezone_name']
 
@@ -52,38 +53,45 @@ task :get_fb_ads_data => :environment do
 			urlCode = ""
 			urlDomain = ""
 
-			puts "#{i}/#{ad_profile.count}"
-			puts id
+			# puts "#{i}/#{ad_profile.count}"
+			# puts id
 			# if user.fb_ads.all.where(adid: id).empty?
 				# user.fb_ads.create(adid: id, urlcode: urlCode, urldomain: urlDomain)
 			# else
 				#=============
 				# if FbAd.where(adid: id).empty?
 					unless objectStoryID.nil?
-						ad_story = @graph.get_object("/#{objectStoryID}", {}, api_version: "v2.3")
-						if ad_story['message'].nil?
-							url = nil
-						else
-							short_url = ad_story['message'].split(/\s+/).find_all { |u| u =~ /^https?:/ }.first
-							url = Net::HTTP.get_response(URI.parse("#{short_url}"))['location']
-						end
-						puts url
-						puts "--------------------"
-						urlDomain = url.nil? ? "" : url.split(".com/").first
-						urlCode = url.nil? ? "" : url.split(".com/").last.split("?").first
-						#=============
-
-						# user.fb_ads.all.where(adid: id).update_all(urlcode: urlCode, urldomain: urlDomain)
-						if urlDomain.include?("viralstyle")
-							puts "===============In viralstyle================"
-							spend = @graph.get_object("/#{user.fbadaccount}/reportstats?date_preset=today&data_columns=adgroup_id, spend&filters=[{'field': 'adgroup_id','type': '=','value': #{id}}]", {}, api_version: "v2.3")
-							last_rec = FbAd.where(adid: id).last
-							if last_rec.nil? || last_rec.tot_spend.nil? || last_rec.tot_spend.empty?
-								t_spend = spend
+						begin
+							ad_story = @graph.get_object("/#{objectStoryID}", {}, api_version: "v2.3")	
+							if ad_story['message'].nil?
+								url = nil
 							else
-								t_spend = spend - last_rec.tot_spend
+								short_url = ad_story['message'].split(/\s+/).find_all { |u| u =~ /^https?:/ }.first
+								url = short_url.nil? ? nil : Net::HTTP.get_response(URI.parse("#{short_url}"))['location']
 							end
-							user.fb_ads.create(adid: id, urlcode: urlCode, urldomain: urlDomain, tot_spend: spend, t_spend: t_spend)
+							# puts url
+							# puts "--------------------"
+							urlDomain = url.nil? ? "" : url.split(".com/").first
+							urlCode = url.nil? ? "" : url.split(".com/").last.split("?").first
+							#=============
+
+							# user.fb_ads.all.where(adid: id).update_all(urlcode: urlCode, urldomain: urlDomain)
+							if urlDomain.include?("viralstyle")
+								puts "===============In viralstyle================"
+								spend = @graph.get_object("/#{user.fbadaccount}/reportstats?date_preset=today&data_columns=adgroup_id, spend&filters=[{'field': 'adgroup_id','type': '=','value': #{id}}]", {}, api_version: "v2.3")
+								last_rec = FbAd.where(adid: id).last
+								if last_rec.nil? || last_rec.tot_spend.nil? || last_rec.tot_spend.empty?
+									t_spend = spend
+								else
+									t_spend = spend - last_rec.tot_spend
+								end
+								user.fb_ads.create(adid: id, urlcode: urlCode, urldomain: urlDomain, tot_spend: spend, t_spend: t_spend)
+								puts ">>>>>>>>>>>>>>>>>>>>>>NEW RECORD<<<<<<<<<<<<<<<<<<<<<<<<<<"
+							end	
+						rescue Exception => e
+							puts "-------------EXCEPTION--------#{user}-------"
+							puts e.message
+							puts "-------------------------------------"							
 						end
 					end
 				# else

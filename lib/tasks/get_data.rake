@@ -1,6 +1,7 @@
 task :get_data => :environment do
 	puts "===============Get Viralstyle rake Start=========================="
 	User.all.each do |user|
+		puts "=======#{user.fname}======"
 		unless user.viralstyleapikey.empty?
 			time = Time.now.in_time_zone("America/New_York").to_i
 			startTimeStamp = time-5000
@@ -26,7 +27,7 @@ task :get_data => :environment do
 
 		    unless response['data'].nil?
 			    response['data'].each_with_index do |obj,i|
-			    	puts i+1
+			    	# puts i+1
 			      #Campaign.create(obj) if Campaign.where(:id => obj['id']).first.nil?
 			      data = HTTParty.get("https://viralstyle.com/api/v1/campaigns/#{obj['id']}/stats?date_start=#{lastHour}&date_end=#{startHour}",
 			       headers: {"X-Authorization" => "#{user.viralstyleapikey}"})
