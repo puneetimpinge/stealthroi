@@ -141,7 +141,7 @@ class HomeController < ApplicationController
     (start_time.to_i..end_time.to_i).step(step).each_with_index do |a,i|
         spend = current_user.fb_ads.where('created_at > ? AND created_at < ? AND urldomain = ?', Time.zone.at(a),Time.zone.at(a)+time_inc, "https://viralstyle").map(&:t_spend).compact.sum.to_s
         data = current_user.campaign_stats.where('created_at > ? AND created_at < ?', Time.zone.at(a),Time.zone.at(a)+time_inc)
-        earned = data.map(&:profit).sum.to_f.to_s
+        earned = data.map(&:profit).sum.to_f.round(2).to_s
         order = data.map(&:current_order_count).sum
         h[i] = {a: spend,b: earned, c: order, time: Time.zone.at(a).strftime(time_format)}
     end

@@ -21,6 +21,7 @@
                                 <li role="presentation"><a href="#password" aria-controls="password" role="tab" data-toggle="tab">Change Password</a></li>
                                 <li role="presentation"><a href="#avatar" aria-controls="avatar" role="tab" data-toggle="tab">Change Avatar</a></li>
                                 <li role="presentation"><a href="#api" aria-controls="api" role="tab" data-toggle="tab">API Connection</a></li>
+                                <li role="presentation"><a href="#subscription" aria-controls="subscription" role="tab" data-toggle="tab">Subscription</a></li>
                             </ul>
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane  active" id="info">
@@ -274,11 +275,12 @@
                                     <%end%>
                                 </div>
                                 <div role="tabpanel" class="tab-pane fade" id="api">
+                                    <h4>Viralstyle </h4>
                                     <%= form_for(@user, url: user_path(@user), html: { method: :put, id: "api_form" }) do |f| %>
                                         <div class="row">
                                             <div class="form-group">
                                                 <div class="col-md-3">
-                                                    <label>Viralstyle API key :</label>
+                                                    <label>API key :</label>
                                                 </div>
                                                 <div class="col-md-9">
                                                     <%= f.text_field :viralstyleapikey, autocomplete: "off",class: "form-control" %>
@@ -295,10 +297,21 @@
                                         </div>
                                     <%end%>
                                     <hr/>
+                                    <h4>Facebook </h4>
                                     <% if current_user.fbauthtoken.nil? %>
-                                        <%= button_to "Connect Facebook","/user/connect_facebook",:class=>"btn btn-primary"%>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <!-- <div class="col-md-3">
+                                                    <label>API key :</label>
+                                                </div> -->
+                                                <div class="col-md-3 col-md-offset-3">
+                                                    <%= button_to "Connect Facebook","/user/connect_facebook",:class=>"btn btn-primary"%>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
                                     <%else%>
-                                        <%= button_to "Disconnect Facebook","/user/disconnect_facebook",:class=>"btn btn-primary"%>
+                                        <%= button_to "Disconnect Facebook","/user/disconnect_facebook",:class=>"btn btn-primary",style: "float: right"%>
                                     <%end%>
                                     <% unless @campaign.nil? %>
                                         <%= form_for(@user, url: user_path(@user), html: { method: :put, id: "api_form" }) do |f| %>
@@ -354,6 +367,15 @@
                                           </div>
                                         </div> -->
                                     <%end%>
+                                </div>
+                                <div role="tabpanel" class="tab-pane fade" id="subscription">
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <div class="col-md-3">
+                                                <label>Your current Plan is Basic.</label>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 						</div>
