@@ -1,6 +1,7 @@
 task :get_data => :environment do
+	@user = User.where.not("viralstyleapikey = '' ")
 	puts "===============Get Viralstyle rake Start=========================="
-	User.all.each do |user|
+	@user.each do |user|
 		puts "=======#{user.fname}======"
 		unless user.viralstyleapikey.empty?
 			# time = Time.now.in_time_zone("America/New_York").to_i

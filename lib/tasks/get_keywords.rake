@@ -1,6 +1,6 @@
 task :get_keywords => :environment do
 	puts "===============Get Keyword rake Start=========================="
-	@user = User.where("fbadaccount IS NOT NULL")
+	@user = User.where.not("fbadaccount = '' ")
 	@user.all.each do |user|
 		puts "=======#{user.fname}======"
 		@graph = Koala::Facebook::API.new("#{user.fbauthtoken.fbtoken}")

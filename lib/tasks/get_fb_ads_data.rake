@@ -1,6 +1,6 @@
 task :get_fb_ads_data => :environment do
 	puts "===============Get Fb Ads rake Start=========================="
-	@user = User.where("fbadaccount IS NOT NULL")
+	@user = User.where.not("fbadaccount = '' ")
 
 	@user.each do |user|
 		puts "=======#{user.fname}======"
