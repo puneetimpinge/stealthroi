@@ -1,4 +1,6 @@
 class HomeController < ApplicationController
+  before_filter :complete_profile, :unless => proc {|c| request.xhr?}, only: "index"
+
   require 'httparty'
   def index
     if current_user.nil? 
@@ -226,5 +228,14 @@ class HomeController < ApplicationController
     # response = HTTParty.post("http://stealthroi.com/phpscripts/campaignDetails.php",
     #   body: params )
     # render :json => { :response => response }.to_json
+  end
+
+  def complete_profile
+      if user_signed_in? && params[:controller]!="devise/sessions"
+        u = current_user
+        if (u.viralstyleapikey.empty? && u.shopify.empty? && u.teespring.empty? && u.teechip.empty? && u.represent.empty?) || u.fbauthtoken.nil?
+          redirect_to "/user/profile", layout: "application"
+        end
+      end
   end
 end

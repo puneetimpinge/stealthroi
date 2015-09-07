@@ -22,50 +22,7 @@
   </header>
 
   <div class="modal-theme">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title" id="myModalLabel">LOGIN</h4>
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-md-5">
-              <h3>Login With:</h3>
-              <p class="social-login">
-                <a href="<%= user_omniauth_authorize_path(:facebook) %>" class="popup" id="facebook"><img src="/assets/fb-login.png" lt=""/></a>
-                <a href="<%= user_omniauth_authorize_path(:google_oauth2) %>" class="popup" id="google_oauth2"><img src="/assets/google-login.png" alt=""/></a>
-                <a href="<%= user_omniauth_authorize_path(:twitter) %>" class="popup" id="twitter"><img src="/assets/twitter-login.png" alt=""/></a>  
-              </p>  
-            </div>
-            <div class="col-md-7">
-              <h3>Sign In With:</h3>
-              <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-                <div class=" form-group input-group input-group-lg">
-                  <span class="input-group-addon" id="sizing-addon1"><img src="/assets/email.png" alt="" width="26" height="19"/></span>
-                  <%= f.text_field :login,:class=>"form-control",placeholder:"Username or Email", "aria-describedby"=>"sizing-addon1",:required=>"required" %>
-                </div>
-                <div class="form-group input-group input-group-lg">
-                  <span class="input-group-addon" id="sizing-addon1"><img src="/assets/lock.png" alt="" width="26" height="19"/></span>
-                  <%= f.password_field :password,:class=>"form-control",placeholder:"Password", "aria-describedby"=>"sizing-addon1",:required=>"required" %>
-                </div>
-                
-                <div class=" form-group">
-                  <div class="checkbox">
-                    <%= f.check_box :remember_me,id: "check2",value: "check1" %>
-                    <label for="check2">Remember Me</label>
-                  </div>
-                </div>
-                <%= f.submit 'Sign In', class: 'btn-default-theme' %>
-              <%end%>
-              <p class="links-popup">
-                <a href="javascript:void(0);">I forget my password </a>
-                <a href="/users/sign_up" >Register a new membership</a>
-               </p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <%= render :partial => "/shared/signin" %>
   </div>
 </div>
 

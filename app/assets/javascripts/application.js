@@ -16,3 +16,4 @@
 //= require raphael
 //= require morris
 //= require rails-livestamp
+//= require common

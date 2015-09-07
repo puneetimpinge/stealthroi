@@ -3,4 +3,3 @@
 //= require home/custom
 //= require home/jquery.validate
 //= require spin.min
-//= require home/common

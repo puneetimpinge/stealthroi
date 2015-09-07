@@ -30,6 +30,7 @@ class User < ActiveRecord::Base
       user.email = auth.info.email
       user.password = Devise.friendly_token[0,20]
       user.fname = auth.info.name   # assuming the user model has a name
+      user.avatar = auth.info.image
       # user.image = auth.info.image # assuming the user model has an image
     end
   end
@@ -65,6 +66,10 @@ class User < ActiveRecord::Base
     if self.id.nil?
       self.accesslevel ||= 1
       self.viralstyleapikey ||= ''
+      self.shopify ||= ''
+      self.teechip ||= ''
+      self.teespring ||= ''
+      self.represent ||= ''
       self.emailverificationcode ||= ''
       self.tableprefix ||= ''
       self.timezonecode ||= ''

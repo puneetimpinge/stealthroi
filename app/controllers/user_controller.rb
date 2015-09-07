@@ -1,6 +1,7 @@
 class UserController < ApplicationController
 	before_action :authenticate_user!, :except=> ["verify_payment","verify_username"]
 	skip_before_filter :verify_authenticity_token, :only=> "verify_payment"
+	before_filter :complete_profile, :unless => proc {|c| request.xhr?}, only: ["landing", "dashboard", "ads_manager", "reports", "show"]
 	include PayPal::SDK::REST
 	
 	def landing
@@ -9,6 +10,13 @@ class UserController < ApplicationController
 
 	def dashboard
 
+	end
+
+	def profile
+		u = current_user
+	    unless (u.viralstyleapikey.empty? && u.shopify.empty? && u.teespring.empty? && u.teechip.empty? && u.represent.empty?) || u.fbauthtoken.nil?
+	        redirect_to root_url
+	    end
 	end
 	
 	def setting
@@ -36,10 +44,14 @@ class UserController < ApplicationController
 	end
 
 	def update
-		if params.has_key?("user")
+		if params.has_key?("user") && params[:commit] != "Cancel"
 			params[:user].delete("email") if params[:user].has_key?("email")
 			if current_user.update(user_params)
-				redirect_to :back, notice: "Profile Updated Successfully."
+				if request.referer.include?("setting")
+					redirect_to :back, notice: "Profile Updated Successfully."
+				else
+					redirect_to root_url, notice: "Profile Updated Successfully."
+				end
 			else
 				redirect_to root_url, alert: "Something went wrong"
 			end
@@ -118,8 +130,15 @@ class UserController < ApplicationController
 	      # @api = Koala::Facebook::API.new(session[:access_token])
 	      # current_user.update_attributes(:fb_token=>session[:access_token])
 	      current_user.build_fbauthtoken(email: current_user.email, fbtoken: session[:fb_access_token]).save
+
+	      @graph = Koala::Facebook::API.new(session[:fb_access_token])
+	      id = @graph.get_object("me", {}, api_version: "v2.3")['id']
+	      image = @graph.get_picture(id)
+	      current_user.update_attributes(remote_avatar_url: image)#.gsub("http:", "https:"))
+
 	      flash[:notice] = "Connected with Facebook"
-	      redirect_to "/user/setting"
+	      # redirect_to "/user/setting"
+	      redirect_to "/user/landing"
 	    end 
 	end
 
@@ -133,6 +152,16 @@ class UserController < ApplicationController
 	private
 
     def user_params
-      params.require(:user).permit(:first_name,:last_name, :phone,:avatar, :fname, :viralstyleapikey, :fbadaccount, :timezone)
+      params.require(:user).permit(:first_name,:last_name, :phone,:avatar, :fname, :viralstyleapikey, :fbadaccount, :timezone, :shopify, :teespring, :teechip, :represent)
     end
+
+    def complete_profile
+	    if user_signed_in? && params[:controller]!="devise/sessions"
+	      u = current_user
+	      if (u.viralstyleapikey.empty? && u.shopify.empty? && u.teespring.empty? && u.teechip.empty? && u.represent.empty?) || u.fbauthtoken.nil?
+	        redirect_to "/user/profile"#, layout: "application"
+	      end
+	    end
+	end
+
 end

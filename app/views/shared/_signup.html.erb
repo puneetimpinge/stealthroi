@@ -1,0 +1,228 @@
+<div class="modal-dialog">
+  <div class="modal-content">
+    <div class="modal-header">
+      <%if params[:controller] == "home"%>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><img src="/assets/close.png" alt=""/></span></button>
+      <%end%>
+      <h4 class="modal-title" id="myModalLabel">SIGNUP</h4>
+      <h5 class="error_msg" style="color:red;display:none"></h5>
+      <!-- <h5 class="success_msg" style="color:green;display:none">Successful Payment.</h5> -->
+    </div>
+    <div class="modal-body">
+      <div class="row">
+        <div class="col-md-5">
+        	<h3>SignUp With :</h3>
+          <p class="social-login">
+          	<a href="<%= user_omniauth_authorize_path(:facebook) %>" class="popup" id="facebook"><img src="/assets/fb-signup.png" alt=""/></a>
+            <a href="<%= user_omniauth_authorize_path(:google_oauth2) %>" class="popup" id="google_oauth2" ><img src="/assets/google-signup.png" alt=""/></a>
+            <a href="<%= user_omniauth_authorize_path(:twitter) %>" class="popup" id="twitter"><img src="/assets/twitter-signup.png" alt=""/></a>
+          </p>	
+        </div>
+        <div class="col-md-7">
+        	<h3>Register a new Account:</h3>
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+            <%= devise_error_messages! %>
+            <div class="signup_box">
+              <div class=" form-group input-group input-group-lg">
+                <span class="input-group-addon" id="sizing-addon1"><img src="/assets/user.png" alt="" width="26" height="19"/></span>
+                <%= f.text_field :fname,:class=>"form-control",placeholder:"Username", "aria-describedby"=>"sizing-addon1",:required=>"required" %>
+                <!-- <input type="text" class="form-control" placeholder="Full Name" aria-describedby="sizing-addon1"> -->
+	            </div>
+              <div class="form-group input-group input-group-lg">
+                <span class="input-group-addon" id="sizing-addon1"><img src="/assets/email.png" alt="" width="26" height="19"/></span>
+                <%= f.email_field :email,:class=>"form-control",placeholder:"Email", "aria-describedby"=>"sizing-addon1",:required=>"required" %>
+                <!-- <input type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon1"> -->
+	            </div>
+              <div class=" form-group input-group input-group-lg">
+                <span class="input-group-addon" id="sizing-addon1"><img src="/assets/lock.png" alt="" width="26" height="19"/></span>
+                <%= f.password_field :password,:class=>"form-control",placeholder:"Enter Password", "aria-describedby"=>"sizing-addon1",:required=>"required" %>
+                <!-- <input type="text" class="form-control" placeholder="Enter Password" aria-describedby="sizing-addon1"> -->
+	            </div>
+              <div class=" form-group input-group input-group-lg">
+                <span class="input-group-addon" id="sizing-addon1"><img src="/assets/retyp.png" alt="" width="26" height="19"/></span>
+                <%= f.password_field :password_confirmation,:class=>"form-control",placeholder:"Retype Password", "aria-describedby"=>"sizing-addon1",:required=>"required" %>
+                <!-- <input type="text" class="form-control" placeholder="Retype Password" aria-describedby="sizing-addon1"> -->
+	            </div>
+              
+              <div class=" form-group">
+                <div class="checkbox">
+                  <input id="check1" type="checkbox" name="check" value="check1" required>
+                  <label for="check1">I agree to <a href="#">terms</a></label>
+                </div>
+              </div>
+              <button class="btn-default-theme" id="next_btn" type="submit">Next</button>
+            </div>
+
+            <div class="payment_box" style="display:none">
+              <div class=" form-group input-group input-group-lg">
+                <span class="input-group-addon" id="sizing-addon1"><img src="/assets/retyp.png" alt="" width="26" height="19"/></span>
+                <%= f.select :card_type, [["Visa", "visa"], ["MasterCard", "master"], ["Discover", "discover"], ["American Express", "american_express"]], :class=> "form-control" %>
+                <!-- <input type="text" class="form-control" placeholder="Retype Password" aria-describedby="sizing-addon1"> -->
+              </div>
+              <div class=" form-group input-group input-group-lg">
+                <span class="input-group-addon" id="sizing-addon1"><img src="/assets/user.png" alt="" width="26" height="19"/></span>
+                <%= f.text_field :card_name,:class=>"form-control",placeholder:"Card Name", "aria-describedby"=>"sizing-addon1" %>
+                <!-- <input type="text" class="form-control" placeholder="Full Name" aria-describedby="sizing-addon1"> -->
+              </div>
+              <div class="form-group input-group input-group-lg">
+                <span class="input-group-addon" id="sizing-addon1"><img src="/assets/card_number.png" alt="" width="26" height="19" style="width:30px;height:30px" /></span>
+                <%= f.text_field :card_number,:class=>"form-control",placeholder:"Card Number", "aria-describedby"=>"sizing-addon1" %>
+                <!-- <input type="text" class="form-control" placeholder="Email" aria-describedby="sizing-addon1"> -->
+              </div>
+              <div class=" form-group input-group input-group-lg" style="float:right;width: <%= params[:controller] == 'home' ? '200px' : '100%' %>">
+                <span class="input-group-addon" id="sizing-addon1"><img src="/assets/lock.png" alt="" width="26" height="19"/></span>
+                <%= f.text_field :cvv,:class=>"form-control",placeholder:"CVV", "aria-describedby"=>"sizing-addon1" %>
+                <!-- <input type="text" class="form-control" placeholder="Enter Password" aria-describedby="sizing-addon1"> -->
+              </div>
+              <div class=" form-group input-group input-group-lg" style="width: <%= params[:controller] == 'home' ? '300px' : '100%' %>">
+                <span class="input-group-addon" id="sizing-addon1"><img src="/assets/calender.png" alt="" width="26" height="19" style="width:30px;height:30px" /></span>
+                <%= f.date_select :card_expires_on, discard_day: true, start_year: Date.today.year, end_year: (Date.today.year+10), class: "form-control", required: true %>
+                <!-- <input type="text" class="form-control" placeholder="Enter Password" aria-describedby="sizing-addon1"> -->
+              </div>
+              <%= f.hidden_field :payment_status,value: "false", class: "payment_status" %>
+
+              <%= f.submit 'Sign Up', class: 'btn-default-theme', id: "signup_btn" %>
+              <a href="#" id="back_btn">Back</a>
+            </div>
+          <%end%>
+          <% if params[:controller] == "home"%>
+            <p class="links-popup">
+              <a href="javascript:void(0);" data-toggle="modal" data-target="#loginModal"  data-dismiss="modal" aria-label="Close">I already have an account.</a>
+            </p>
+          <%end%>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $("#next_btn").click(function(e){
+    e.preventDefault();
+    e.stopPropagation();
+
+    // if ($($('form')[1]).valid()){
+    //   $(".signup_box").hide()
+    //   $(".payment_box").show()
+    // }
+    $.ajax({
+      type: 'get',
+      url: '/user/verify_username',
+      data: "username="+$("#user_fname").val(),
+      success: function(res){
+          if(res.status == false){
+              // var status = "false";
+          }else{
+              // var status = "true";
+              if ($($('form#new_user')).valid()){
+              $(".signup_box").hide()
+              $(".payment_box").show()
+            }
+          }
+      }
+    })
+  })
+
+   $("#back_btn").click(function(e){
+    e.preventDefault();
+    $(".signup_box").show()
+    $(".payment_box").hide()
+  })
+
+   $("#signup_btn, #payment_btn").click(function(e){
+    e.preventDefault();
+    if ($('#preview1').html() == ""){
+      var opts = {
+              lines: 17,
+              length: 40,
+              width: 22,
+              radius: 60,
+              corners: 1,
+              rotate: 90,
+              direction: 1,
+              color: '#000',
+              speed: 1.3,
+              trail: 96,
+              shadow: false,
+              hwaccel: false,
+              className: 'spinner',
+              zIndex: 2e9,
+              top: '50%',
+              left: '50%'
+      };
+      var target = document.getElementById('preview1');
+      var spinner = new Spinner(opts).spin(target);
+      target.appendChild(spinner.el);
+
+      var card_name = $(this).parent().find("#user_card_name").val();
+      var card_number = $(this).parent().find("#user_card_number").val();
+      var cvv = $(this).parent().find("#user_cvv").val();
+      var card_type = $(this).parent().find("#user_card_type").val();
+      var card_year = $(this).parent().find("#user_card_expires_on_1i").val();
+      var card_month = $(this).parent().find("#user_card_expires_on_2i").val();
+      var src = $(this)
+
+      $.ajax({
+        type: 'post',
+        url: '/user/verify_payment',
+        // async: false,
+        data: 'card_name='+card_name+'&card_number='+card_number+'&cvv='+cvv+'&card_type='+card_type+'&card_year='+card_year+'&card_month='+card_month,
+        success: function(e){
+          if (e.status == true){
+            $(".payment_status").val("true")
+            target.removeChild(spinner.el);
+            // $(".success_msg").css("display","block")
+            // notice_box("Successful Payment.")
+            $(src.parent().parent()[0]).submit()
+          }else{
+            var msg = JSON.stringify(e.message) 
+            // $(".error_msg").html(msg).css("display","block")
+            $('#signupModal').animate({scrollTop: '100px'}, 300);
+            console.log(e.message)
+            alert_box(msg)
+            target.removeChild(spinner.el);
+            // setTimeout(function(){
+            //   $('.error_msg').slideUp();
+            // }, 10000);
+          }
+          
+        },
+        error: function(){
+          target.removeChild(spinner.el);
+          alert('Something went wrong.')
+        }
+      })
+    }  
+  })
+</script>
+
+<style type="text/css">
+  select {
+    background-color: #fff;
+    border: 1px solid #454545;
+    border-left: 0px;
+    border-radius: 0px;
+    height: 80px;
+    width: 100%
+    }
+    #user_card_expires_on_1i{
+      float: right;
+    }
+    #user_card_expires_on_1i,#user_card_expires_on_2i{
+      width: 50%;
+      padding: 10px;
+    }
+    label.error{
+      font-weight: 0;
+      display: table-caption;
+      width: 100%;
+      padding: 0;
+      margin: 0;
+      font-size: 12px;
+    }
+    .input-group-lg label:before{
+      border:none !important;
+      width: 0 !important;
+      height: 0 !important;
+    }
+</style>

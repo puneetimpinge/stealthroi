@@ -27,11 +27,11 @@ class ApplicationController < ActionController::Base
 
     devise_parameter_sanitizer.for(:sign_up) { 
         |u| u.permit(:fname, :email, :password, :password_confirmation,:accesslevel,:viralstyleapikey,
-        	:emailverificationcode,:tableprefix,:timezonecode,:password_hash,:card_type, :card_number,:cvv,:card_expires_on,:card_name,:payment_status,:uid,:provider,:first_name,:last_name,:phone) 
+        	:emailverificationcode,:tableprefix,:timezonecode,:password_hash,:card_type, :card_number,:cvv,:card_expires_on,:card_name,:payment_status,:uid,:provider,:first_name,:last_name,:phone, :remote_avatar_url) 
     }
 
     devise_parameter_sanitizer.for(:account_update) { |u| 
-      u.permit(:password, :password_confirmation, :current_password, :first_name, :last_name, :phone) 
+      u.permit(:password, :password_confirmation, :current_password, :first_name, :last_name, :phone, :avatar) 
     }
   end
 

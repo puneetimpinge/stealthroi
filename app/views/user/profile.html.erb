@@ -1,0 +1,260 @@
+<div id="wrapper">
+    <%= render :partial => "/shared/left_side_menu" %>
+    <div id="page-wrapper" class="gray-bg sidebar-content">
+        <%= render :partial => "/shared/header" %>
+        
+        <div class="wrapper wrapper-content">
+        	<div class="row">
+            	<div class="col-lg-12 main-heading">
+                	<h1>Complete Your Profile</h1>
+                </div>
+            </div>
+            
+            <div class="row">
+            	<div class="col-lg-12">
+                	<div class="settings-page">
+                    	<div class="stepwizard col-md-offset-3">
+						    <div class="stepwizard-row setup-panel">
+						      <div class="stepwizard-step">
+						        <a href="#step-1" type="button" class="btn btn-primary btn-circle">1</a>
+						        <p>Step 1</p>
+						      </div>
+						      <div class="stepwizard-step">
+						        <a href="#step-2" type="button" class="btn btn-default btn-circle" disabled="disabled">2</a>
+						        <p>Step 2</p>
+						      </div>
+						      <!-- <div class="stepwizard-step">
+						        <a href="#step-3" type="button" class="btn btn-default btn-circle" disabled="disabled">3</a>
+						        <p>Step 3</p>
+						      </div> -->
+						    </div>
+						</div>
+						  
+						<!-- <form role="form" action="" method="post"> -->
+						    <div class="row setup-content" id="step-1">
+						      <div class="col-xs-6 col-md-offset-3">
+						        <div class="col-md-12">
+						          <h3> Facebook Connect</h3>
+						          <!-- <div class="form-group">
+						            <label class="control-label">First Name</label>
+						            <input  maxlength="100" type="text" required="required" class="form-control" placeholder="Enter First Name"  />
+						          </div>
+						          <div class="form-group">
+						            <label class="control-label">Last Name</label>
+						            <input maxlength="100" type="text" required="required" class="form-control" placeholder="Enter Last Name" />
+						          </div>
+						          <div class="form-group">
+						            <label class="control-label">Address</label>
+						            <textarea required="required" class="form-control" placeholder="Enter your address" ></textarea>
+						          </div> -->
+						          <% if current_user.fbauthtoken.nil? %>
+						          	<%= button_to "Click here to Connect with Facebook","/user/connect_facebook",:class=>"btn btn-primary"%>
+						          <%else%>
+						          	<button class="btn btn-primary">Connected with Facebook</button>
+						          <%end%>
+						          <br/><br/>
+						          <% unless current_user.fbauthtoken.nil? %>
+						          	<button class="btn btn-primary nextBtn btn-lg pull-left" type="button" >Next</button>
+						          <% end %>
+						        </div>
+						      </div>
+						    </div>
+						    <div class="row setup-content" id="step-2">
+						      	<%= form_for(current_user, url: user_path(current_user), html: { method: :put, id: "api_form" }) do |f| %>
+                                    <div class="container">
+                                        <h2>Select Plateform:</h2>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <div class="col-md-9">
+                                                    <div class="radio"><label><input type="radio" name="ad" value="viralstyle">Viralstyle</label></div>
+				                                	<%= f.text_field :viralstyleapikey,class: "form-control viralstyle",style: "display:none", placeholder: "Enter Viralstyle API Key" %>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <div class="col-md-9">
+				                                	<div class="radio"><label><input type="radio" name="ad" value="shopify">Shopify</label></div>
+				                                	<%= f.text_field :shopify,class: "form-control shopify",style: "display:none", placeholder: "Enter Shopify API Key" %>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <div class="col-md-9">
+				                                	<div class="radio"><label><input type="radio" name="ad" value="teechip">Teechip</label></div>
+				                                	<%= f.text_field :teechip,class: "form-control teechip",style: "display:none", placeholder: "Enter Teechip API Key" %>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <div class="col-md-9">
+				                                	<div class="radio"><label><input type="radio" name="ad" value="teespring">Teespring</label></div>
+				                                	<%= f.text_field :teespring,class: "form-control teespring",style: "display:none", placeholder: "Enter Teespring API Key" %>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <div class="col-md-9">
+				                                	<div class="radio"><label><input type="radio" name="ad" value="represent">Represent</label></div>
+				                                	<%= f.text_field :represent,class: "form-control represent",style: "display:none", placeholder: "Enter Represent API Key" %>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <div class="col-md-9 col-md-offset-2">
+                                                    <%= f.submit "Save",class: "btn-admin btn-blue" %>
+                                                    <!-- <input types="submit" value="Cancel" class="btn-admin btn-grey"/> -->
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <%end%>
+<!-- 						      <div class="col-xs-6 col-md-offset-3">
+						        <div class="col-md-12">
+						          <h3> Select Plateform</h3>
+
+						          	<div class="radio"><label><input type="radio" name="" value="">Viralstyle</label></div>
+                                	<div class="radio"><label><input type="radio" name="" value="">Shopify</label></div>
+                                	<div class="radio"><label><input type="radio" name="" value="">Teechip</label></div>
+                                	<div class="radio"><label><input type="radio" name="" value="">Teespring</label></div>
+                                	<div class="radio"><label><input type="radio" name="" value="">Represent</label></div>
+						          <button class="btn btn-primary nextBtn btn-lg pull-left" type="button" >Next</button>
+						        </div>
+						      </div>
+ -->						    </div>
+						    <!-- <div class="row setup-content" id="step-3">
+						      <div class="col-xs-6 col-md-offset-3">
+						        <div class="col-md-12">
+						          <h3> Step 3</h3>
+						          <button class="btn btn-success btn-lg pull-right" type="submit">Submit</button>
+						        </div>
+						      </div>
+						    </div> -->
+						<!-- </form> -->
+                    </div>
+                </div>    	
+            </div>
+        </div>
+    <%= render :partial => "/shared/footer" %>
+    </div>
+</div>
+
+<style type="text/css">
+	.stepwizard-step p {
+	    margin-top: 10px;
+	}
+	.stepwizard-row {
+	    display: table-row;
+	}
+	.stepwizard {
+	    display: table;
+	    width: 50%;
+	    position: relative;
+	}
+	.stepwizard-step button[disabled] {
+	    opacity: 1 !important;
+	    filter: alpha(opacity=100) !important;
+	}
+	.stepwizard-row:before {
+	    top: 14px;
+	    bottom: 0;
+	    position: absolute;
+	    content: " ";
+	    width: 100%;
+	    height: 1px;
+	    background-color: #ccc;
+	    z-order: 0;
+	}
+	.stepwizard-step {
+	    display: table-cell;
+	    text-align: center;
+	    position: relative;
+	}
+	.btn-circle {
+	    width: 30px;
+	    height: 30px;
+	    text-align: center;
+	    padding: 6px 0;
+	    font-size: 12px;
+	    line-height: 1.428571429;
+	    border-radius: 15px;
+	}
+	.btn-primary{
+		background-color: #1ab394;
+	}
+	.in{
+		height: 150%
+	}
+</style>
+
+<!-- <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css"> -->
+<!-- <script src="//code.jquery.com/jquery-1.10.2.min.js"></script> -->
+<!-- <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script> -->
+<script type="text/javascript">
+  	$(document).ready(function () {
+	  	var navListItems = $('div.setup-panel div a'),
+	          allWells = $('.setup-content'),
+	          allNextBtn = $('.nextBtn');
+
+	  	allWells.hide();
+
+	  	navListItems.click(function (e) {
+	      	e.preventDefault();
+	      	var $target = $($(this).attr('href')),
+	              $item = $(this);
+
+	      	if (!$item.hasClass('disabled')) {
+	          	navListItems.removeClass('btn-primary').addClass('btn-default');
+	          	$item.addClass('btn-primary');
+	          	allWells.hide();
+	          	$target.show();
+	          	$target.find('input:eq(0)').focus();
+	      	}
+	  	});
+
+	  	allNextBtn.click(function(){
+	      	var curStep = $(this).closest(".setup-content"),
+	          	curStepBtn = curStep.attr("id"),
+	          	nextStepWizard = $('div.setup-panel div a[href="#' + curStepBtn + '"]').parent().next().children("a"),
+	          	curInputs = curStep.find("input[type='text'],input[type='url']"),
+	          	isValid = true;
+
+	      	$(".form-group").removeClass("has-error");
+	      	for(var i=0; i<curInputs.length; i++){
+	          	if (!curInputs[i].validity.valid){
+	              	isValid = false;
+	              	$(curInputs[i]).closest(".form-group").addClass("has-error");
+	          	}
+	      	}
+
+	      	if (isValid)
+	          	nextStepWizard.removeAttr('disabled').trigger('click');
+	  	});
+
+	  	$('div.setup-panel div a.btn-primary').trigger('click');
+	});
+</script>
+
+<script type="text/javascript">
+	$('.radio input').click(function(){
+		$('.form-control').slideUp()
+		$('.form-control').val('')
+		$(this).parent().parent().parent().find('.form-control').slideDown()
+	})
+
+	$('.btn-admin').click(function(e) {
+		if($('input[name=ad]:checked').val() == undefined){
+			e.preventDefault()
+			alert_box('Please select the Plateform')
+		}else{
+			if($("."+$('input[name=ad]:checked').val()).val() == "" ){
+				e.preventDefault()
+				alert_box('Please Enter API Key.')
+			}
+		}
+	});
+</script>

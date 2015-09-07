@@ -25,6 +25,7 @@ Rails.application.routes.draw do
       post "connect_facebook"
       get "get_fb_token"
       post "disconnect_facebook"
+      get "profile"
     end  
   end 
   # get 'user/landing' => 'user#landing'

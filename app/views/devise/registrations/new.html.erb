@@ -22,85 +22,7 @@
   </header>
 
   <div class="modal-theme">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title" id="myModalLabel">SIGNUP</h4>
-          <h5 class="error_msg" style="color:red;display:none"></h5>
-          <!-- <h5 class="success_msg" style="color:green;display:none">Successful Payment.</h5> -->
-        </div>
-        <div class="modal-body">
-          <div class="row">
-            <div class="col-md-5">
-              <h3>SignUp With :</h3>
-              <p class="social-login">
-                <a href="<%= user_omniauth_authorize_path(:facebook) %>" class="popup" id="facebook"><img src="/assets/fb-signup.png" alt=""/></a>
-                <a href="<%= user_omniauth_authorize_path(:google_oauth2) %>" class="popup" id="google_oauth2"><img src="/assets/google-signup.png" alt=""/></a>
-                <a href="<%= user_omniauth_authorize_path(:twitter) %>" class="popup" id="twitter"><img src="/assets/twitter-signup.png" alt=""/></a>
-              </p>
-            </div>
-            <div class="col-md-7">
-              <h3>Register a new Account:</h3>
-              <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-                <%= devise_error_messages! %>
-                <div class="signup_box">
-                  <div class=" form-group input-group input-group-lg">
-                    <span class="input-group-addon" id="sizing-addon1"><img src="/assets/user.png" alt="" width="26" height="19"/></span>
-                    <%= f.text_field :fname,:class=>"form-control",placeholder:"Username", "aria-describedby"=>"sizing-addon1",:required=>"required" %>
-                  </div>
-                  <div class="form-group input-group input-group-lg">
-                    <span class="input-group-addon" id="sizing-addon1"><img src="/assets/email.png" alt="" width="26" height="19"/></span>
-                    <%= f.email_field :email,:class=>"form-control",placeholder:"Email", "aria-describedby"=>"sizing-addon1",:required=>"required" %>
-                  </div>
-                  <div class=" form-group input-group input-group-lg">
-                    <span class="input-group-addon" id="sizing-addon1"><img src="/assets/lock.png" alt="" width="26" height="19"/></span>
-                    <%= f.password_field :password,:class=>"form-control",placeholder:"Enter Password", "aria-describedby"=>"sizing-addon1",:required=>"required" %>
-                  </div>
-                  <div class=" form-group input-group input-group-lg">
-                    <span class="input-group-addon" id="sizing-addon1"><img src="/assets/retyp.png" alt="" width="26" height="19"/></span>
-                    <%= f.password_field :password_confirmation,:class=>"form-control",placeholder:"Retype Password", "aria-describedby"=>"sizing-addon1",:required=>"required" %>
-                  </div>
-                  <div class=" form-group">
-                    <div class="checkbox">
-                      <input id="check1" type="checkbox" name="check" value="check1">
-                      <label for="check1">I agree to <a href="#">terms</a></label>
-                    </div>
-                  </div>
-                  <button class="btn-default-theme" id="next_btn" type="submit">Next</button>
-                </div>
-
-                <div class="payment_box" style="display:none">
-                  <div class=" form-group input-group input-group-lg">
-                    <span class="input-group-addon" id="sizing-addon1"><img src="/assets/retyp.png" alt="" width="26" height="19"/></span>
-                    <%= f.select :card_type, [["Visa", "visa"], ["MasterCard", "master"], ["Discover", "discover"], ["American Express", "american_express"]], :class=> "form-control" %>
-                  </div>
-                  <div class=" form-group input-group input-group-lg">
-                    <span class="input-group-addon" id="sizing-addon1"><img src="/assets/user.png" alt="" width="26" height="19"/></span>
-                    <%= f.text_field :card_name,:class=>"form-control",placeholder:"Card Name", "aria-describedby"=>"sizing-addon1" %>
-                  </div>
-                  <div class="form-group input-group input-group-lg">
-                    <span class="input-group-addon" id="sizing-addon1"><img src="/assets/card_number.png" alt="" width="26" height="19" style="width:30px;height:30px" /></span>
-                    <%= f.text_field :card_number,:class=>"form-control",placeholder:"Card Number", "aria-describedby"=>"sizing-addon1" %>
-                  </div>
-                  <div class=" form-group input-group input-group-lg" style="width:200px;float:right">
-                    <span class="input-group-addon" id="sizing-addon1"><img src="/assets/lock.png" alt="" width="26" height="19"/></span>
-                    <%= f.text_field :cvv,:class=>"form-control",placeholder:"CVV", "aria-describedby"=>"sizing-addon1" %>
-                  </div>
-                  <div class=" form-group input-group input-group-lg" style="width:300px">
-                    <span class="input-group-addon" id="sizing-addon1"><img src="/assets/calender.png" alt="" width="26" height="19" style="width:30px;height:30px" /></span>
-                    <%= f.date_select :card_expires_on, discard_day: true, start_year: Date.today.year, end_year: (Date.today.year+10), class: "form-control", required: true %>
-                  </div>
-                  <%= f.hidden_field :payment_status,value: "false", class: "payment_status" %>
-
-                  <%= f.submit 'Sign Up', class: 'btn-default-theme', id: "signup_btn" %>
-                  <a href="#" id="back_btn">Back</a>
-                </div>
-              <%end%>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    <%= render :partial => "/shared/signup" %>
   </div>
 
   <footer class="footer">
@@ -127,122 +49,122 @@
     $("#user_password_confirmation").rules("add",{minlength: 8,equalTo: "#user_password"});
   });
 
-  $("#next_btn").click(function(e){
-    e.preventDefault();
-    e.stopPropagation();
-    $($('form')[0]).valid();
-    $("#user_password").rules("add",{minlength: 8});
-    $("#user_password_confirmation").rules("add",{minlength: 8,equalTo: "#user_password"});
+  // $("#next_btn").click(function(e){
+  //   e.preventDefault();
+  //   e.stopPropagation();
+  //   $($('form')[0]).valid();
+  //   $("#user_password").rules("add",{minlength: 8});
+  //   $("#user_password_confirmation").rules("add",{minlength: 8,equalTo: "#user_password"});
 
-    // var status = "";
-    $.ajax({
-      type: 'get',
-      url: '/user/verify_username',
-      data: "username="+$("#user_fname").val(),
-      success: function(res){
-          if(res.status == false){
-              // var status = "false";
-          }else{
-              // var status = "true";
-              if ($($('form')[0]).valid()){
-              $(".signup_box").hide()
-              $(".payment_box").show()
-            }
-          }
-      }
-    })
-  })
+  //   // var status = "";
+  //   $.ajax({
+  //     type: 'get',
+  //     url: '/user/verify_username',
+  //     data: "username="+$("#user_fname").val(),
+  //     success: function(res){
+  //         if(res.status == false){
+  //             // var status = "false";
+  //         }else{
+  //             // var status = "true";
+  //             if ($($('form')[0]).valid()){
+  //             $(".signup_box").hide()
+  //             $(".payment_box").show()
+  //           }
+  //         }
+  //     }
+  //   })
+  // })
 
-  $("#back_btn").click(function(e){
-    e.preventDefault();
-    $(".signup_box").show()
-    $(".payment_box").hide()
-  })
+  // $("#back_btn").click(function(e){
+  //   e.preventDefault();
+  //   $(".signup_box").show()
+  //   $(".payment_box").hide()
+  // })
 
-  $("#user_fname").change(function(){
-      var src = $(this);
-      var username = src.val();
-      $.ajax({
-          type: 'get',
-          url: '/user/verify_username',
-          data: "username="+username,
-          success: function(res){
-              if(res.status == false){
-                  src.parent().parent().prepend("<div class='username_alert' style='color:red'>Username already Exists.</div>")
-              }else{
-                  src.parent().parent().find(".username_alert").remove()
-              }
-          }
-      })
-  });
+  // $("#user_fname").change(function(){
+  //     var src = $(this);
+  //     var username = src.val();
+  //     $.ajax({
+  //         type: 'get',
+  //         url: '/user/verify_username',
+  //         data: "username="+username,
+  //         success: function(res){
+  //             if(res.status == false){
+  //                 src.parent().parent().prepend("<div class='username_alert' style='color:red'>Username already Exists.</div>")
+  //             }else{
+  //                 src.parent().parent().find(".username_alert").remove()
+  //             }
+  //         }
+  //     })
+  // });
 
-   $("#signup_btn").click(function(e){
-    e.preventDefault();
-    if ($('#preview1').html() == ""){
-      var opts = {
-              lines: 17,
-              length: 40,
-              width: 22,
-              radius: 60,
-              corners: 1,
-              rotate: 90,
-              direction: 1,
-              color: '#000',
-              speed: 1.3,
-              trail: 96,
-              shadow: false,
-              hwaccel: false,
-              className: 'spinner',
-              zIndex: 2e9,
-              top: '50%',
-              left: '50%'
-      };
-      var target = document.getElementById('preview1');
-      var spinner = new Spinner(opts).spin(target);
-      target.appendChild(spinner.el);
+  //  $("#signup_btn").click(function(e){
+  //   e.preventDefault();
+  //   if ($('#preview1').html() == ""){
+  //     var opts = {
+  //             lines: 17,
+  //             length: 40,
+  //             width: 22,
+  //             radius: 60,
+  //             corners: 1,
+  //             rotate: 90,
+  //             direction: 1,
+  //             color: '#000',
+  //             speed: 1.3,
+  //             trail: 96,
+  //             shadow: false,
+  //             hwaccel: false,
+  //             className: 'spinner',
+  //             zIndex: 2e9,
+  //             top: '50%',
+  //             left: '50%'
+  //     };
+  //     var target = document.getElementById('preview1');
+  //     var spinner = new Spinner(opts).spin(target);
+  //     target.appendChild(spinner.el);
 
-      var card_name = $(this).parent().find("#user_card_name").val();
-      var card_number = $(this).parent().find("#user_card_number").val();
-      var cvv = $(this).parent().find("#user_cvv").val();
-      var card_type = $(this).parent().find("#user_card_type").val();
-      var card_year = $(this).parent().find("#user_card_expires_on_1i").val();
-      var card_month = $(this).parent().find("#user_card_expires_on_2i").val();
-      var src = $(this)
+  //     var card_name = $(this).parent().find("#user_card_name").val();
+  //     var card_number = $(this).parent().find("#user_card_number").val();
+  //     var cvv = $(this).parent().find("#user_cvv").val();
+  //     var card_type = $(this).parent().find("#user_card_type").val();
+  //     var card_year = $(this).parent().find("#user_card_expires_on_1i").val();
+  //     var card_month = $(this).parent().find("#user_card_expires_on_2i").val();
+  //     var src = $(this)
 
-      $.ajax({
-        type: 'post',
-        url: '/user/verify_payment',
-        // async: false,
-        data: 'card_name='+card_name+'&card_number='+card_number+'&cvv='+cvv+'&card_type='+card_type+'&card_year='+card_year+'&card_month='+card_month,
-        success: function(e){
-          if (e.status == true){
-            $(".payment_status").val("true")
-            target.removeChild(spinner.el);
-            // $(".success_msg").css("display","block")
-            $(src.parent().parent()[0]).submit()
-          }else{
-            var msg = JSON.stringify(e.message) 
-            // $(".error_msg").html(msg).css("display","block")
-            $('#signupModal').animate({scrollTop: '100px'}, 300);
-            alert_box(msg)
-            target.removeChild(spinner.el);
-            // setTimeout(function(){
-            //   $('.error_msg').slideUp();
-            // }, 10000);
-          }
-        },
-        error: function(){
-          target.removeChild(spinner.el);
-          alert('Something went wrong.')
-        }
-      })
-    }  
-  })
+  //     $.ajax({
+  //       type: 'post',
+  //       url: '/user/verify_payment',
+  //       // async: false,
+  //       data: 'card_name='+card_name+'&card_number='+card_number+'&cvv='+cvv+'&card_type='+card_type+'&card_year='+card_year+'&card_month='+card_month,
+  //       success: function(e){
+  //         if (e.status == true){
+  //           $(".payment_status").val("true")
+  //           target.removeChild(spinner.el);
+  //           // $(".success_msg").css("display","block")
+  //           $(src.parent().parent()[0]).submit()
+  //         }else{
+  //           var msg = JSON.stringify(e.message) 
+  //           // $(".error_msg").html(msg).css("display","block")
+  //           $('#signupModal').animate({scrollTop: '100px'}, 300);
+  //           alert_box(msg)
+  //           target.removeChild(spinner.el);
+  //           // setTimeout(function(){
+  //           //   $('.error_msg').slideUp();
+  //           // }, 10000);
+  //         }
+  //       },
+  //       error: function(){
+  //         target.removeChild(spinner.el);
+  //         alert('Something went wrong.')
+  //       }
+  //     })
+  //   }  
+  // })
 </script>
 
 
 <style type="text/css">
-  select {
+/*  select {
     background-color: #fff;
     border: 1px solid #454545;
     border-left: 0px;
@@ -269,5 +191,5 @@
       border:none !important;
       width: 0 !important;
       height: 0 !important;
-    }
+    }*/
 </style>
