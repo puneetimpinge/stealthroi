@@ -4,7 +4,7 @@
             <li class="nav-header text-center">
                 <div class="dropdown profile-element"> <span>
                 <div class="logo-main"><img src="/assets/logo_white.png" alt="pic"/></div>
-                        <img alt="image" class="img-circle" src="<%=current_user.avatar.url.nil? ? '/assets/default.jpg' : current_user.avatar.url %>" style="width:108px;height:108px" />
+                        <img alt="image" class="img-circle" src="<%=current_user.remote_avatar_url.nil? ? current_user.avatar_url : current_user.remote_avatar_url %>" style="width:108px;height:108px" />
                          </span>
                     <a data-toggle="dropdown" class="dropdown-toggle" href="#">
                         <span class="clear"> <span class="block m-t-xs"> <%= (current_user.first_name.nil? || current_user.first_name.empty? ? current_user.fname : "#{current_user.first_name} #{current_user.last_name}" )%>

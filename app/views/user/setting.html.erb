@@ -240,7 +240,7 @@
                                         	<div class="col-md-12">
                                             	<div class="image_uploading">
                                                 <div class="image_upload_main upload-preview">
-                                                    <%= image_tag(@user.avatar_url.nil? ? "default.jpg" : @user.avatar_url, height: "231", width: "271") %>
+                                                    <%= image_tag(@user.remote_avatar_url.nil? ? @user.avatar_url : @user.remote_avatar_url, height: "231", width: "271") %>
                                                 </div>
                                             </div>
                                             </div>
