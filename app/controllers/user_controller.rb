@@ -1,7 +1,7 @@
 class UserController < ApplicationController
 	before_action :authenticate_user!, :except=> ["verify_payment","verify_username"]
 	skip_before_filter :verify_authenticity_token, :only=> "verify_payment"
-	before_filter :complete_profile, :unless => proc {|c| request.xhr?}, only: ["landing", "dashboard", "ads_manager", "reports", "show"]
+	before_filter :complete_profile, :unless => proc {|c| request.xhr?}, only: ["landing", "dashboard", "ads_manager", "reports", "show", "setting", "keywords"]
 	include PayPal::SDK::REST
 	
 	def landing
