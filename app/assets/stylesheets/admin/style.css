@@ -4338,3 +4338,55 @@ animation-delay: .8s;
 .modal-backdrop{
   height: 100%
 }
+
+/**************************************/
+.full-width-load{ width:100%; float:left;}
+.table-responsive{ min-height:53px;}
+.show-active{ display:none}
+.nav > li.active .show-active{ display:block;}
+.nav > li.active .hide-active{ display:none;}
+.img-menu{ float:left; min-width:28px; min-height:28px; margin-right:10px;}
+.mini-navbar .sidebar-collapse .nav li a img{ float:none; margin-right:0px;}
+.mini-navbar .sidebar-collapse .nav li a{padding: 19px 20px 19px 20px;}
+.mini-navbar .sidebar-collapse .nav li .logo-element a {  padding: 19px 14px 19px 7px;}
+.meassage-login{ float:left; width:100%}
+.meassage-login img{ margin:50px 0;}
+.meassage-login p{ font-size:16px;  margin-bottom: 60px;}
+.meassage-login p a{color:#5bb3f0}
+.modal-header{ background:#fbfbfb}
+.modal-title{  display: inline-block;  font-size: 20px;  margin: 0 0 7px;  padding: 0;  text-overflow: ellipsis;   font-family: 'robotolight';  color: #777777;}
+.close{ opacity:1}
+.modal-header{ border-color:#e8e8e8}
+.modal-dialog {  width: 740px;  }
+/*-----------------------Media Queries Custom-----------------------*/
+@media (max-width:768px){
+  .main-heading h1{ font-size:22px}
+  .drop-downs{ margin-top:24px;}
+  #page-wrapper .navbar-top-links li:last-child a .text-xs img{ width:24px;  margin-right: 6px;}
+  #page-wrapper .navbar-top-links li:last-child a{padding: 19px 24px 0;}
+  .dropdown-toggle span.text-muted{ font-size:13px;}
+  .navbar-top-links .dropdown-alerts{ margin-left:0px;}
+  .navbar .nav{ float:right;}
+  .ibox-tools{ width:30%; float:left}
+  .ibox-title h5{ width:70%;font-size: 16px; float:left}
+  div.dataTables_length label{ margin: 10px 10px;}
+  .three-row-up{ margin-top:70px;}
+  .three-row-up .col-xs-12 , .two-row-up .col-xs-12{ margin-bottom:20px;}
+  .two-row-up{ margin-top:0px;}
+  .wrapper-dropdown-5{ width:100%; margin-top:0px; margin-bottom:20px;}
+  .select-btn-1{ width:100%}
+  .wrapper-dropdown-5.open .dropdown-menu{min-width:100%}
+  #page-wrapper .tabby .nav-tabs{ position:relative; top:0px; right:0px; float:left; width:100%; margin-bottom:20px}
+  #page-wrapper .tabby .nav-tabs li a{ margin:0px; padding:10px 0}
+  #page-wrapper .tabby .nav-tabs li{ margin-left:15px}
+  #page-wrapper .tabby .nav-tabs li:first-child{ padding-left:0px; margin-left:0px}
+  
+}
+@media (max-width:510px){
+  .landing #page-wrapper .navbar-header{ width:100%; text-align:center}
+  .landing  .navbar .nav {  float: none;  display: inline-block;  width: 100%;  text-align: center;  border-top: 1px solid #5bb3f0 ;}
+  .landing  .navbar-top-links li {  display: inline-block;  float: none;}
+  .image_upload_main img{ width:100%}
+  .tabby .tab-content .form-group input[type="submit"]{ max-width:80px; width:100%; height:auto; padding:15px; font-size:12px; margin-right:0px;}
+}
+/**************************************/
