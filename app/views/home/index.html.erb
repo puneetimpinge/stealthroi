@@ -53,7 +53,7 @@ email in next 10 minutes.</p>
 <!--Payment-->
 <% if session.has_key?("facebook_data") %>
   <div class="modal fade modal-theme" id="paymentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-    <div class="modal-dialog" style="width:60%">
+    <div class="modal-dialog" style="">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true"><img src="/assets/close.png" alt=""/></span></button>
@@ -63,7 +63,7 @@ email in next 10 minutes.</p>
         </div>
         <div class="modal-body">
           <div class="row">
-            <div class="col-md-9" style="margin-left:75px">
+            <div class="col-md-9" style="">
               <h3>Please Complete Your Payment:</h3>
               <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
                 <div class="signup_box" style="display:none">
@@ -93,11 +93,11 @@ email in next 10 minutes.</p>
                     <span class="input-group-addon" id="sizing-addon1"><img src="/assets/card_number.png" alt="" width="26" height="19"/ style="width:30px;height:30px"></span>
                     <%= f.text_field :card_number,:class=>"form-control",placeholder:"Card Number", "aria-describedby"=>"sizing-addon1" %>
                   </div>
-                  <div class=" form-group input-group input-group-lg" style="width:200px;float:right">
+                  <div class=" form-group input-group input-group-lg cvv_box" style="">
                     <span class="input-group-addon" id="sizing-addon1"><img src="/assets/lock.png" alt="" width="26" height="19"/></span>
                     <%= f.text_field :cvv,:class=>"form-control",placeholder:"CVV", "aria-describedby"=>"sizing-addon1" %>
                   </div>
-                  <div class=" form-group input-group input-group-lg" style="width:300px">
+                  <div class=" form-group input-group input-group-lg date_box" style="">
                     <span class="input-group-addon" id="sizing-addon1"><img src="/assets/calender.png" alt="" width="26" height="19" style="width:30px;height:30px" /></span>
                     <%= f.date_select :card_expires_on, discard_day: true, start_year: Date.today.year, end_year: (Date.today.year+10), class: "form-control", required: true %>
                   </div>
@@ -411,6 +411,33 @@ email in next 10 minutes.</p>
 </script>
 
 <style type="text/css">
+  @media (max-width:510px){
+    #paymentModal .modal-dialog{
+      width: 100%;
+    }
+    
+  }
+  @media (min-width:1200px){
+    #paymentModal .modal-dialog{
+      width: 60%;
+    }
+    #paymentModal .modal-dialog .modal-content .modal-body .row .col-md-9{
+      margin-left: 75px;
+    }
+    .cvv_box{
+      width:200px;float:right
+    }
+    .date_box{
+      width:300px
+    }
+  }
+  @media (min-width:550px){
+    #paymentModal .modal-dialog{
+      width: 80%;
+    }
+    
+  }
+  
 /*  select {
     background-color: #fff;
     border: 1px solid #454545;
