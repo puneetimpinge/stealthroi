@@ -66,6 +66,48 @@
                                         <div class="row">
                                             <div class="form-group">
                                                 <div class="col-md-9">
+                                                    <div class="radio" style="display: inline-block"><input type="checkbox" name="ad" value="viralstyle" <%unless current_user.viralstyleapikey.empty?%>checked<%end%> ><label>Viralstyle</label></div>
+                                                    <%= f.text_field :viralstyleapikey,class: "form-control viralstyle", placeholder: "Enter Viralstyle API Key", style: "display: inline-block;width:85%;float:right;margin-top:8px" %>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <div class="col-md-9">
+                                                    <div class="radio" style="display: inline-block"><input type="checkbox" name="ad" value="shopify" <%unless current_user.shopify.empty?%>checked<%end%> ><label>Shopify</label></div>
+                                                    <%= f.text_field :shopify,class: "form-control shopify", placeholder: "Enter Shopify API Key", style: "display: inline-block;width:85%;float:right;margin-top:8px" %>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <div class="col-md-9">
+                                                    <div class="radio" style="display: inline-block"><input type="checkbox" name="ad" value="teechip" <%unless current_user.teechip.empty?%>checked<%end%> ><label>Teechip</label></div>
+                                                    <%= f.text_field :teechip,class: "form-control teechip", placeholder: "Enter Teechip API Key", style: "display: inline-block;width:85%;float:right;margin-top:8px" %>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <div class="col-md-9">
+                                                    <div class="radio" style="display: inline-block"><input type="checkbox" name="ad" value="teespring" <%unless current_user.teespring.empty?%>checked<%end%> ><label>Teespring</label></div>
+                                                    <%= f.text_field :teespring,class: "form-control teespring", placeholder: "Enter Teespring API Key", style: "display: inline-block;width:85%;float:right;margin-top:8px" %>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <div class="col-md-9">
+                                                    <div class="radio" style="display: inline-block"><input type="checkbox" name="ad" value="represent" <%unless current_user.represent.empty?%>checked<%end%> ><label>Represent</label></div>
+                                                    <%= f.text_field :represent,class: "form-control represent", placeholder: "Enter Represent API Key", style: "display: inline-block;width:85%;float:right;margin-top:8px" %>
+                                                </div>
+                                            </div>
+                                        </div>
+<%
+=begin%>                                        
+                                        <div class="row">
+                                            <div class="form-group">
+                                                <div class="col-md-9">
                                                     <div class="radio"><label><input type="radio" name="ad" value="viralstyle">Viralstyle</label></div>
 				                                	<%= f.text_field :viralstyleapikey,class: "form-control viralstyle",style: "display:none", placeholder: "Enter Viralstyle API Key" %>
                                                 </div>
@@ -103,6 +145,8 @@
                                                 </div>
                                             </div>
                                         </div>
+<%
+=end%>
                                         <div class="row">
                                             <div class="form-group">
                                                 <div class="col-md-9 col-md-offset-2">
@@ -240,11 +284,11 @@
 </script>
 
 <script type="text/javascript">
-	$('.radio input').click(function(){
-		$('.form-control').slideUp()
-		$('.form-control').val('')
-		$(this).parent().parent().parent().find('.form-control').slideDown()
-	})
+	// $('.radio input').click(function(){
+	// 	$('.form-control').slideUp()
+	// 	$('.form-control').val('')
+	// 	$(this).parent().parent().parent().find('.form-control').slideDown()
+	// })
 
 	$('.btn-admin').click(function(e) {
 		if($('input[name=ad]:checked').val() == undefined){
@@ -257,4 +301,12 @@
 			}
 		}
 	});
+	$('.teechip, .teespring, .represent, .shopify, .viralstyle').on('change', function(e) {
+        src  = $(this)
+        if ($(src.parent().find('input[type=checkbox]')[0]).is(':checked') == false){
+            e.preventDefault()
+            alert_box('Please select the Plateform')
+            src.val("")
+        }
+    });
 </script>
