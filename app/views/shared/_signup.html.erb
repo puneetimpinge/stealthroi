@@ -20,7 +20,7 @@
         </div>
         <div class="col-md-7">
         	<h3>Register a new Account:</h3>
-          <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: {class: "sign_up_form"} ) do |f| %>
             <%= devise_error_messages! %>
             <div class="signup_box">
               <div class=" form-group input-group input-group-lg">
@@ -114,7 +114,7 @@
               // var status = "false";
           }else{
               // var status = "true";
-              if ($($('form#new_user')).valid()){
+              if ($($('form.sign_up_form')[0]).valid()){
               $(".signup_box").hide()
               $(".payment_box").show()
             }
