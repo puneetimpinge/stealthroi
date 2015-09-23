@@ -133,7 +133,7 @@ class UserController < ApplicationController
 
 	def connect_facebook
 		@oauth = Koala::Facebook::OAuth.new(ENV['facebook_app_id'], ENV['facebook_secret'], "#{request.protocol}#{request.host}/user/get_fb_token/")
-    	redirect_to @oauth.url_for_oauth_code(:permissions => "ads_read, ads_management")
+    	redirect_to @oauth.url_for_oauth_code(:permissions => "email, ads_management")
 	end
 
 	def get_fb_token
