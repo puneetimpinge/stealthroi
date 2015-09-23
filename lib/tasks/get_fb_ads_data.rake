@@ -5,13 +5,13 @@ task :get_fb_ads_data => :environment do
 	@user.each do |user|
 		puts "=======#{user.fname}======"
 		@graph = Koala::Facebook::API.new("#{user.fbauthtoken.fbtoken}")
-		timezone_name = @graph.get_object("#{user.fbadaccount}", {fields: "timezone_name"}, api_version: "v2.3")['timezone_name']
+		# timezone_name = @graph.get_object("#{user.fbadaccount}", {fields: "timezone_name"}, api_version: "v2.3")['timezone_name']
 
-		timeNow = Time.now.in_time_zone("America/New_York").to_i
-		startOfHour = Time.at(timeNow).in_time_zone("America/New_York").strftime('%Y-%m-%d %H:00:00').in_time_zone("America/New_York").to_i
-		startOfLastHour = startOfHour - 3600
-		timeZone = Time.now.in_time_zone(timezone_name)
-		beginOfDay = timeZone.beginning_of_day
+		# timeNow = Time.now.in_time_zone("America/New_York").to_i
+		# startOfHour = Time.at(timeNow).in_time_zone("America/New_York").strftime('%Y-%m-%d %H:00:00').in_time_zone("America/New_York").to_i
+		# startOfLastHour = startOfHour - 3600
+		# timeZone = Time.now.in_time_zone(timezone_name)
+		# beginOfDay = timeZone.beginning_of_day
 
 		# if(beginOfDay == startOfHour)
 		# 	ad_stats = @graph.get_object("/act_10150961048316867/reportstats?date_preset=yesterday&data_columns=adgroup_id, spend&limit=1000", {}, api_version: "v2.3")
@@ -53,7 +53,7 @@ task :get_fb_ads_data => :environment do
 			urlCode = ""
 			urlDomain = ""
 
-			# puts "#{i}/#{ad_profile.count}"
+			puts "#{i}/#{ad_profile.count}"
 			# puts id
 			# if user.fb_ads.all.where(adid: id).empty?
 				# user.fb_ads.create(adid: id, urlcode: urlCode, urldomain: urlDomain)
@@ -69,8 +69,8 @@ task :get_fb_ads_data => :environment do
 								short_url = ad_story['message'].split(/\s+/).find_all { |u| u =~ /^https?:/ }.first
 								url = short_url.nil? ? nil : Net::HTTP.get_response(URI.parse("#{short_url}"))['location']
 							end
-							# puts url
-							# puts "--------------------"
+							puts url
+							puts "--------------------"
 							urlDomain = url.nil? ? "" : url.split(".com/").first
 							urlCode = url.nil? ? "" : url.split(".com/").last.split("?").first
 							#=============
