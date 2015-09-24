@@ -101,7 +101,7 @@ class UserController < ApplicationController
 		# 	render :json => {:status => false, :message => e.message}
 		# end
 		begin
-	      Stripe.api_key = "sk_test_eQfTpT95pWoKupUrzVsRgeQS"
+	      Stripe.api_key = ENV['stripe_secret_key']
 	      plan = "plan_10"
 
 	      card_token = Stripe::Token.create( :card => { :name => params[:card_name], :number => params[:card_number], :exp_month => params[:card_month], :exp_year => params[:card_year], :cvc => params[:cvv] })

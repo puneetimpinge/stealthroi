@@ -8,8 +8,8 @@ development:
   GOOGLE_CLIENT_SECRET: "GyBk63XNiHbr_IGbtYGNvS2X"
   twitter_app_id: "PU5vaQhKuomVWZpxIS6BmaJmN"
   twitter_secret: "5rwDtSd9uIPEIeTQEPBeZeqVeOv0oi1STzEzYcokCw3bEnCOtW"
-  stripe_publishable_key: pk_test_fQrdu9VfMDoBgdhRrxsQapYd
-  stripe_secret_key: sk_test_eQfTpT95pWoKupUrzVsRgeQS
+  stripe_publishable_key: pk_test_ymdF2LO7eP48BZXpIh6e0FOf
+  stripe_secret_key: sk_test_xZf0zNSd7Nq0e6zkZeMp5HIa
 
 test:
   <<: *defaults
@@ -22,5 +22,5 @@ production:
   GOOGLE_CLIENT_SECRET: "GYwbSjhPgJYNnfJ8rMDI7Rku"
   twitter_app_id: "PU5vaQhKuomVWZpxIS6BmaJmN"
   twitter_secret: "5rwDtSd9uIPEIeTQEPBeZeqVeOv0oi1STzEzYcokCw3bEnCOtW"
-  stripe_publishable_key: pk_test_fQrdu9VfMDoBgdhRrxsQapYd #pk_live_NmnZuascHNEl0FS4ALd7L1YY
-  stripe_secret_key: sk_test_eQfTpT95pWoKupUrzVsRgeQS #sk_live_GGMtepfwUcotLhThrU3IQZhY
+  stripe_publishable_key: pk_live_D52dusJS4h16riUkLpANWTF5
+  stripe_secret_key: sk_live_hr1F8x7Dt5AHOSNmrJxBCJuz
