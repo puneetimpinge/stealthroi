@@ -30,7 +30,9 @@ class User < ActiveRecord::Base
       user.email = auth.info.email
       user.password = Devise.friendly_token[0,20]
       user.fname = auth.info.name   # assuming the user model has a name
-      user.avatar = auth.info.image
+      user.first_name = auth.info.first_name
+      user.last_name = auth.info.last_name
+      user.remote_avatar_url = auth.provider == "facebook" ? auth.info.image.gsub('http:','https:') : auth.info.image
       # user.image = auth.info.image # assuming the user model has an image
     end
   end
@@ -44,12 +46,13 @@ class User < ActiveRecord::Base
       if registered_user
         return registered_user
       else
-        # user = User.create(name:auth.info.name,
-        #   provider:auth.provider,
-        #   uid:auth.uid,
-        #   email:auth.uid+"@twitter.com",
-        #   password:Devise.friendly_token[0,20]
-        # )
+        user = User.create(fname:auth.info.name,
+          provider:auth.provider,
+          # uid:auth.uid,
+          email:auth.uid+"@twitter.com",
+          password:Devise.friendly_token[0,20],
+          remote_avatar_url: auth.info.image
+        )
       end
     end
   end
