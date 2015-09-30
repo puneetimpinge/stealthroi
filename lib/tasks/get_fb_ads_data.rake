@@ -32,7 +32,7 @@ task :get_fb_ads_data => :environment do
 						
 						if urlDomain.include?("viralstyle")
 							puts "===============In viralstyle================"
-							spend = @graph.get_object("/#{user.fbadaccount}/reportstats?date_preset=today&data_columns=adgroup_id, spend&filters=[{'field': 'adgroup_id','type': '=','value': #{id}}]", {}, api_version: "v2.3")
+							spend = @graph.get_object("/#{user.fbadaccount}/reportstats?date_preset=today&data_columns=adgroup_id, spend&filters=[{'field': 'adgroup_id','type': '=','value': #{id}}]", {}, api_version: "v2.3")[0]['spend']
 							last_rec = FbAd.where(adid: id).last
 							if last_rec.nil? || last_rec.tot_spend.nil? || last_rec.tot_spend.empty?
 								t_spend = spend
