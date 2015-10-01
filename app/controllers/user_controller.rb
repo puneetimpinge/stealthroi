@@ -146,7 +146,7 @@ class UserController < ApplicationController
 
 	      @graph = Koala::Facebook::API.new(session[:fb_access_token])
 	      id = @graph.get_object("me", {}, api_version: "v2.3")['id']
-	      image = @graph.get_picture(id)
+	      image = @graph.get_picture(id, type: "large")
 	      current_user.update_attributes(remote_avatar_url: image)#.gsub("http:", "https:"))
 
 	      flash[:notice] = "Connected with Facebook"
