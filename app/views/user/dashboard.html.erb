@@ -17,6 +17,7 @@
                         </button>
                         <ul class="dropdown-menu select-drop-menu" role="menu">
                             <li><a href="#"  onclick="topGraphRedraw(0,0,1);">Viralstyle</a></li>
+                            <li><a href="#"  onclick="topGraphRedraw(0,0,2);">Shopify</a></li>
                             <!-- <li><a href="#"  onclick="topGraphRedraw(0,0,2);">TeeChip</a></li>
                             <li><a href="#"  onclick="topGraphRedraw(0,0,3);">Represent</a></li>
                             <li><a href="#"  onclick="topGraphRedraw(0,0,4);">TeeSpring</a></li>
@@ -611,7 +612,8 @@
         
         var graphStore=new Array;
         graphStore[1]="ViralStyle";
-        graphStore[2]="TeeChip";
+        graphStore[2]="Shopify";
+        // graphStore[2]="TeeChip";
         graphStore[3]="Represent";
         graphStore[4]="TeeSpring";
         graphStore[99]="All Stores";
@@ -890,7 +892,7 @@
                             }
                             if(graphStoreIndex==2){
                                 //document.getElementById("teechiptableDivContainer").style.display= "inline";
-                               document.getElementById("representtableDivContainer").style.display= "none";
+                               // document.getElementById("representtableDivContainer").style.display= "none";
                                document.getElementById("vstableDivContainer").style.display= "none";
                                console.log("tried to hide");
                             }

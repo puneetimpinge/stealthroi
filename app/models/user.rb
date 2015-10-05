@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_one :fbauthtoken, dependent: :destroy
   has_many :notifications, dependent: :destroy
   has_many :ad_keywords, dependent: :destroy
+  has_many :shopify_stats, dependent: :destroy
   validates_uniqueness_of :fname
   attr_accessor :card_type, :card_number,:cvv,:card_expires_on,:card_name
 
