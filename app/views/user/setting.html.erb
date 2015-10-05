@@ -293,6 +293,7 @@
                                                     <div class="col-md-9">
                                                         <div class="radio" style="display: inline-block"><input type="checkbox" name="ad" value="shopify" <%unless current_user.shopify.empty?%>checked<%end%> ><label>Shopify</label></div>
                                                         <%= f.text_field :shopify,class: "form-control shopify", placeholder: "Enter Shopify API Key", style: "display: inline-block;width:85%;float:right;margin-top:8px" %>
+                                                        <%= f.text_field :shopify_password,class: "form-control shopify_password", placeholder: "Enter Shopify Password", style: "display: inline-block;width:85%;float:right;margin-top:8px" %>
                                                     </div>
                                                 </div>
                                             </div>
