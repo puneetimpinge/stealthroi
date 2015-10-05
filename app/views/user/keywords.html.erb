@@ -40,15 +40,54 @@
                                 <tbody>
                                     <%@data.each do |obj|%>
                                         <tr class="gradeX">
-                                            <td><a href="" data-toggle="modal" data-target="#campaignModal" data-adid="<%=obj.group_id%>" onclick="campaignDetails2(<%=obj.group_id%>)"><%=obj.name%></a></td>
-                                            <td><a href="<%="#{obj.target_domain}/#{obj.target_page}"%>"><%="#{obj.target_domain}/#{obj.target_page}"%></a></td>
+                                            <td><a href="" data-toggle="modal" data-target="#campaignModal_<%=obj.id%>" data-adid="<%=obj.group_id%>" onclick=""><%=obj.name%></a></td>
+                                            <td><a href="<%="#{obj.target_domain}.com/#{obj.target_page}"%>"><%="#{obj.target_domain}/#{obj.target_page}"%></a></td>
                                             <td>0</td>
                                         </tr>
+                                        
                                     <%end%>
                                 </tbody>
                             </table>
                             </div>
                         </div>
+                        <%@data.each do |obj|%>
+                        <div class="modal fade modal-theme reset-pass" id="campaignModal_<%=obj.id%>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true"><img src="/assets/close.png" alt=""/></span>
+                                    </button>
+                                    <h4 class="modal-title" id="myModalLabel">Adset Spend Details</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                    <div class="row row-centered"><br>
+                                            <table class="table table-striped table-condensed pull-down" id="my-table">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="text-align: center">Ad Name</th>
+                                                        <th style="text-align: center">Total Ad Spent</th>
+                                                        <th style="text-align: center">Conversions</th>
+                                                        <th style="text-align: center">CTR</th>
+                                                        <th style="text-align: center">CPM</th>
+                                                        <th style="text-align: center">Cost Per Conversion</th>
+                                                    </tr>
+                                                </thead>
+                                                <tr>
+                                                    <td><%=obj.name%><%#=obj[0]%></td>
+                                                    <td>$<%=obj.totalspend%><%#=obj[1]%></td>
+                                                    <td><%=obj.conversions%><%#=obj[2]%></td>
+                                                    <td><%=obj.ctr.round(2)%><%#=obj[3].round(2)%>%</td>
+                                                    <td>$<%=obj.cpm.round(2)%><%#=obj[4].round(2)%></td>
+                                                    <td>$<%=obj.cpc.round(2)%><%#=obj[5].round(2)%></td>
+                                                </tr>
+                                            </table>
+                                    </div>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                        <%end%>
                     </div>
                 </div>
             </div>

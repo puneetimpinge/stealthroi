@@ -7,7 +7,7 @@ task :get_keywords => :environment do
 		ads = user.fb_ads.all
 		unless ads.empty?
 			ads.each do |obj|
-				if AdKeyword.where(group_id: "#{obj.adid}").empty?
+				
 					data = @graph.get_object("/#{obj.adid}/insights?fields=ctr,cpc,spend,cpm,adgroup_name,campaign_id", {}, api_version: "v2.3").first
 					ctr = data['ctr']
 					cpc = data['cpc']
@@ -29,10 +29,14 @@ task :get_keywords => :environment do
 							end
 						end
 					end
+				if AdKeyword.where(group_id: "#{obj.adid}").empty?
 					rec = user.ad_keywords.new(group_id: group_id, campaign_id: campaign_id, target_domain: target_domain, target_page: target_page,
 						name: name, ctr: ctr, cpm: cpm, cpc: cpc, totalspend: spend,conversions: conversions)
 					rec.save
 					puts ">>>>>>>>>>>>>>>>>>>>>>NEW RECORD<<<<<<<<<<<<<<<<<<<<<<<<<<"
+				else
+					AdKeyword.where(group_id: "#{obj.adid}").last.update_attributes(group_id: group_id, campaign_id: campaign_id, target_domain: target_domain, target_page: target_page,
+						name: name, ctr: ctr, cpm: cpm, cpc: cpc, totalspend: spend,conversions: conversions)
 				end
 			end
 		end
