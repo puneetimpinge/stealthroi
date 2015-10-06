@@ -35,11 +35,11 @@ task :get_data => :environment do
 			      data = HTTParty.get("https://viralstyle.com/api/v1/campaigns/#{obj['id']}/stats?date_start=#{lastHour}&date_end=#{startHour}",
 			       headers: {"X-Authorization" => "#{user.viralstyleapikey}"})
 
-			      unless user.campaign_stats.all.where(campaign_id: obj['id']).last.nil?
-			      	if (user.campaign_stats.all.where(campaign_id: obj['id']).last.profit > 0 && data['data']['profit'] > 0)
-				    	data['data']['profit'] = data['data']['profit'] - user.campaign_stats.all.last.profit
-				    end
-			      end
+			     #  unless user.campaign_stats.all.where(campaign_id: obj['id']).last.nil?
+			     #  	if (user.campaign_stats.all.where(campaign_id: obj['id']).last.profit > 0 && data['data']['profit'] > 0)
+				    # 	data['data']['profit'] = data['data']['profit'] - user.campaign_stats.all.last.profit
+				    # end
+			     #  end
 			      data['data']['urlcode'] = obj['url']
 			      # data['data']['created_at'] = Time.zone.now
 			      user.campaign_stats.create(data['data'])
