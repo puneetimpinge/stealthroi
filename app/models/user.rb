@@ -77,7 +77,7 @@ class User < ActiveRecord::Base
       self.emailverificationcode ||= ''
       self.tableprefix ||= ''
       self.timezonecode ||= ''
-      self.timezone ||= "Eastern Time (US & Canada)"
+      self.timezone ||= "Pacific Time (US & Canada)"
       if self.fname.nil?
         if User.maximum(:id).nil?
           self.fname = self.fname.gsub(" ","_").downcase
