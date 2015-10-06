@@ -4,7 +4,7 @@ task :get_keywords => :environment do
 	@user.all.each do |user|
 		puts "=======#{user.fname}======"
 		@graph = Koala::Facebook::API.new("#{user.fbauthtoken.fbtoken}")
-		ads = user.fb_ads.all
+		ads = user.fb_ads.all.map(&:adid).uniq
 		unless ads.empty?
 			ads.each do |obj|
 				
