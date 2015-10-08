@@ -1,1 +1,1 @@
-web: bin/proximo server -p $PORT -e $RAILS_ENV
+web: bin/proximo bundle exec thin start
