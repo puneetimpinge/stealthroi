@@ -1,1 +1,1 @@
-web: bin/rails bundle exec thin start
+web: bundle exec thin start -p $PORT -e $RACK_ENV
