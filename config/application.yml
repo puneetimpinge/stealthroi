@@ -16,8 +16,8 @@ test:
 
 production:
   <<: *defaults
-  facebook_app_id: "784389335013233"
-  facebook_secret: "d7ba8c239b96acce604f07a9c2570cff"
+  facebook_app_id: "1554140591501392"
+  facebook_secret: "1118e059ef552af2f2ad5fd01f27ba38"
   GOOGLE_CLIENT_ID: "622645347210-2cnr3smube8gfd28dgjhvapfslr9buj0.apps.googleusercontent.com"
   GOOGLE_CLIENT_SECRET: "GYwbSjhPgJYNnfJ8rMDI7Rku"
   twitter_app_id: "PU5vaQhKuomVWZpxIS6BmaJmN"
