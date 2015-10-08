@@ -258,7 +258,7 @@ Devise.setup do |config|
   # config.omniauth_path_prefix = '/my_engine/users/auth'
   config.secret_key = '4f1f9020a32ab00ffb68959772b1146413dc2820a295e41fc5b0c88e3df95bf29c98dad48d0b84aa0646d97df3eb86e45ea56fd0990c09fe4781940b06af6afc'
   config.omniauth :facebook, ENV['facebook_app_id'], ENV['facebook_secret'],
-    :scope => 'email, user_birthday, public_profile',
+    :scope => 'email, public_profile',
     :display => 'popup',
     :client_options => {
       :site => 'https://graph.facebook.com/v2.2',
