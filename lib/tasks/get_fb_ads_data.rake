@@ -27,12 +27,12 @@ task :get_fb_ads_data => :environment do
 						end
 						puts url
 						puts "--------------------"
-						urlDomain = url.nil? ? "" : url.split(".com/").first
+						urlDomain = url.nil? ? "" : url.split(".com/").first+".com"
 						urlCode = url.nil? ? "" : url.split(".com/").last.split("?").first
 						
-						if urlDomain.include?("viralstyle")
 							puts "===============In viralstyle================"
 							spend = @graph.get_object("/#{user.fbadaccount}/reportstats?date_preset=today&data_columns=adgroup_id, spend&filters=[{'field': 'adgroup_id','type': '=','value': #{id}}]", {}, api_version: "v2.3")[0]['spend']
+						if urlDomain.include?("viralstyle") || urlDomain.include?("teehood")
 							last_rec = FbAd.where(adid: id).last
 							if last_rec.nil? || last_rec.tot_spend.nil?# || last_rec.tot_spend.empty?
 								t_spend = spend
