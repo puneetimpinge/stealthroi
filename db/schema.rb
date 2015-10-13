@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151005073130) do
+ActiveRecord::Schema.define(version: 20151013112809) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -150,7 +150,7 @@ ActiveRecord::Schema.define(version: 20151005073130) do
   add_index "payments", ["user_id"], name: "index_payments_on_user_id", using: :btree
 
   create_table "shopify_stats", force: :cascade do |t|
-    t.string   "order",        limit: 255
+    t.integer  "order",        limit: 4
     t.string   "created_time", limit: 255
     t.float    "price",        limit: 24
     t.integer  "user_id",      limit: 4

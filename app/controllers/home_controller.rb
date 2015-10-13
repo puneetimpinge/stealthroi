@@ -142,16 +142,16 @@ class HomeController < ApplicationController
 
     if params[:graphstoreindex] == "1"
       (start_time.to_i..end_time.to_i).step(step).each_with_index do |a,i|
-          spend = current_user.fb_ads.where('created_at > ? AND created_at < ? AND urldomain LIKE ?', Time.zone.at(a),Time.zone.at(a)+time_inc, "%viralstyle%").map(&:t_spend).compact.sum.to_s
-          data = current_user.campaign_stats.where('created_at > ? AND created_at < ?', Time.zone.at(a),Time.zone.at(a)+time_inc)
+          spend = current_user.fb_ads.where('created_at >= ? AND created_at < ? AND urldomain LIKE ?', Time.zone.at(a),Time.zone.at(a)+time_inc, "%viralstyle%").map(&:t_spend).compact.sum.to_s
+          data = current_user.campaign_stats.where('created_at >= ? AND created_at < ?', Time.zone.at(a),Time.zone.at(a)+time_inc)
           earned = data.map(&:profit).sum.to_f.round(2).to_s
           order = data.map(&:current_order_count).sum
           h[i] = {a: spend,b: earned, c: order, time: Time.zone.at(a).strftime(time_format)}
       end
     elsif params[:graphstoreindex] == "2"
       (start_time.to_i..end_time.to_i).step(step).each_with_index do |a,i|
-        spend = current_user.fb_ads.where('created_at > ? AND created_at < ? AND urldomain like ?', Time.zone.at(a),Time.zone.at(a)+time_inc, "%teehood%").map(&:t_spend).compact.sum.to_s
-        data = current_user.shopify_stats.where('created_at > ? AND created_at < ?', Time.zone.at(a),Time.zone.at(a)+time_inc)
+        spend = current_user.fb_ads.where('created_at >= ? AND created_at < ? AND urldomain like ?', Time.zone.at(a),Time.zone.at(a)+time_inc, "%teehood%").map(&:t_spend).compact.sum.to_s
+        data = current_user.shopify_stats.where('created_at >= ? AND created_at < ?', Time.zone.at(a),Time.zone.at(a)+time_inc)
         earned = data.map(&:price).sum.to_f.round(2).to_s
         # order = data.map(&:current_order_count).sum
         h[i] = {a: spend,b: earned, time: Time.zone.at(a).strftime(time_format)}
@@ -200,7 +200,7 @@ class HomeController < ApplicationController
       totalSpent = @spend.map(&:t_spend).compact.sum.round(2)
       totalProfit = (totalEarned - totalSpent).round(2)
       totalROI = totalSpent > 0 ? ((totalProfit/totalSpent)*100).round(2) : 0
-      totalOrders = @data.map(&:order).uniq.count
+      totalOrders = @data.map(&:order).sum
     end
  
     render :json => { :response => "#{totalEarned}customSplitter#{totalSpent}customSplitter#{totalProfit}customSplitter#{totalROI}customSplitter#{totalOrders}" }.to_json
