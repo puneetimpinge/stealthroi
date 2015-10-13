@@ -1,5 +1,6 @@
 class ChangeOrderFromShopify < ActiveRecord::Migration
   def change
-    change_column :shopify_stats, :order, :integer
+    remove_column :shopify_stats, :order
+    add_column :shopify_stats, :order, :integer, default: 0
   end
 end
