@@ -109,14 +109,17 @@ ActiveRecord::Schema.define(version: 20151013112809) do
   add_index "cards", ["user_id"], name: "index_cards_on_user_id", using: :btree
 
   create_table "fb_ads", force: :cascade do |t|
-    t.string   "adid",       limit: 255
-    t.string   "urlcode",    limit: 255
-    t.string   "urldomain",  limit: 255
-    t.float    "t_spend",    limit: 24
-    t.float    "tot_spend",  limit: 24
-    t.integer  "user_id",    limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.string   "adid",                limit: 255
+    t.string   "urlcode",             limit: 255
+    t.string   "urldomain",           limit: 255
+    t.float    "t_spend",             limit: 24
+    t.float    "tot_spend",           limit: 24
+    t.integer  "user_id",             limit: 4
+    t.datetime "created_at",                      null: false
+    t.datetime "updated_at",                      null: false
+    t.string   "adgroup_name",        limit: 255
+    t.string   "campaign_group_name", limit: 255
+    t.string   "campaign_groupid",    limit: 255
   end
 
   create_table "fbauthtokens", force: :cascade do |t|

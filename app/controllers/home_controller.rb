@@ -142,7 +142,7 @@ class HomeController < ApplicationController
 
     if params[:graphstoreindex] == "1"
       (start_time.to_i..end_time.to_i).step(step).each_with_index do |a,i|
-          spend = current_user.fb_ads.where('created_at >= ? AND created_at < ? AND urldomain LIKE ?', Time.zone.at(a),Time.zone.at(a)+time_inc, "%viralstyle%").map(&:t_spend).compact.sum.to_s
+          spend = current_user.fb_ads.where('created_at >= ? AND created_at < ? AND urldomain LIKE ?', Time.zone.at(a),Time.zone.at(a)+time_inc, "%viralstyle%").map(&:tot_spend).compact.sum.to_s
           data = current_user.campaign_stats.where('created_at >= ? AND created_at < ?', Time.zone.at(a),Time.zone.at(a)+time_inc)
           earned = data.map(&:profit).sum.to_f.round(2).to_s
           order = data.map(&:current_order_count).sum
@@ -150,7 +150,7 @@ class HomeController < ApplicationController
       end
     elsif params[:graphstoreindex] == "2"
       (start_time.to_i..end_time.to_i).step(step).each_with_index do |a,i|
-        spend = current_user.fb_ads.where('created_at >= ? AND created_at < ? AND urldomain like ?', Time.zone.at(a),Time.zone.at(a)+time_inc, "%teehood%").map(&:t_spend).compact.sum.to_s
+        spend = current_user.fb_ads.where('created_at >= ? AND created_at < ? AND urldomain like ?', Time.zone.at(a),Time.zone.at(a)+time_inc, "%teehood%").map(&:tot_spend).compact.sum.to_s
         data = current_user.shopify_stats.where('created_at >= ? AND created_at < ?', Time.zone.at(a),Time.zone.at(a)+time_inc)
         earned = data.map(&:price).sum.to_f.round(2).to_s
         # order = data.map(&:current_order_count).sum
@@ -189,7 +189,7 @@ class HomeController < ApplicationController
       @data = current_user.campaign_stats.send(params["parameters"]["graphtimeindex"].downcase.gsub(" ","_"))
       @spend = current_user.fb_ads.send(params["parameters"]["graphtimeindex"].downcase.gsub(" ","_")).where('urldomain LIKE ?', "%viralstyle%")
       totalEarned = @data.map(&:profit).sum.round(2)
-      totalSpent = @spend.map(&:t_spend).compact.sum.round(2)
+      totalSpent = @spend.map(&:tot_spend).compact.sum.round(2)
       totalProfit = (totalEarned - totalSpent).round(2)
       totalROI = totalSpent > 0 ? ((totalProfit/totalSpent)*100).round(2) : 0
       totalOrders = @data.map(&:current_order_count).sum
@@ -197,7 +197,7 @@ class HomeController < ApplicationController
       @data = current_user.shopify_stats.send(params["parameters"]["graphtimeindex"].downcase.gsub(" ","_"))
       @spend = current_user.fb_ads.send(params["parameters"]["graphtimeindex"].downcase.gsub(" ","_")).where('urldomain LIKE ?', "%teehood%")
       totalEarned = @data.map(&:price).sum.round(2)
-      totalSpent = @spend.map(&:t_spend).compact.sum.round(2)
+      totalSpent = @spend.map(&:tot_spend).compact.sum.round(2)
       totalProfit = (totalEarned - totalSpent).round(2)
       totalROI = totalSpent > 0 ? ((totalProfit/totalSpent)*100).round(2) : 0
       totalOrders = @data.map(&:order).sum
