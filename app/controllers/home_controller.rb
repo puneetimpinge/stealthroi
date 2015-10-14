@@ -154,7 +154,7 @@ class HomeController < ApplicationController
         data = current_user.shopify_stats.where('created_at >= ? AND created_at < ?', Time.zone.at(a),Time.zone.at(a)+time_inc)
         earned = data.map(&:price).sum.to_f.round(2).to_s
         # order = data.map(&:current_order_count).sum
-        h[i] = {a: spend,b: earned, time: Time.zone.at(a).at_end_of_hour.strftime(time_format)}
+        h[i] = {a: spend,b: earned, time: Time.zone.at(a).strftime(time_format)}
       end  
     end
       
