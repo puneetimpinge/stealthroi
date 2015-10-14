@@ -1,11 +1,12 @@
 task :shopify_stats => :environment do
-	t=Time.zone.now - 1.hour
+	# t=Time.zone.now - 1.hour
 	@user = User.where.not("shopify = '' ")
 	puts "===============Get Shopify rake Start=========================="
 	@user.each do |user|
 		puts "=======#{user.fname}======"
 		if !user.shopify.empty? && !user.shopify_password.empty?
-			# zone = ActiveSupport::TimeZone.new("#{user.timezone}")
+			zone = ActiveSupport::TimeZone.new("#{user.timezone}")
+			t=Time.now.in_time_zone(zone) - 1.hour
 			# t1 = (Time.now.in_time_zone(zone).at_beginning_of_hour()-1.hour).to_s
 			t1 = (t.at_beginning_of_hour()).to_s
 			startHour = t1.split[0]+"T"+t1.split[1]+t1.split[2]
