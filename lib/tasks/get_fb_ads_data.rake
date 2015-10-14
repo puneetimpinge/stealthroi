@@ -40,19 +40,16 @@ task :get_fb_ads_data => :environment do
 								campaign_group_name = data['campaign_group_name']
 								campaign_groupid = data['campaign_group_id']
 								if last_rec.nil? || last_rec.tot_spend.nil?# || last_rec.tot_spend.empty?
-									# t_spend = spend
-									user.fb_ads.create(adid: id, urlcode: urlCode, urldomain: urlDomain, tot_spend: spend,created_at: Time.now.in_time_zone(ActiveSupport::TimeZone.new("#{user.timezone}")), adgroup_name: adgroup_name, campaign_group_name: campaign_group_name, campaign_groupid: campaign_groupid)
+									t_spend = spend
 								else
-									if spend >= last_rec.tot_spend
-										# t_spend = spend - last_rec.tot_spend
-										last_rec.update_attributes(tot_spend: spend, created_at: Time.now.in_time_zone(ActiveSupport::TimeZone.new("#{user.timezone}")))
+									if spend > last_rec.tot_spend
+										t_spend = spend - last_rec.tot_spend
 									else
-										# t_spend = spend
-										user.fb_ads.create(adid: id, urlcode: urlCode, urldomain: urlDomain, tot_spend: spend, created_at: Time.now.in_time_zone(ActiveSupport::TimeZone.new("#{user.timezone}")), adgroup_name: adgroup_name, campaign_group_name: campaign_group_name, campaign_groupid: campaign_groupid)
+										t_spend = spend
 									end
 								end
 								
-								# user.fb_ads.create(adid: id, urlcode: urlCode, urldomain: urlDomain, tot_spend: spend, t_spend: t_spend, created_at: Time.now.in_time_zone(ActiveSupport::TimeZone.new("#{user.timezone}")), adgroup_name: adgroup_name, campaign_group_name: campaign_group_name, campaign_groupid: campaign_groupid)
+								user.fb_ads.create(adid: id, urlcode: urlCode, urldomain: urlDomain, tot_spend: spend, t_spend: t_spend, created_at: Time.now.in_time_zone(ActiveSupport::TimeZone.new("#{user.timezone}")), adgroup_name: adgroup_name, campaign_group_name: campaign_group_name, campaign_groupid: campaign_groupid)
 								# puts "#{Time.zone.now}"
 								# puts "#{Time.now.in_time_zone("Pacific Time (US & Canada)")}"
 								# puts "#{spend}"
