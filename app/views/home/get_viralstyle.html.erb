@@ -33,9 +33,9 @@
 					<td><%=obj['order_count'] %></td>
 					<td><%=@fb.where(urlcode: "https://www.viralstyle.com").count%></td>
 					<td>$<%=@a[i]['data']['profit']%></td>
-					<td>$<%=@fb.all.map(&:t_spend).sum%></td>
-					<td>$<%=@a[i]['data']['profit'] - @fb.all.map(&:t_spend).sum%></td>
-					<td><%=@fb.all.map(&:t_spend).sum > 0 ? ((@a[i]['data']['profit']/@fb.all.map(&:t_spend).sum)*100).round(2) : 0%>%</td>
+					<td>$<%=@fb.all.map(&:tot_spend).sum%></td>
+					<td>$<%=@a[i]['data']['profit'] - @fb.all.map(&:tot_spend).sum%></td>
+					<td><%=@fb.all.map(&:tot_spend).sum > 0 ? ((@a[i]['data']['profit']/@fb.all.map(&:tot_spend).sum)*100).round(2) : 0%>%</td>
 				</tr>
 			<%end%>
 		</tbody>
