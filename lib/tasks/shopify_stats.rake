@@ -14,7 +14,7 @@ task :shopify_stats => :environment do
 			t2 = (t.at_end_of_hour()).to_s
 			lastHour = t2.split[0]+"T"+t2.split[1]+t2.split[2]
 
-		    response = HTTParty.get("https://#{user.shopify}:#{user.shopify_password}@social-media-reach.myshopify.com/admin/orders.json?created_at_min=#{startHour}&created_at_max=#{lastHour}&fields=created_at,id,total-price")
+		    response = HTTParty.get("https://#{user.shopify}:#{user.shopify_password}@social-media-reach.myshopify.com/admin/orders.json?created_at_min=#{startHour}&created_at_max=#{lastHour}&fields=created_at,id,total-price&limit=250")
 
 		    price = 0
 		    unless response['orders'].nil?
