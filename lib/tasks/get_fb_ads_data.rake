@@ -42,7 +42,7 @@ task :get_fb_ads_data => :environment do
 								if last_rec.nil? || last_rec.tot_spend.nil?# || last_rec.tot_spend.empty?
 									t_spend = spend
 								else
-									if spend > last_rec.tot_spend
+									if spend >= last_rec.tot_spend
 										t_spend = spend - last_rec.tot_spend
 									else
 										t_spend = spend
