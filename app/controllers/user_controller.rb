@@ -28,7 +28,7 @@ class UserController < ApplicationController
 	end
 
 	def ads_manager
-
+		@a = FbAd.where('urldomain LIKE ?', "%teehood%").map(&:campaign_groupid).uniq
 	end
 
 	def reports
