@@ -41,7 +41,7 @@
                                     <tr class="gradeX">
                                         <td><%=current_user.fb_ads.where(campaign_groupid: obj).first.campaign_group_name%></td>
                                         <td><%="#{current_user.fb_ads.where(campaign_groupid: obj).first.urldomain}/#{current_user.fb_ads.where(campaign_groupid: obj).first.urlcode}" %></td>
-                                        <td><%=current_user.fb_ads.where(campaign_groupid: obj).count%></td>
+                                        <td><%=current_user.fb_ads.where(campaign_groupid: obj).map(&:adid).uniq.count%></td>
                                         <td><%=current_user.fb_ads.where(campaign_groupid: obj).map(&:t_spend).sum.round(2)%></td>
                                     </tr>
                                     <%end%>
