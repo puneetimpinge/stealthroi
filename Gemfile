@@ -4,7 +4,7 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
 # Use sqlite3 as the database for Active Record
-gem 'pg'
+gem 'pg', group: :production
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 5.0'
 # Use Uglifier as compressor for JavaScript assets
@@ -47,7 +47,6 @@ end
 gem 'httparty'
 gem 'morrisjs-rails'
 gem 'raphael-rails'
-# gem 'mysql2'
 gem 'rails_db_info' #http://localhost:3000/rails/info/db
 gem 'bcrypt-ruby'
 gem 'devise'
@@ -63,3 +62,12 @@ gem 'koala'
 gem 'rails-livestamp', '~> 1.1.3'
 gem 'stripe'
 gem 'thin'
+gem 'fog'
+gem "mini_magick"
+
+group :development do
+  gem 'meta_request'
+  gem "awesome_print", require:"ap"
+  gem 'quiet_assets'
+  gem 'mysql2', '~> 0.3.18'
+end
