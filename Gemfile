@@ -64,10 +64,3 @@ gem 'stripe'
 gem 'thin'
 gem 'fog'
 gem "mini_magick"
-
-group :development do
-  gem 'meta_request'
-  gem "awesome_print", require:"ap"
-  gem 'quiet_assets'
-  gem 'mysql2', '~> 0.3.18'
-end
