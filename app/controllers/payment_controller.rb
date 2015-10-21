@@ -15,46 +15,46 @@ class PaymentController < ApplicationController
 	# end
 
 	def create
-		@payment = Payment.new({
-		  :intent => "sale",
-		  :payer => {
-		    :payment_method => "credit_card",
-		    :funding_instruments => [{
-		      :credit_card => {
-		      	:type => params[:payment][:card_type], #"visa",
-		        :number => params[:payment][:card_number], #"4242424242424242",
-		        :expire_month => params[:payment]["card_expires_on(2i)"], #"1",
-		        :expire_year => params[:payment]["card_expires_on(1i)"], #"2018",
-		        :cvv2 => params[:payment][:cvv2], #"874",
-		        :first_name => params[:payment][:first_name], #"Joe",
-		        :last_name => params[:payment][:last_name], #"Shopper",
-		        :billing_address => {
-		          :line1 => params[:payment][:address], #"52 N Main ST",
-		          :city => params[:payment][:city], #"Johnstown",
-		          :state => params[:payment][:state], #"OH",
-		          :postal_code => params[:payment][:postal_code], #"43210",
-		          :country_code => params[:payment][:country_code] #"US" 
-		          }}}]},
-		  :transactions => [{
-		    :amount => {
-		      :total => "10.00",
-		      :currency => "USD" },
-		    :description => "This is the payment transaction description." }]})
+		# @payment = Payment.new({
+		#   :intent => "sale",
+		#   :payer => {
+		#     :payment_method => "credit_card",
+		#     :funding_instruments => [{
+		#       :credit_card => {
+		#       	:type => params[:payment][:card_type], #"visa",
+		#         :number => params[:payment][:card_number], #"4242424242424242",
+		#         :expire_month => params[:payment]["card_expires_on(2i)"], #"1",
+		#         :expire_year => params[:payment]["card_expires_on(1i)"], #"2018",
+		#         :cvv2 => params[:payment][:cvv2], #"874",
+		#         :first_name => params[:payment][:first_name], #"Joe",
+		#         :last_name => params[:payment][:last_name], #"Shopper",
+		#         :billing_address => {
+		#           :line1 => params[:payment][:address], #"52 N Main ST",
+		#           :city => params[:payment][:city], #"Johnstown",
+		#           :state => params[:payment][:state], #"OH",
+		#           :postal_code => params[:payment][:postal_code], #"43210",
+		#           :country_code => params[:payment][:country_code] #"US" 
+		#           }}}]},
+		#   :transactions => [{
+		#     :amount => {
+		#       :total => "10.00",
+		#       :currency => "USD" },
+		#     :description => "This is the payment transaction description." }]})
 
-		@payment.create
-		if @payment.id.nil?
-			error = @payment.error
-			redirect_to payment_index_url, :alert => error.name+"\n"+error.details.to_s
-		else
-			params[:payment][:transaction_id] = @payment.id
-			params[:payment][:amount] = 10
-			@data = current_user.build_payment(payment_params)
-			if @data.save
-				redirect_to payment_index_url, :notice => "Payment Done with payment id #{@payment.id}"
-			else
-				redirect_to payment_index_url, :alert => "Something went wrong."
-			end
-		end
+		# @payment.create
+		# if @payment.id.nil?
+		# 	error = @payment.error
+		# 	redirect_to payment_index_url, :alert => error.name+"\n"+error.details.to_s
+		# else
+		# 	params[:payment][:transaction_id] = @payment.id
+		# 	params[:payment][:amount] = 10
+		# 	@data = current_user.build_payment(payment_params)
+		# 	if @data.save
+		# 		redirect_to payment_index_url, :notice => "Payment Done with payment id #{@payment.id}"
+		# 	else
+		# 		redirect_to payment_index_url, :alert => "Something went wrong."
+		# 	end
+		# end
 	end
 
 	def destroy

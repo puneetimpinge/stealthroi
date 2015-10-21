@@ -93,53 +93,53 @@ class User < ActiveRecord::Base
     end
   end
   
-  def verify_payment
-    if self.id.nil?
-      @payment = Payment.new({
-        :intent => "sale",
-        :payer => {
-          :payment_method => "credit_card",
-          :funding_instruments => [{
-            :credit_card => {
-              :type => self.card_type,
-              :number => self.card_number,
-              :expire_month => self.card_expires_on[2],
-              :expire_year => self.card_expires_on[1],
-              :cvv2 => self.cvv,
-              :first_name => self.card_name
-              # :last_name => "",
-              # :billing_address => {
-              #   :line1 => params[:payment][:address], #"52 N Main ST",
-              #   :city => params[:payment][:city], #"Johnstown",
-              #   :state => params[:payment][:state], #"OH",
-              #   :postal_code => params[:payment][:postal_code], #"43210",
-              #   :country_code => params[:payment][:country_code] #"US" }
-                }}]},
-        :transactions => [{
-          :amount => {
-            :total => "10.00",
-            :currency => "USD" },
-          :description => "This is the payment transaction description." }]})
+  # def verify_payment
+  #   if self.id.nil?
+  #     @payment = Payment.new({
+  #       :intent => "sale",
+  #       :payer => {
+  #         :payment_method => "credit_card",
+  #         :funding_instruments => [{
+  #           :credit_card => {
+  #             :type => self.card_type,
+  #             :number => self.card_number,
+  #             :expire_month => self.card_expires_on[2],
+  #             :expire_year => self.card_expires_on[1],
+  #             :cvv2 => self.cvv,
+  #             :first_name => self.card_name
+  #             # :last_name => "",
+  #             # :billing_address => {
+  #             #   :line1 => params[:payment][:address], #"52 N Main ST",
+  #             #   :city => params[:payment][:city], #"Johnstown",
+  #             #   :state => params[:payment][:state], #"OH",
+  #             #   :postal_code => params[:payment][:postal_code], #"43210",
+  #             #   :country_code => params[:payment][:country_code] #"US" }
+  #               }}]},
+  #       :transactions => [{
+  #         :amount => {
+  #           :total => "10.00",
+  #           :currency => "USD" },
+  #         :description => "This is the payment transaction description." }]})
 
-      @payment.create
-      if @payment.id.nil?
-        error = @payment.error
-        self.errors.add :payment_status, error
-        #return false
-        #redirect_to root_url, :alert => error.name+"\n"+error.details.to_s
-        #redirect_to :controller=>"home", :action=>"index"
-      else
-        # params[:payment][:transaction_id] = @payment.id
-        # params[:payment][:amount] = 10
-        # @data = current_user.build_payment(payment_params)
-        # if @data.save
-        #   redirect_to payment_index_url, :notice => "Payment Done with payment id #{@payment.id}"
-        # else
-        #   redirect_to payment_index_url, :alert => "Something went wrong."
-        # end
-        self.payment_status = @payment.id
-      end
-    end  
-  end
+  #     @payment.create
+  #     if @payment.id.nil?
+  #       error = @payment.error
+  #       self.errors.add :payment_status, error
+  #       #return false
+  #       #redirect_to root_url, :alert => error.name+"\n"+error.details.to_s
+  #       #redirect_to :controller=>"home", :action=>"index"
+  #     else
+  #       # params[:payment][:transaction_id] = @payment.id
+  #       # params[:payment][:amount] = 10
+  #       # @data = current_user.build_payment(payment_params)
+  #       # if @data.save
+  #       #   redirect_to payment_index_url, :notice => "Payment Done with payment id #{@payment.id}"
+  #       # else
+  #       #   redirect_to payment_index_url, :alert => "Something went wrong."
+  #       # end
+  #       self.payment_status = @payment.id
+  #     end
+  #   end  
+  # end
 
 end
