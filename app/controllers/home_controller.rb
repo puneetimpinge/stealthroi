@@ -225,7 +225,7 @@ class HomeController < ApplicationController
   # end
 
   def get_campaign_details
-    @b =  AdKeyword.where('target_page LIKE ?', "%#{params[:urlcode]}%")
+    @b =  current_user.ad_keywords.where('target_page LIKE ?', "%#{params[:urlcode]}%")
     # @data = current_user.fb_ads.all
     # @a=[];@b=[];
     # unless @data.empty?
