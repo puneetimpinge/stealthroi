@@ -1,6 +1,6 @@
 class PaymentController < ApplicationController
 	before_action :authenticate_user!
-	include PayPal::SDK::REST
+	# include PayPal::SDK::REST
 
 	def index
 		@payment = current_user.build_payment if current_user.payment.nil?

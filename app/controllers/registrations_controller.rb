@@ -1,6 +1,6 @@
 class RegistrationsController < Devise::RegistrationsController
     #before_filter :validate_payment, :only => 'create'
-    include PayPal::SDK::REST
+    # include PayPal::SDK::REST
 
     def update
 	    self.resource = resource_class.to_adapter.get!(send(:"current_#{resource_name}").to_key)
